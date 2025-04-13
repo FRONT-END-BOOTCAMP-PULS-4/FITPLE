@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# **핏플 (Fitple)**
 
-## Getting Started
+> **사이드프로젝트를 함께할 개발자, 디자이너, 기획자를 연결해주는 매칭 플랫폼입니다.**
 
-First, run the development server:
+![로고](https://github.com/user-attachments/assets/e5255724-3218-4f61-9a94-4b5d7b90232c)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## **프로젝트 정보**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **프로젝트 이름**: Fitple (핏플)  
+- **개발 기간**: `2025.04.07 ~ 진행중`
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## **팀 소개**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="https://github.com/Harang-Dev.png" width="150" height="150" alt="서현우"/><br/>
+      <strong>서현우</strong><br/>
+      <a href="https://github.com/Harang-Dev">@Harang-Dev</a><br/>
+      UI/UX 디자인
+    </td>
+    <td align="center">
+      <img src="https://github.com/dongsuseo.png" width="150" height="150" alt="서동수"/><br/>
+      <strong>서동수</strong><br/>
+      <a href="https://github.com/dongsuseo">@dongsuseo</a><br/>
+      (역할 작성)
+    </td>
+    <td align="center">
+      <img src="https://github.com/roastt1.png" width="150" height="150" alt="박준선"/><br/>
+      <strong>박준선</strong><br/>
+      <a href="https://github.com/roastt1">@roastt1</a><br/>
+      (역할 작성)
+    </td>
+    <td align="center">
+      <img src="https://github.com/uudeok.png" width="150" height="150" alt="서유덕"/><br/>
+      <strong>서유덕</strong><br/>
+      <a href="https://github.com/uudeok">@uudeok</a><br/>
+      (역할 작성)
+    </td>
+  </tr>
+</table>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## **기술 스택**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **Front-end**
+- **Next.js** (v15.2.4)
+- **TypeScript**
+- **Zustand** / **Context API** (상태관리)
+- **Sass (CSS Module 기반)**  
+- **CSS Variables**  
+  - 컬러 / 마진 / 패딩 / 폰트 크기 등 디자인 시스템 반영  
+- **Fetch API**
+  - Next.js 자동 캐싱 기능을 활용하기 위해 `fetch` 사용 결정
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### **Back-end**
+- JavaScript 기반 (간단한 API 처리)
+
+### **Database**
+- **Supabase**
+
+### **Design**
+- **Figma**
+
+### **OAuth 로그인**
+- **Google**
+- **Kakao**
+
+### **협업 도구**
+- GitHub
+- Discord
+- Notion
+
+### **배포 플랫폼**
+- **Vercel**
+
+---
+
+## **버전 정보**
+| 항목 | 버전 |
+|------|-------|
+| Node.js | `v22.x` |
+| Next.js | `v15.2.4` |
+| 기타 라이브러리 | 최신 안정버전 기준 설치 |
