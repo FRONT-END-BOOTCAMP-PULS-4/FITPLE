@@ -1,0 +1,25 @@
+.label {
+    border: 1px solid #0064ff;
+    border-radius: 30px;
+    width: 144px;
+    height: 59px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+
+    > div {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.skillLogo {
+    border-radius: 50%;
+    border: 1px solid #0064ff;
+    flex-shrink: 0;
+    cursor: pointer;
+}
