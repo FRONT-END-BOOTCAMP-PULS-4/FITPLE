@@ -1,0 +1,54 @@
+.button {
+    margin: 5px;
+    border: #d5d5d5 1px solid;
+    border-radius: 5px;
+    font-size: 1rem;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    min-width: 50px;
+    min-height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+.confirm {
+    background-color: var(--confirm-button-color);
+    color: var(--background-color);
+
+    &:hover {
+        background-color: var(--confirm-button-color);
+    }
+}
+.cancel {
+    background-color: var(--cancel-button-color);
+    color: var(--white-color);
+
+    &:hover {
+        background-color: var(--cancel-button-color);
+        color: var(--white-color);
+    }
+}
+
+.button_sm {
+    padding: 5px 10px;
+    font-size: 1rem;
+}
+
+.button_md {
+    padding: 10px 30px;
+    font-size: 1rem;
+}
+
+.button_lg {
+    padding: 15px 120px;
+    font-size: 1.5rem;
+}
+.button_long {
+    padding: 5px 120px;
+    font-size: 1rem;
+}
