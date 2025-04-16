@@ -3,9 +3,9 @@ import './globals.scss';
 import './reset.css';
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
     return (
         <html lang="ko">
