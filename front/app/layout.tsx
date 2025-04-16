@@ -1,3 +1,4 @@
+import { DeviceLayoutProvider } from '@/providers/DeviceLayoutProvider';
 import './globals.scss';
 import './reset.css';
 
@@ -8,7 +9,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ko">
-            <body>{children}</body>
+            <body>
+                <DeviceLayoutProvider>{children}</DeviceLayoutProvider>
+            </body>
         </html>
     );
 }
