@@ -4,22 +4,27 @@ import React, { useState } from 'react';
 
 interface SelectBoxProps {
     options: string[];
+    handler: (selectedOptions: string[]) => void; // 콜백 함수 타입 정의
 }
 
-export default function SelectBox({ options }: SelectBoxProps) {
+export default function SelectBox({ options, handler }: SelectBoxProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
     const toggleModal = () => {
         setIsOpen(!isOpen);
     };
 
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+
     const handleOptionClick = (option: string) => {
+        let updatedOptions;
         if (selectedOptions.includes(option)) {
-            setSelectedOptions(selectedOptions.filter((item) => item !== option));
+            updatedOptions = selectedOptions.filter((item) => item !== option);
         } else {
-            setSelectedOptions([...selectedOptions, option]);
+            updatedOptions = [...selectedOptions, option];
         }
+        setSelectedOptions(updatedOptions);
+        handler(updatedOptions); // 부모 컴포넌트로 선택된 옵션 전달
     };
 
     return (
