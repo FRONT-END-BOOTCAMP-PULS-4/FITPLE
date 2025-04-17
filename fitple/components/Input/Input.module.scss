@@ -1,0 +1,42 @@
+.layout {
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.input {
+    width: 100%;
+    padding: 0 0.7rem;
+    height: 40px;
+    font-size: calc(var(--content-size) * 0.75);
+    border-radius: 0.5rem;
+    border: none;
+    outline: none;
+    caret-color: var(--brand-color);
+}
+
+.filled {
+    background-color: var(--mobile-input-color);
+}
+
+.outlined {
+    background-color: var(--background-color);
+    border: 1px solid var(--mobile-input-color);
+    color: var(--mobile-input-color);
+}
+
+.error {
+    color: var(--cancel-button-color);
+    border-bottom-color: var(--cancel-button-color);
+
+    &:focus {
+        border-bottom-color: var(--cancel-button-color);
+    }
+}
+
+.btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
