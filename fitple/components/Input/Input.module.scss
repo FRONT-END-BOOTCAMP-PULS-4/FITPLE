@@ -7,8 +7,8 @@
 .input {
     width: 100%;
     padding: 0 0.7rem;
-    height: 6vh;
-    font-size: 1.125rem;
+    height: 40px;
+    font-size: calc(var(--content-size) * 0.75);
     border-radius: 0.5rem;
     border: none;
     outline: none;
