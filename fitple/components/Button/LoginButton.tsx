@@ -1,4 +1,4 @@
-import React, { FC, ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes } from 'react';
 import styles from './LoginButton.module.scss';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -6,7 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     children?: React.ReactNode; // 버튼에 들어갈 내용
 };
 
-const LoginButton: FC<ButtonProps> = ({ variant = 'google', children, ...props }) => {
+const LoginButton: React.FC<ButtonProps> = ({ variant = 'google', children, ...props }) => {
     const iconSrc =
         variant === 'google'
             ? 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg'
