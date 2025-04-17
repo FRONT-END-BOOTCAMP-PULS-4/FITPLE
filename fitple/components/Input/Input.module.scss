@@ -1,0 +1,42 @@
+.layout {
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+
+.input {
+    width: 100%;
+    padding: 0 10px 8px;
+    height: 42px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    caret-color: var(--brand-color);
+}
+
+.filled {
+    background-color: var(--mobile-input-color);
+}
+
+.outlined {
+    background-color: var(--background-color);
+    border: 1px solid var(--mobile-input-color);
+    color: var(--mobile-input-color);
+}
+
+.error {
+    color: red;
+    border-bottom-color: #f44336;
+
+    &:focus {
+        border-bottom-color: #f44336;
+    }
+}
+
+.btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
