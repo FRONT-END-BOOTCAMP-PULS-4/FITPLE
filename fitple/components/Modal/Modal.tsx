@@ -8,9 +8,9 @@ type ModalProps = {
 
 const Modal = ({ children, onClose }: ModalProps) => {
     return (
-        <div className={styles["modal-overlay"]} onClick={onClose}>
+        <div className={styles["modalOverlay"]} onClick={onClose}>
             <div
-                className={styles["modal-content"]}
+                className={styles["modalContent"]}
                 onClick={(e) => e.stopPropagation()}
             >
                 {children}
