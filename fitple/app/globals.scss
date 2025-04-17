@@ -1,6 +1,7 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 * {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    background-color: var(--background-color);
 }
 :root {
     --brand-color: #59c2ff;
@@ -9,11 +10,12 @@
     --white-color: #ffffff;
     --font-black-color: #000000;
     --font-white-color: #ffffff;
+    --font-lightBlue-color: #d5effe;
     --card-background-color: #ffffff;
     --disabled-color: #c9c9c9;
     --cancel-button-color: #f13f6f;
-    --confirm-button-color: #D5EFFE;
-    --project-color: #0064FF;
+    --confirm-button-color: #d5effe;
+    --project-color: #0064ff;
     --lion-color: #ffa928;
     --header-size: 2.5rem;
     --content-size: 1.2rem;
