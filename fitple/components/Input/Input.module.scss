@@ -6,10 +6,10 @@
 
 .input {
     width: 100%;
-    padding: 0 10px 8px;
-    height: 42px;
-    font-size: 18px;
-    border-radius: 8px;
+    padding: 0 0.7rem;
+    height: 6vh;
+    font-size: 1.125rem;
+    border-radius: 0.5rem;
     border: none;
     outline: none;
     caret-color: var(--brand-color);
@@ -26,11 +26,11 @@
 }
 
 .error {
-    color: red;
-    border-bottom-color: #f44336;
+    color: var(--cancel-button-color);
+    border-bottom-color: var(--cancel-button-color);
 
     &:focus {
-        border-bottom-color: #f44336;
+        border-bottom-color: var(--cancel-button-color);
     }
 }
 
