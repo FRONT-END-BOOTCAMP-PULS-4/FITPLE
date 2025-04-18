@@ -1,0 +1,48 @@
+.textarea {
+    width: 100%;
+    padding: 1rem;
+    font-size: calc(var(--content-size) * 0.75);
+    line-height: 1.5;
+
+    border-radius: 0.5rem;
+    background-color: var(--font-white-color);
+    color: var(--font-black-color);
+    resize: none;
+    overflow-y: auto;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: var(--brand-color);
+        outline: none;
+    }
+
+    &:disabled {
+        background-color: var(--disabled-color);
+        cursor: not-allowed;
+    }
+
+    /* 스크롤바 스타일링 */
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+
+    &::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scroll-track-color);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scroll-thumb-color);
+        border-radius: 0.25rem;
+    }
+}
+
+.sm {
+    height: 144px;
+}
+
+.md {
+    height: 210px;
+}
