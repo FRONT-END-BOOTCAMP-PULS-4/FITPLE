@@ -1,9 +1,10 @@
 import { ApplyStatus } from "@/type/common";
-
-export type Apply = {
-    user_id: string;
-    project_id: number;
-    message: string;
-    status: ApplyStatus;
-    created_at: Date;
-};
+export class Apply {
+    constructor(
+        public user_id: string,
+        public project_id: number,
+        public message: string,
+        public status: ApplyStatus,
+        public created_at: Date
+    ) {}
+}
