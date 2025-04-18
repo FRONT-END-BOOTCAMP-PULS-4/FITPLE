@@ -1,16 +1,19 @@
-import { DeviceLayoutProvider } from '@/providers/DeviceLayoutProvider';
 import './globals.scss';
 import './reset.css';
+import { DeviceLayoutProvider } from '@/providers/DeviceLayoutProvider';
+import DefaultLayout from '@/components/Layout/DefaultLayout';
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
     return (
         <html lang="ko">
             <body>
-                <DeviceLayoutProvider>{children}</DeviceLayoutProvider>
+                <DeviceLayoutProvider>
+                    <DefaultLayout>{children}</DefaultLayout>
+                </DeviceLayoutProvider>
             </body>
         </html>
     );
