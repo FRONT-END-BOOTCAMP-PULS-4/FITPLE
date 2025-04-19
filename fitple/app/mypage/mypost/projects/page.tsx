@@ -1,7 +1,7 @@
+import MyPageCard from "../../components/MyPageCard";
 import styles from './page.module.scss';
-import MyPageCard from '../../components/MyPageCard';
 
-const LikeProfilePage = () => {
+const MyPostProjectPage = () => {
     return (
         <div className={styles.container}>
         <MyPageCard />
@@ -9,4 +9,4 @@ const LikeProfilePage = () => {
     );
 }
 
-export default LikeProfilePage;
+export default MyPostProjectPage;
