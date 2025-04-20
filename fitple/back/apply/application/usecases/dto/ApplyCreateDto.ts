@@ -1,5 +1,3 @@
-// back/apply/application/usecases/dto/ApplyCreateDto.ts
-
 import { ApplyStatus } from '@/type/common';
 
 export class ApplyCreateDto {
@@ -7,7 +5,8 @@ export class ApplyCreateDto {
         public userId: string,
         public projectId: number,
         public message: string,
-        public status: ApplyStatus = 'waiting'
-    ) // public createdAt: Date
+        public status: ApplyStatus,
+        public createdAt: string
+    )
     {}
 }

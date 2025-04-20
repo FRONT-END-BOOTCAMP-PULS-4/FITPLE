@@ -5,6 +5,6 @@ export class ApplyDetailDto {
         public projectId: number,
         public message: string,
         public status: ApplyStatus,
-        public createdAt: Date
+        public createdAt: string
     ) {}
 }
