@@ -1,6 +1,6 @@
-import { RecruitmentStatus, WorkMode } from '@/type/common';
+import { WorkMode, RecruitmentStatus } from '@/type/common';
 
-export class ProjectListDto {
+export class ProjectList {
     constructor(
         public id: number,
         public userId: string,
@@ -9,8 +9,8 @@ export class ProjectListDto {
         public duration: number,
         public workMode: WorkMode,
         public status: RecruitmentStatus,
-        public createdAt: string,
-        public updatedAt: string,
+        public createdAt: Date,
+        public updatedAt: Date,
         public skills: {
             id: number;
             name: string;

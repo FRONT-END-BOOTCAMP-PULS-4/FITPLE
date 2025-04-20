@@ -1,35 +1,40 @@
+import dayjs from 'dayjs';
 import { ProjectRepository } from '../../domain/repositories/ProjectRepository';
 import { ProjectListDto } from './dto/ProjectListDto';
 
 export default class ProjectListUsecase {
-    private projectRepository: ProjectRepository;
+    constructor(private projectRepository: ProjectRepository) {}
 
-    constructor(menuRepository: ProjectRepository) {
-        this.projectRepository = menuRepository;
-    }
-
-    async execute() {
+    async execute(): Promise<ProjectListDto[]> {
         try {
-            const projectList = await this.projectRepository.findAllProjectList();
+            const projectList = await this.projectRepository.findProjectList();
 
-            const projectListDto: ProjectListDto = {
-                projectList: projectList.map((pro) => ({
-                    id: pro.id,
-                    userId: pro.user_id,
-                    title: pro.title,
-                    content: pro.content,
-                    duration: pro.duration,
-                    workMode: pro.work_mode,
-                    status: pro.status,
-                    createdAt: pro.created_at,
-                    updatedAt: pro.updated_at,
-                })),
-            };
+            if (!projectList) throw new Error('project not found');
 
-            return projectListDto;
+            const projectIds = projectList.map((project) => project.id);
+            const projectListView = await this.projectRepository.findProjectListView(projectIds);
+
+            return projectListView.map(
+                (project) =>
+                    new ProjectListDto(
+                        project.id,
+                        project.title,
+                        project.userId,
+                        project.content,
+                        project.duration,
+                        project.workMode,
+                        project.status,
+                        dayjs(project.createdAt).format('YYYY-MM-DD'),
+                        dayjs(project.updatedAt).format('YYYY-MM-DD'),
+                        project.skills,
+                        project.likeCount,
+                        project.user,
+                        project.positions
+                    )
+            );
         } catch (error) {
-            console.error('Error fetching menus:', error);
-            throw new Error('Failed to fetch menus');
+            console.error('Error fetching project list:', error);
+            throw new Error('Failed to fetch project list');
         }
     }
 }
