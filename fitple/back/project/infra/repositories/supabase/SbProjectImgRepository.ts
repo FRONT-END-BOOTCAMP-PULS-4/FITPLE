@@ -1,0 +1,47 @@
+import { ProjectImgRepository } from '@/back/project/domain/repositories/ProjectImgRepository';
+import { createClient } from '@/utils/supabase/client';
+
+export class SbProjectImgRepository implements ProjectImgRepository {
+    async createProjectImages(projectId: number, imgUrls: string[]): Promise<void> {
+        const supabase = createClient();
+
+        if (!imgUrls.length) return;
+
+        const inserts = imgUrls.map((url) => ({
+            project_id: projectId,
+            img_url: url,
+        }));
+
+        const { error } = await supabase.from('project_img').insert(inserts);
+
+        if (error) {
+            console.error('Failed to insert project images:', error);
+            throw new Error('프로젝트 이미지 생성에 실패했습니다.');
+        }
+    }
+
+    async updateProjectImages(projectId: number, imgUrls: string[]): Promise<void> {
+        const supabase = createClient();
+
+        if (!imgUrls.length) return;
+
+        // 기존 이미지 삭제
+        const { error: deleteError } = await supabase.from('project_img').delete().eq('project_id', projectId);
+
+        if (deleteError) {
+            throw new Error(`Failed to delete old images: ${deleteError.message}`);
+        }
+
+        // 새 이미지 삽입
+        const inserts = imgUrls.map((url) => ({
+            project_id: projectId,
+            img_url: url,
+        }));
+
+        const { error: insertError } = await supabase.from('project_img').insert(inserts);
+
+        if (insertError) {
+            throw new Error(`Failed to insert new images: ${insertError.message}`);
+        }
+    }
+}
