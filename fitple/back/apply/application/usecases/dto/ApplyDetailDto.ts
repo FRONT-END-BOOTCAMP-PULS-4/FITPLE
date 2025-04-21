@@ -1,6 +1,7 @@
 import { ApplyStatus } from '@/type/common';
 export class ApplyDetailDto {
     constructor(
+        public id: number,
         public userId: string,
         public projectId: number,
         public message: string,

@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 import { Apply } from '../../../domain/entities/Apply';
 import { ApplyRepository } from '../../../domain/repositories/ApplyRepository';
 import { ApplyStatus } from '@/type/common';
@@ -13,15 +13,16 @@ export class SbApplyRepository implements ApplyRepository {
         }
 
         return {
-            user_id: data.user_id,
-            project_id: data.project_id,
+            id: data.id,
+            userId: data.user_id,
+            projectId: data.project_id,
             message: data.message,
             status: data.status,
-            created_at: data.created_at,
+            createdAt: data.created_at,
         };
     }
 
-    async findApplyProjectList(projectId: number): Promise<Apply[]> {
+    async findApplicantsByProjectId(projectId: number): Promise<Apply[]> {
         const supabase = await createClient();
         const { data, error } = await supabase.from('apply').select().eq('project_id', projectId);
 
@@ -30,15 +31,16 @@ export class SbApplyRepository implements ApplyRepository {
         }
 
         return data.map((a) => ({
-            user_id: a.user_id,
-            project_id: a.project_id,
+            id: a.id,
+            userId: a.user_id,
+            projectId: a.project_id,
             message: a.message,
             status: a.status,
-            created_at: a.created_at,
+            createdAt: a.created_at,
         }));
-    }   
+    }
 
-    async findApplyProfileList(userId: string): Promise<Apply[]> {
+    async findApplicationsByUserId(userId: string): Promise<Apply[]> {
         const supabase = await createClient();
         const { data, error } = await supabase.from('apply').select().eq('user_id', userId);
 
@@ -47,11 +49,12 @@ export class SbApplyRepository implements ApplyRepository {
         }
 
         return data.map((a) => ({
-            user_id: a.user_id,
-            project_id: a.project_id,
+            id: a.id,
+            userId: a.user_id,
+            projectId: a.project_id,
             message: a.message,
             status: a.status,
-            created_at: a.created_at,
+            createdAt: a.created_at,
         }));
     }
 
@@ -67,28 +70,29 @@ export class SbApplyRepository implements ApplyRepository {
     async save(apply: Apply): Promise<Apply> {
         const supabase = await createClient();
         const { data, error } = await supabase
-          .from('apply')
-          .insert({
-            user_id: apply.user_id,
-            project_id: apply.project_id,
-            message: apply.message,
-            status: apply.status,
-            created_at: apply.created_at, // dto에서 받은 값을 사용해야 함
-          })
-          .select()
-          .single();
-          console.log("error: ", error);
+            .from('apply')
+            .insert({
+                id: apply.id,
+                user_id: apply.userId,
+                project_id: apply.projectId,
+                message: apply.message,
+                status: apply.status,
+                created_at: apply.createdAt, // dto에서 받은 값을 사용해야 함
+            })
+            .select()
+            .single();
+        console.log('error: ', error);
         if (error || !data) {
-          throw new Error('Failed to save apply');
+            throw new Error('Failed to save apply');
         }
-      
+
         return {
-          user_id: data.user_id,
-          project_id: data.project_id,
-          message: data.message,
-          status: data.status,
-          created_at: data.created_at,
+            id: data.id,
+            userId: data.user_id,
+            projectId: data.project_id,
+            message: data.message,
+            status: data.status,
+            createdAt: data.created_at,
         };
-      }
-      
+    }
 }

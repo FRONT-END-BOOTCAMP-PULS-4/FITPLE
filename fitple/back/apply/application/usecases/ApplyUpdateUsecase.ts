@@ -14,6 +14,7 @@ export class ApplyDetailUsecase {
 
         // 상태가 업데이트된 후, 업데이트된 apply를 반환합니다.
         return {
+            id: apply.id,
             userId: apply.user_id,
             projectId: apply.project_id,
             message: apply.message,
