@@ -1,0 +1,112 @@
+.myInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20vw;
+    height: auto;
+    gap: 1vw;
+}
+
+.imageBox {
+    width: 12vw;
+    height: 12vw;
+    border-radius: 50%;
+    background-image: url('/images/test-team.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.imageEditButton {
+    width: 50%;
+    padding: 0.5vw 2vw;
+    margin: 1vw 0;
+    text-align: center;
+    font-size: var(--content-size);
+    font-weight: bold;
+    color: var(--black-color);
+    background-color: var(--confirm-button-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+
+.editForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2vw;
+}
+
+.formLabel {
+    font-size: var(--content-size);
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+.formInput {
+    padding: 0.5vw;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 60%;
+
+    &:focus {
+        border-color: #007bff;
+    }
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    margin-top: 5vw;
+}
+
+.submitButton {
+    padding: 0.5vw 2vw;
+    font-size: var(--content-size);
+    font-weight: bold;
+    color: var(--black-color);
+    background-color: var(--confirm-button-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+
+.cancelButton {
+    padding: 0.5vw 2vw;
+    font-size: var(--content-size);
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--cancel-button-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
