@@ -7,6 +7,6 @@ export class ApplyCreateDto {
         public projectId: number,
         public message: string,
         public status: ApplyStatus,
-        public createdAt: string
+        public createdAt?: Date
     ) {}
 }
