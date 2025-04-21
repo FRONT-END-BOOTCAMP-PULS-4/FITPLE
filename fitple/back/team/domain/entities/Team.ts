@@ -1,7 +1,8 @@
 export class Team {
-    constructor(
-      public id: string,
-      public project_id: string,
-      public img_url: string,
-    ) {}
-  };
+  constructor(
+    public id: number,
+    public user_id: string,
+    public project_id: number,
+    public created_at: Date,
+  ) {}
+}
