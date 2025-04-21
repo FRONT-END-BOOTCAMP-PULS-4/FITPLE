@@ -1,0 +1,29 @@
+.selectWrapper {
+    position: relative;
+    width: 150px;
+
+    @media (max-width: 480px) {
+        width: 100px;
+    }
+}
+
+.selectBox {
+    padding: 10px;
+    border: 1px solid var(--white-color);
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--white-color);
+    text-align: center;
+}
+
+.optionList {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    border: 1px solid var(--white-color);
+
+    border-radius: 6px;
+    z-index: 10;
+    text-align: center;
+}

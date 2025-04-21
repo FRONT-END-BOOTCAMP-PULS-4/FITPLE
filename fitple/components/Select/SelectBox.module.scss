@@ -1,0 +1,71 @@
+.selectBoxWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.selectBox {
+    padding: 8px;
+    border-radius: 6px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.selectedContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.selectedItem {
+    color: var(--font-white-color);
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--font-lightBlue-color);
+}
+
+.placeholder {
+    color: var(--font-white-color);
+    border: 1px solid var(--font-white-color);
+
+    padding: 10px;
+    border-radius: 6px;
+    width: 140px;
+    text-align: center;
+
+    @media (max-width: 480px) {
+        width: 100px;
+    }
+}
+
+.optionList {
+    max-width: 600px;
+    position: absolute;
+    top: calc(100% + 4px);
+
+    background-color: var(--font-white-color);
+    border: 1px solid var(--font-lightBlue-color);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    z-index: 20;
+}
+
+.option {
+    background-color: var(--mobile-input-color);
+    border: 1px solid var(--font-lightBlue-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: var(--brand-color);
+    color: var(--font-white-color);
+}
