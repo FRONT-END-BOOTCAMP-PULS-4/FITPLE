@@ -1,7 +1,6 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 * {
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    background-color: var(--background-color);
 }
 :root {
     --brand-color: #59c2ff;
@@ -26,3 +25,6 @@
     // --mobile-min-width: 320px;
     // hi
 }
+body {
+    background-color: var(--background-color);
+  }

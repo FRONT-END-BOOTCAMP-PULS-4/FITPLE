@@ -1,0 +1,49 @@
+.tabsMain {
+    margin-top: 32px;
+  }
+  
+  .tabList {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+  
+  .tab {
+    background-color: var(--background-color);
+    color: #fff;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 10px 18px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  
+    &:hover {
+        color: var(--brand-color);
+    }
+  }
+  
+  .active {
+    color: var(--brand-color);
+  }
+  
+  .tabContent {
+    display: flex;
+    flex-direction: column;
+    min-height: 700px;
+    padding-top: 20px;
+    color: #eee;
+  }
+  
+  .start {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+  }
+  
+  .end {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
