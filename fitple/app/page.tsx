@@ -59,6 +59,7 @@ export default function Home() {
             <PopularCarousel slides={cardsArray} options={OPTIONS} />
             <Tab />
             <FloatButton />
+
         </div>
     );
 }

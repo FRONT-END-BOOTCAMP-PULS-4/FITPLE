@@ -1,0 +1,67 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selectBox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 두 개의 열로 나누기 */
+    gap: 1rem;
+    padding: 10px;
+
+    border-bottom: 1px solid var(--white-color);
+    margin-bottom: 10px;
+}
+
+@media (min-width: 769px) {
+    .selectBox {
+        grid-template-columns: 1fr 1fr; /* 두 열로 나누기 */
+    }
+
+    .selectBox > :nth-child(1) {
+        grid-column: span 1; /* SelectWorkMode */
+    }
+
+    .selectBox > :nth-child(2) {
+        grid-column: span 1; /* SelectStatus */
+    }
+
+    .selectBox > :nth-child(3) {
+        grid-column: span 2; /* SelectDuration */
+    }
+
+    .selectBox > :nth-child(4) {
+        grid-column: span 1; /* SelectSkills */
+    }
+
+    .selectBox > :nth-child(5) {
+        grid-column: span 1; /* SelectPositions */
+    }
+}
+
+@media (max-width: 768px) {
+    .selectBox {
+        grid-template-columns: 1fr; /* 하나의 열로 나누기 */
+    }
+
+    .selectBox > :nth-child(3) {
+        grid-column: span 2; /* 세 번째 항목부터는 두 열을 차지하게 함 */
+    }
+
+    .selectBox > :nth-child(4) {
+        grid-column: span 2;
+        margin-bottom: 20px;
+    }
+
+    .selectBox > :nth-child(5) {
+        grid-column: span 2;
+    }
+}
+
+.btnBox {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}

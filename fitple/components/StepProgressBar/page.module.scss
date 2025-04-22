@@ -2,6 +2,7 @@
     margin-top: auto;
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 .stepperItem {
     position: relative;
@@ -16,8 +17,7 @@
     content: '';
     border-bottom: 2px solid white;
     width: 100%;
-    top: 20px;
-    left: -50%;
+    top: 15px;
     z-index: 2;
 }
 
@@ -26,8 +26,7 @@
     content: '';
     border-bottom: 2px solid white;
     width: 100%;
-    top: 20px;
-    left: 50%;
+    top: 15px;
     z-index: 2;
 }
 
@@ -37,8 +36,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background: white;
     margin-bottom: 6px;
@@ -58,8 +57,7 @@
     content: '';
     border-bottom: 2px solid var(--brand-color);
     width: 100%;
-    top: 20px;
-    left: 50%;
+    top: 15px;
     z-index: 3;
 }
 

@@ -6,6 +6,6 @@ export class Apply {
         public projectId: number,
         public message: string,
         public status: ApplyStatus,
-        public createdAt: Date
+        public createdAt?: Date
     ) {}
 }
