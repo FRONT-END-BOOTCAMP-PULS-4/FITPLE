@@ -1,6 +1,8 @@
 .selectBoxWrapper {
     position: relative;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .selectBox {
@@ -9,6 +11,7 @@
     height: 36px;
     cursor: pointer;
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
@@ -55,6 +58,8 @@
     flex-wrap: wrap;
     gap: 10px;
     z-index: 20;
+    justify-content: center;
+    align-items: center;
 }
 
 .option {

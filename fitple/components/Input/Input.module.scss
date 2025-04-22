@@ -25,6 +25,11 @@
     color: var(--mobile-input-color);
 }
 
+.underline {
+    border-bottom: 1px solid var(--mobile-input-color); /* 올바른 CSS 변수 */
+    border-radius: 0px;
+    color: var(--mobile-input-color); /* 올바른 CSS 변수 */
+}
 .error {
     color: var(--cancel-button-color);
     border-bottom-color: var(--cancel-button-color);
@@ -38,5 +43,6 @@
     position: absolute;
     right: 5px;
     top: 50%;
+    background-color: transparent;
     transform: translateY(-50%);
 }
