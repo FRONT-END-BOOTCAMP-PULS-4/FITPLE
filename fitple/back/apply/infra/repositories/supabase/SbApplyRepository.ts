@@ -21,42 +21,6 @@ export class SbApplyRepository implements ApplyRepository {
         };
     }
 
-    async findApplicantsByProjectId(projectId: number): Promise<Apply[]> {
-        const supabase = await createClient();
-        const { data, error } = await supabase.from('apply').select().eq('project_id', projectId);
-
-        if (error) {
-            throw new Error('Failed to fetch applies for the project');
-        }
-
-        return data.map((a) => ({
-            id: a.id,
-            userId: a.user_id,
-            projectId: a.project_id,
-            message: a.message,
-            status: a.status,
-            createdAt: a.created_at,
-        }));
-    }
-
-    async findApplicationsByUserId(userId: string): Promise<Apply[]> {
-        const supabase = await createClient();
-        const { data, error } = await supabase.from('apply').select().eq('user_id', userId);
-
-        if (error) {
-            throw new Error('Failed to fetch applies by user');
-        }
-
-        return data.map((a) => ({
-            id: a.id,
-            userId: a.user_id,
-            projectId: a.project_id,
-            message: a.message,
-            status: a.status,
-            createdAt: a.created_at,
-        }));
-    }
-
     async updateStatus(id: number, status: ApplyStatus): Promise<void> {
         const supabase = await createClient();
         const { error } = await supabase.from('apply').update({ status }).eq('id', id);
