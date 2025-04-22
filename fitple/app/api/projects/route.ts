@@ -1,5 +1,5 @@
 import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
-import ProjectListUsecase from '@/back/project/application/usecases/ProjectListUsecase';
+import ProjectListUsecase from '@/back/project/application/usecases/GetProjectListUsecase';
 import { SbProjectRepository } from '@/back/project/infra/repositories/supabase/SbProjectRepository';
 import { NextResponse } from 'next/server';
 

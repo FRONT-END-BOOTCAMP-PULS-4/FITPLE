@@ -1,5 +1,6 @@
 import { ProjectDetailDto } from '@/back/project/application/usecases/dto/ProjectDetailDto';
-import { ProjectDetailUsecase } from '@/back/project/application/usecases/ProjectDetailUsecase';
+import { GetProjectDetailUsecase } from '@/back/project/application/usecases/GetProjectDetailUsecase';
+
 import { SbProjectRepository } from '@/back/project/infra/repositories/supabase/SbProjectRepository';
 import { NextResponse } from 'next/server';
 
@@ -15,13 +16,13 @@ export async function GET(request: Request, { params }: RequestParams) {
     const { id: projectId } = await params;
 
     if (!projectId) {
-        return NextResponse.json({ error: 'ID is required for deletion' }, { status: 400 });
+        return NextResponse.json({ error: 'ID is required' }, { status: 400 });
     }
 
     try {
         const projectRepository = new SbProjectRepository();
 
-        const getProjectDetailUsecase = new ProjectDetailUsecase(projectRepository);
+        const getProjectDetailUsecase = new GetProjectDetailUsecase(projectRepository);
 
         const projectDetailDto: ProjectDetailDto = await getProjectDetailUsecase.execute(Number(projectId));
 
