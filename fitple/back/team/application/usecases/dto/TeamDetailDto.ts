@@ -1,6 +1,8 @@
-export type TeamDetailDTO = {
-    userNickname: string;
-    userAvatarUrl: string;
-    userPosition: string;
-    userSkill: string;
-  };
+export class TeamDetailDTO {
+  constructor(
+    public userNickname: string,
+    public userAvatarUrl: string,
+    public userPosition: string,
+    public userSkill: string
+  ) {}
+}
