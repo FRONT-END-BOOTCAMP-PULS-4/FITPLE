@@ -30,8 +30,11 @@ export default function SkillSelectBox({ options, handler }: SelectBoxProps) {
 
     return (
         <div>
-            <div onClick={toggleModal} className={styles.selectBox}>
-                {selectedOptions.length > 0 ? selectedOptions.join(', ') : '기술 스택　　v'}
+            <div
+                onClick={toggleModal}
+                className={`${styles.selectBox} ${selectedOptions.length > 0 ? styles.selectBoxSelected : ''}`}
+            >
+                기술 스택
             </div>
             {isOpen && (
                 <div className={styles.modal}>
