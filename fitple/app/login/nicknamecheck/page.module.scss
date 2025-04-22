@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-top: 3vh;
+    padding-top: 8vh;
     max-width: 600px;
     min-width: 400px;
 }
@@ -21,6 +21,14 @@
     justify-content: center;
     align-items: center;
     width: 80%;
+    transition: all 0.3s ease; /* 애니메이션 추가 */
+}
+
+.labelWrapper.completed {
+    border: 2px solid var(--brand-color); /* 완료 상태 테두리 */
+    background-color: var(--brand-color); /* 완료 상태 배경색 */
+    border-radius: 10px;
+    padding: 10px;
 }
 .title {
     font-size: 2rem;
