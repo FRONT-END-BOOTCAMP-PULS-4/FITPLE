@@ -3,20 +3,26 @@
     padding: 10px 20px;
     align-items: center;
 
-    width: 100px;
+    width: 60px;
     height: 20px;
 
     font-size: 16px;
-    border: 1px solid #e3e3e3;
+    border: 1px solid var(--brand-color); // 테두리 컬러 수정
     border-radius: 50px;
 
-    background-color: white;
-    color: #646464;
+    color: var(--font-white-color);
 
     white-space: nowrap;
     overflow: hidden;
     cursor: pointer;
+
+    transition: background-color 0.2s ease;
 }
+
+.selectBoxSelected {
+    color: var(--brand-color);
+}
+
 
 .modal {
     width: 100%;
