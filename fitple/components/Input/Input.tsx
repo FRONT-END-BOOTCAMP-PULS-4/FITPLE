@@ -4,7 +4,7 @@ import styles from './Input.module.scss';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
     hasError?: boolean;
     renderRight?: ReactElement;
-    variant?: 'outlined' | 'filled' | 'underlined';
+    variant?: 'outlined' | 'filled' | 'underline';
 }
 
 const Input: React.FC<Props> = (props) => {

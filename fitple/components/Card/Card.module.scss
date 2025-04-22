@@ -1,9 +1,11 @@
 .card {
+    background-color: var(--card-background-color);
     border: 0.0625rem solid var(--disabled-color); // 1px -> 0.0625rem
     border-radius: 0.625rem; // 10px -> 0.625rem
-    margin: 1.875rem; // 30px -> 1.875rem
+    user-select: none;
+    margin: 0.5rem;
     padding: 1.25rem; // 20px -> 1.25rem
-    width: 18.75rem; // 300px -> 18.75rem
+    width: 20.75rem; // 300px -> 18.75rem
     height: 12.5rem; // 200px -> 12.5rem
     cursor: pointer;
     display: flex;
@@ -20,12 +22,14 @@
 }
 
 .cardHeader {
+    background-color: var(--card-background-color);
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem; // 8px -> 0.5rem
 }
 
 .cardBody {
+    background-color: var(--card-background-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,6 +38,7 @@
 }
 
 .cardFooter {
+    background-color: var(--card-background-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
