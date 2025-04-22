@@ -14,8 +14,6 @@ const Login: React.FC = () => {
     const handleGoogleLogin = () => {
         window.location.href = GOOGLE_AUTH_URL;
     };
-    console.log('REST_API_KEY', process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY);
-    console.log('REDIRECT_URL', process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI);
     return (
         <div className={styles.container}>
             <div className={styles.title}>개발자 매칭 플랫폼</div>
