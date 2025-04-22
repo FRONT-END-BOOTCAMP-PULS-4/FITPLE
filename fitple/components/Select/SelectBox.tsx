@@ -14,18 +14,30 @@ type SelectBoxProps<T> = {
     selectedValues: T[];
     onChange: (values: T[]) => void;
     placeholder?: string;
+    maxSelected?: number;
 };
 
-const SelectBox = <T,>({ options, selectedValues, onChange, placeholder = '선택해주세요' }: SelectBoxProps<T>) => {
+const SelectBox = <T,>({
+    options,
+    selectedValues,
+    onChange,
+    placeholder = '선택해주세요',
+    maxSelected,
+}: SelectBoxProps<T>) => {
     const [open, setOpen] = useState(false);
     const divRef = useRef<HTMLDivElement>(null);
 
     useOutsideClick(divRef, () => setOpen(false));
 
     const toggleOption = (value: T) => {
-        if (selectedValues.includes(value)) {
+        const isSelected = selectedValues.includes(value);
+
+        if (isSelected) {
             onChange(selectedValues.filter((v) => v !== value));
         } else {
+            if (maxSelected && selectedValues.length >= maxSelected) {
+                return;
+            }
             onChange([...selectedValues, value]);
         }
     };
