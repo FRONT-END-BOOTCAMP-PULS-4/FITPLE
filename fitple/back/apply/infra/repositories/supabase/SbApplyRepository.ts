@@ -11,7 +11,6 @@ export class SbApplyRepository implements ApplyRepository {
         if (error || !data) {
             throw new Error('Apply not found');
         }
-
         return {
             id: data.id,
             userId: data.user_id,
