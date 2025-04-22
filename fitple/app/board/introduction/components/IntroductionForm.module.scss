@@ -1,0 +1,44 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selectBox {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    // 모바일에서도 2열 설정
+    grid-template-columns: repeat(2, 1fr);
+
+    // 각 항목에 span 지정
+    & > :nth-child(1),
+    & > :nth-child(2) {
+        grid-column: span 1; // 작업방식, 제안 → 2열 유지
+    }
+
+    & > :nth-child(3),
+    & > :nth-child(4) {
+        grid-column: span 2; // 포지션, 기술스택 → 가로 전체 차지
+    }
+}
+
+@media (max-width: 768px) {
+    .selectBox {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .selectBox > * {
+        grid-column: span 1;
+        margin-bottom: 20px;
+    }
+}
+
+.btnBox {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
