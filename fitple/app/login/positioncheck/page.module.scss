@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 3vh;
+    max-width: 600px;
+    min-width: 400px;
+}
+.progressWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 6vh;
+}
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--font-lightBlue-color);
+}
+.logo {
+    margin-bottom: 1.5rem;
+}
+.nickname {
+    width: 100%;
+    margin-top: 3rem;
+}
+.btnContainer {
+    margin-top: 1vh;
+}
+.selectContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 80%;
+    min-width: 300px;
+
+    margin-bottom: 1vh;
+}
