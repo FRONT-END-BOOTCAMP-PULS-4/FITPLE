@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 3vh;
+    max-width: 600px;
+    min-width: 400px;
+}
+.progressWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 6vh;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--font-lightBlue-color);
+}
+.logo {
+    margin-bottom: 1.5rem;
+}
+.nickname {
+    width: 100%;
+    margin-top: 3rem;
+}
+.btnContainer {
+    margin-top: 1vh;
+}
+.selectContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    width: 100%;
+    min-width: 400px;
+
+    margin-left: 4vw;
+    margin-bottom: 1vh;
+}
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 4px 3px 0; /* 좌우 여백 */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 30px;
+    border: 1px solid white;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+
+    font-size: calc(var(--content-size) * 0.7);
+    color: var(--font-white-color);
+    font-weight: 500;
+}
+
+// .badge:hover {
+//     background-color: #f0f0f0;
+// }
+
+.selected {
+    background-color: var(--brand-color);
+    color: white;
+    border-color: #0056b3;
+}
