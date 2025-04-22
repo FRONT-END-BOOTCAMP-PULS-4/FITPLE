@@ -19,6 +19,12 @@
     background-color: var(--mobile-input-color);
 }
 
+.outlined {
+    background-color: var(--background-color);
+    border: 1px solid var(--mobile-input-color);
+    color: var(--mobile-input-color);
+}
+
 .underline {
     border-bottom: 1px solid var(--mobile-input-color); /* 올바른 CSS 변수 */
     border-radius: 0px;
