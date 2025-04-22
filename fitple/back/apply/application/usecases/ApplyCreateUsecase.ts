@@ -18,7 +18,6 @@ export class ApplyCreateUsecase {
                 projectId: apply.projectId,
                 message: apply.message,
                 status: apply.status,
-                createdAt: apply.createdAt,
             };
 
             return applypost;
