@@ -1,20 +1,30 @@
-// import { ApplyRepository } from '@/back/apply/domain/repositories/ApplyRepository';
-// import { Apply } from '@/back/apply/domain/entities/Apply';
-// import { ApplyCreateDto } from './dto/ApplyCreateDto';
-// import dayjs from 'dayjs';
-// export class ApplyCreateUsecase {
-//     constructor(private readonly applyRepository: ApplyRepository) {}
+import dayjs from 'dayjs';
+import { Apply } from '../../domain/entities/Apply';
+import { ApplyRepository } from '../../domain/repositories/ApplyRepository';
+import { ApplyCreateDto } from './dto/ApplyCreateDto';
 
-//     async execute(applyDto: ApplyCreateDto): Promise<Apply> {
-//         const apply = new Apply(
-//             applyDto.id,
-//             applyDto.userId,
-//             applyDto.projectId,
-//             applyDto.message,
-//             applyDto.status,
-//             dayjs(applyDto.createdAt).format('YYYY-MM-DD')
-//         );
+export class ApplyCreateUsecase {
+    constructor(private applyRepository: ApplyRepository) {}
 
-//         return await this.applyRepository.save(apply);
-//     }
-// }
+    async execute(applyDto: ApplyCreateDto): Promise<Apply> {
+        try {
+            const apply = await this.applyRepository.save(applyDto);
+
+            if (!apply) throw new Error('apply not found');
+
+            const applypost = {
+                id: apply.id,
+                userId: apply.userId,
+                projectId: apply.projectId,
+                message: apply.message,
+                status: apply.status,
+                createdAt: apply.createdAt,
+            };
+
+            return applypost;
+        } catch (error) {
+            console.error('Error: ', error);
+            throw new Error('Failed to create apply');
+        }
+    }
+}
