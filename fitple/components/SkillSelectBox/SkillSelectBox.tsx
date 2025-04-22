@@ -1,5 +1,6 @@
 'use client';
-import styles from './page.module.scss';
+import SkillBadge from '../Badge/SkillBadge';
+import styles from './SkillSelectBox.module.scss';
 import React, { useState } from 'react';
 
 interface SelectBoxProps {
@@ -7,7 +8,7 @@ interface SelectBoxProps {
     handler: (selectedOptions: string[]) => void; // 콜백 함수 타입 정의
 }
 
-export default function SelectBox({ options, handler }: SelectBoxProps) {
+export default function SkillSelectBox({ options, handler }: SelectBoxProps) {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleModal = () => {
@@ -30,7 +31,7 @@ export default function SelectBox({ options, handler }: SelectBoxProps) {
     return (
         <div>
             <div onClick={toggleModal} className={styles.selectBox}>
-                {selectedOptions.length > 0 ? selectedOptions.join(', ') : '기술 스택'}
+                {selectedOptions.length > 0 ? selectedOptions.join(', ') : '기술 스택　　v'}
             </div>
             {isOpen && (
                 <div className={styles.modal}>
@@ -46,7 +47,7 @@ export default function SelectBox({ options, handler }: SelectBoxProps) {
                                     : styles.notSelected // 선택되지 않은 옵션
                             }`}
                         >
-                            {option}
+                            <SkillBadge type="label" name={option} />
                         </div>
                     ))}
                 </div>

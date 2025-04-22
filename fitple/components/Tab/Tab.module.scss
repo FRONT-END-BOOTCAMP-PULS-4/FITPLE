@@ -1,11 +1,13 @@
 .tabsMain {
     margin-top: 32px;
+    position: relative;
+    
   }
   
   .tabList {
     display: flex;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     align-items: center;
   }
   
@@ -47,3 +49,19 @@
     transform: translateY(0);
   }
   
+
+  .skillSelectBox {
+    min-height: 100px;
+    position: absolute;
+  top: 60px; /* selectBox 바로 아래 */
+  left: 10px;
+  z-index: 1000;
+  }
+
+  .selectBox {
+    min-height: 100px;
+    position: absolute;
+  top:55px;
+  left: 170px;
+  z-index: 1000;
+  }
