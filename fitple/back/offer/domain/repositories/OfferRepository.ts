@@ -1,6 +1,6 @@
 // import { OfferStatus } from "@/type/common";
-import { OfferStatus } from "@/type/common";
-import { Offer } from "../entities/Offer";
+import { OfferStatus } from '@/type/common';
+import { Offer } from '../entities/Offer';
 
 export interface OfferRepository {
     findById(id: number): Promise<Offer>; // 상세 볼 때

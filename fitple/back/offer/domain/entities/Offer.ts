@@ -7,7 +7,6 @@ export class Offer {
         public introductionId: number,
         public message: string,
         public status: OfferStatus,
-        public createdAt: string
-    )
-    {}
+        public createdAt?: Date
+    ) {}
 }
