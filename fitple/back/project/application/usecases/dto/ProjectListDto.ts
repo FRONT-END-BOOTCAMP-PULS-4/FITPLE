@@ -2,6 +2,7 @@ import { RecruitmentStatus, WorkMode } from '@/type/common';
 
 export class ProjectListDto {
     constructor(
+        public type: 'project' | 'introduction',
         public id: number,
         public userId: string,
         public title: string,
@@ -11,19 +12,13 @@ export class ProjectListDto {
         public status: RecruitmentStatus,
         public createdAt: string,
         public updatedAt: string,
-        public skills: {
-            id: number;
-            name: string;
-        }[],
         public likeCount: number,
+        public skills: { id: number; name: string }[],
+        public positions: { id: number; name: string }[],
         public user: {
             nickname: string;
             avatarUrl: string;
             career: number;
-        },
-        public positions: {
-            id: number;
-            name: string;
-        }[]
+        }
     ) {}
 }

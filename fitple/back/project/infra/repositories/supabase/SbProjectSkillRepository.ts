@@ -1,9 +1,9 @@
 import { ProjectSkillRepository } from '@/back/project/domain/repositories/ProjectSkillRepository';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 
 export class SbProjectSkillRepository implements ProjectSkillRepository {
     async createProjectSkills(projectId: number, skillIds: number[]): Promise<void> {
-        const supabase = createClient();
+        const supabase = await createClient();
 
         const insertData = skillIds.map((skillId) => ({
             project_id: projectId,
@@ -19,7 +19,7 @@ export class SbProjectSkillRepository implements ProjectSkillRepository {
     }
 
     async updateProjectSkills(projectId: number, newskillIds: number[]): Promise<void> {
-        const supabase = createClient();
+        const supabase = await createClient();
 
         if (newskillIds.length === 0) {
             throw new Error('기술스택은 적어도 1개 이상 선택해야 합니다.');
@@ -41,6 +41,21 @@ export class SbProjectSkillRepository implements ProjectSkillRepository {
 
         if (insertError) {
             throw new Error(`Failed to insert new skills: ${insertError.message}`);
+        }
+    }
+
+    async deleteProjectSkills(projectId: number): Promise<void> {
+        try {
+            const supabase = await createClient();
+
+            const { error } = await supabase.from('project_skill').delete().eq('project_id', projectId);
+
+            if (error) {
+                throw new Error(`Failed to delete project skills: ${error?.message}`);
+            }
+        } catch (error) {
+            console.error(error);
+            throw new Error('Unexpected error occurred while fetching project.');
         }
     }
 }

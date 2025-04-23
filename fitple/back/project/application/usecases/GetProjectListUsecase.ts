@@ -2,21 +2,21 @@ import dayjs from 'dayjs';
 import { ProjectRepository } from '../../domain/repositories/ProjectRepository';
 import { ProjectListDto } from './dto/ProjectListDto';
 
-export default class ProjectListUsecase {
+export default class GetProjectListUsecase {
     constructor(private projectRepository: ProjectRepository) {}
 
     async execute(): Promise<ProjectListDto[]> {
         try {
-            const projectList = await this.projectRepository.findProjectList();
+            const projectList = await this.projectRepository.findList();
 
             if (!projectList) throw new Error('project not found');
 
-            const projectIds = projectList.map((project) => project.id);
-            const projectListView = await this.projectRepository.findProjectListView(projectIds);
+            const projectListView = await this.projectRepository.findList();
 
             return projectListView.map(
                 (project) =>
                     new ProjectListDto(
+                        'project',
                         project.id,
                         project.title,
                         project.userId,
@@ -26,10 +26,16 @@ export default class ProjectListUsecase {
                         project.status,
                         dayjs(project.createdAt).format('YYYY-MM-DD'),
                         dayjs(project.updatedAt).format('YYYY-MM-DD'),
-                        project.skills,
-                        project.likeCount,
-                        project.user,
-                        project.positions
+                        project.likes.length,
+                        project.skills.map((skill) => ({
+                            id: skill.id,
+                            name: skill.skillName,
+                        })),
+                        project.positions.map((position) => ({
+                            id: position.id,
+                            name: position.positionName,
+                        })),
+                        project.user
                     )
             );
         } catch (error) {
