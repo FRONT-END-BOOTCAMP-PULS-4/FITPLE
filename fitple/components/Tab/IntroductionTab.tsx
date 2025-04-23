@@ -31,7 +31,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
         //     {filteredPosts.map((post) => (
         //         <div
         //             key={post.id}
-        //             onClick={() => router.push(`/introduction/${post.id}`)}
+        //             onClick={() => router.push(`board/introduction/${post.id}`)}
         //             style={{ cursor: 'pointer' }}
         //         >
         //             <Card

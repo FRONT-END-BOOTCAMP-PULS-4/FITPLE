@@ -56,7 +56,7 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
             {filteredProjects.map((project) => (
                 <div
                     key={project.id}
-                    onClick={() => router.push(`/project/${project.id}`)}
+                    onClick={() => router.push(`board/project/${project.id}`)}
                     style={{ cursor: 'pointer' }}
                 >
                     <Card

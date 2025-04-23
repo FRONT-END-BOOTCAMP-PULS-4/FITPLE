@@ -1,7 +1,8 @@
 'use client';
+import { useOutsideClick } from '@/hooks/useOutsideClick';
 import SkillBadge from '../Badge/SkillBadge';
 import styles from './SkillSelectBox.module.scss';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface SelectBoxProps {
     options: string[];
@@ -9,6 +10,9 @@ interface SelectBoxProps {
 }
 
 export default function SkillSelectBox({ options, handler }: SelectBoxProps) {
+    const divRef = useRef<HTMLDivElement>(null);
+    useOutsideClick(divRef, () => setIsOpen(false));
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleModal = () => {
@@ -29,7 +33,7 @@ export default function SkillSelectBox({ options, handler }: SelectBoxProps) {
     };
 
     return (
-        <div>
+        <div ref={divRef}>
             <div
                 onClick={toggleModal}
                 className={`${styles.selectBox} ${selectedOptions.length > 0 ? styles.selectBoxSelected : ''}`}
