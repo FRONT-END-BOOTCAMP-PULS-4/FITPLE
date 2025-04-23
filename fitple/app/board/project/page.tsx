@@ -1,5 +1,7 @@
 'use client';
 
+import ApplyForm from '@/app/mypage/components/ApplyForm';
+import ApplyView from '@/app/mypage/components/ApplyView';
 import { useEffect } from 'react';
 
 const ProjectPage = () => {
@@ -91,6 +93,8 @@ const ProjectPage = () => {
             <button onClick={postProject}>post 하기</button>
             <button onClick={updatePost}>update 하기</button>
             <button onClick={deletePost}>delete 하기</button>
+            <ApplyForm />
+            <ApplyView />
         </div>
     );
 };

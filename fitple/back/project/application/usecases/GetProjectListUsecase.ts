@@ -18,8 +18,8 @@ export default class GetProjectListUsecase {
                     new ProjectListDto(
                         'project',
                         project.id,
-                        project.title,
                         project.userId,
+                        project.title,
                         project.content,
                         project.duration,
                         project.workMode,
