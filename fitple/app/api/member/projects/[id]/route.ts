@@ -1,3 +1,5 @@
+import { UpdateProjectDto } from '@/back/project/application/usecases/dto/UpdateProjectDto';
+import { UpdateProjectUsecase } from '@/back/project/application/usecases/UpdateProjectUsecase';
 import { SbProjectImgRepository } from '@/back/project/infra/repositories/supabase/SbProjectImgRepository';
 import { SbProjectPositionRepository } from '@/back/project/infra/repositories/supabase/SbProjectPositionRepository';
 import { SbProjectRepository } from '@/back/project/infra/repositories/supabase/SbProjectRepository';
@@ -16,51 +18,47 @@ export async function PUT(req: Request, { params }: RequestParams) {
     try {
         const { id: projectId } = await params;
         const body = await req.json();
+        const { title, content, duration, workMode, status, skillIds, imgUrls, positionIds } = body;
 
-        const { title, content, duration, workMode, status, positionIds, skillIds, imgUrls } = body;
-
-        // 필수 항목 체크 (타이틀, 콘텐츠, 기간, 근무모드, 상태만 확인하고, 나머지 항목은 없으면 건너뛰기)
-        if (!title || !content || !duration || !workMode || !status) {
+        if (
+            !title ||
+            !content ||
+            !duration ||
+            !workMode ||
+            !status ||
+            !Array.isArray(skillIds) ||
+            !skillIds.length ||
+            !Array.isArray(positionIds) ||
+            !positionIds.length
+        ) {
             return NextResponse.json({ error: '필수 항목을 만족하지 못했습니다.' }, { status: 400 });
         }
 
-        // 프로젝트 수정 데이터 생성 (전달된 필드만 수정)
-        const updatedProject = {
+        const dto: UpdateProjectDto = {
             id: Number(projectId),
             title,
             content,
             duration,
             workMode,
             status,
+            skills: skillIds,
+            positions: positionIds,
+            images: imgUrls || [],
         };
 
-        const projectRepository = new SbProjectRepository();
-        const positionRepository = new SbProjectPositionRepository();
-        const skillRepository = new SbProjectSkillRepository();
-        const imgRepository = new SbProjectImgRepository();
+        const usecase = new UpdateProjectUsecase(
+            new SbProjectRepository(),
+            new SbProjectSkillRepository(),
+            new SbProjectPositionRepository(),
+            new SbProjectImgRepository()
+        );
 
-        // 프로젝트 본문 수정 (타이틀, 콘텐츠, 기간, 근무모드, 상태만 수정)
-        const result = await projectRepository.updateProject(updatedProject);
+        await usecase.execute(dto);
 
-        // 포지션 업데이트
-        if (positionIds && positionIds.length > 0) {
-            await positionRepository.updateProjectPositions(Number(projectId), positionIds);
-        }
-
-        // 기술 스택 업데이트
-        if (skillIds && skillIds.length > 0) {
-            await skillRepository.updateProjectSkills(Number(projectId), skillIds);
-        }
-
-        // 이미지 업데이트
-        if (imgUrls && imgUrls.length > 0) {
-            await imgRepository.updateProjectImages(Number(projectId), imgUrls);
-        }
-
-        return NextResponse.json(result, { status: 200 });
+        return NextResponse.json({ message: '프로젝트가 성공적으로 수정되었습니다.' }, { status: 200 });
     } catch (error) {
         console.error('Error updating project:', error);
-        return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+        return NextResponse.json({ error: '프로젝트 수정에 실패했습니다.' }, { status: 500 });
     }
 }
 

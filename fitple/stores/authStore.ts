@@ -6,7 +6,7 @@ import { persist } from 'zustand/middleware';
 type AuthState = {
     id: string | null; // 사용자 ID
     nickname: string | null; // 사용자 이름
-    career: number; // 사용자 경력
+    career: number | null; // 사용자 경력
     skills: string[]; // 사용자 기술스택
     position: string; // 사용자 포지션
     token: string | null; // 사용자 토큰
@@ -28,7 +28,7 @@ export const useAuthStore = create<AuthState>()(
         (set, get) => ({
             id: null,
             nickname: null,
-            career: 1,
+            career: null,
             skills: [],
             position: '',
             token: null,

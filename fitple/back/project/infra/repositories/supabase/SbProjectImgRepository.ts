@@ -1,9 +1,9 @@
 import { ProjectImgRepository } from '@/back/project/domain/repositories/ProjectImgRepository';
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 
 export class SbProjectImgRepository implements ProjectImgRepository {
     async createProjectImages(projectId: number, imgUrls: string[]): Promise<void> {
-        const supabase = createClient();
+        const supabase = await createClient();
 
         if (!imgUrls.length) return;
 
@@ -21,7 +21,7 @@ export class SbProjectImgRepository implements ProjectImgRepository {
     }
 
     async updateProjectImages(projectId: number, imgUrls: string[]): Promise<void> {
-        const supabase = createClient();
+        const supabase = await createClient();
 
         if (!imgUrls.length) return;
 
@@ -42,6 +42,21 @@ export class SbProjectImgRepository implements ProjectImgRepository {
 
         if (insertError) {
             throw new Error(`Failed to insert new images: ${insertError.message}`);
+        }
+    }
+
+    async deleteProjectImages(projectId: number): Promise<void> {
+        try {
+            const supabase = await createClient();
+
+            const { error } = await supabase.from('project_img').delete().eq('project_id', projectId);
+
+            if (error) {
+                throw new Error(`Failed to delete project image: ${error?.message}`);
+            }
+        } catch (error) {
+            console.error(error);
+            throw new Error('Unexpected error occurred while fetching project.');
         }
     }
 }
