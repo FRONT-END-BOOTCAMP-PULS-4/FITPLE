@@ -51,7 +51,6 @@
   
 
   .skillSelectBox {
-    min-height: 100px;
     position: absolute;
   top: 60px; /* selectBox 바로 아래 */
   left: 10px;
@@ -59,9 +58,13 @@
   }
 
   .selectBox {
-    min-height: 100px;
     position: absolute;
   top:55px;
   left: 170px;
   z-index: 1000;
+  }
+
+  .line {
+    color: var(--font-white-color);
+    user-select: none;
   }

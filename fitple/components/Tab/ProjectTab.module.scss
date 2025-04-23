@@ -7,12 +7,28 @@
 }
 .userInfo {
     display: flex;
-    flex-wrap: wrap; /* 닉네임이 길어지면 포지션이 아래로 내려가도록 설정 */
-    gap: 8px;
+    flex-direction: column;
+    gap: 4px; /* h3와 p 사이 간격 */
+    max-width: 200px; /* 또는 전체 카드의 비율 고려해서 지정 */
+    overflow: hidden;
+    h3 {
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
     p {
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
         color: #8d8d8d;
+        font-size: 14px;
     }
 }
+
 
 .cardBody {
     display: flex;
