@@ -7,10 +7,6 @@ export default class GetProjectListUsecase {
 
     async execute(): Promise<ProjectListDto[]> {
         try {
-            const projectList = await this.projectRepository.findList();
-
-            if (!projectList) throw new Error('project not found');
-
             const projectListView = await this.projectRepository.findList();
 
             return projectListView.map(
@@ -27,6 +23,7 @@ export default class GetProjectListUsecase {
                         dayjs(project.createdAt).format('YYYY-MM-DD'),
                         dayjs(project.updatedAt).format('YYYY-MM-DD'),
                         project.likes.length,
+                        dayjs().diff(dayjs(project.createdAt), 'day'),
                         project.skills.map((skill) => ({
                             id: skill.id,
                             name: skill.skillName,

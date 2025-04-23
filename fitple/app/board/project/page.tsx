@@ -80,7 +80,7 @@ const ProjectPage = () => {
     };
 
     const deletePost = async () => {
-        const res = await fetch('/api/member/projects/10', {
+        const res = await fetch('/api/member/projects/12', {
             method: 'DELETE',
         });
         const result = await res.json();

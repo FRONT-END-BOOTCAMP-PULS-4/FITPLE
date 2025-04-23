@@ -13,6 +13,7 @@ export class ProjectListDto {
         public createdAt: string,
         public updatedAt: string,
         public likeCount: number,
+        public daysAgo: number,
         public skills: { id: number; name: string }[],
         public positions: { id: number; name: string }[],
         public user: {
