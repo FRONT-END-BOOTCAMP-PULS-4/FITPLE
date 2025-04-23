@@ -5,61 +5,26 @@
     color: var(--font-black-color);
     justify-items: center; /* 카드 가로 방향으로 중앙 정렬 */
 }
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 4px; /* h3와 p 사이 간격 */
-    max-width: 200px; /* 또는 전체 카드의 비율 고려해서 지정 */
-    overflow: hidden;
-    h3 {
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-    p {
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-        color: #8d8d8d;
-        font-size: 14px;
-    }
-}
-
-
 .cardBody {
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
-    align-items: center;
-}
-
-.leftBody {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex: 1;
     overflow: hidden;
 }
 
-.title {
+.projectInfo {
+    gap: 4px; /* h3와 p 사이 간격 */
     display: -webkit-box;
     -webkit-line-clamp: 2;  /* 2줄까지만 표시 */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;  /* 넘치는 부분은 '...' 처리 */
 }
-
-.rightBody {
-    img{
-        border: 1px solid rgb(233, 233, 233);
-        border-radius: 50%;
-        width: 100px;
-    }
+.projectPosition {
+    display: flex;
+    gap: 8px;
 }
+
 
 .skillList {
     display: flex;

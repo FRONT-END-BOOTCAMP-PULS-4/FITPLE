@@ -1,0 +1,63 @@
+.selectBox {
+    /* 박스 자체 스타일 */
+    display: flex; /* 내부 요소 정렬을 위해 flex 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    user-select: none;
+    padding: 10px 20px;
+    width: 60px;
+    height: 20px;
+
+    /* 텍스트 스타일 */
+    font-size: 16px;
+    color: var(--white-color);
+
+    /* 테두리 스타일 */
+    border: 1px solid var(--white-color); /* 테두리 색상 지정 */
+    border-radius: 50px; /* pill 형태로 만들기 */
+
+    /* 기타 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 넘치는 내용 숨기기 */
+    cursor: pointer; /* 마우스 오버 시 포인터 표시 */
+    transition: all 0.2s ease; /* 배경색 변경 시 부드러운 전환 */
+    
+}
+
+
+.selectBoxSelected {
+    
+    border: 1px solid var(--brand-color); 
+    color: var(--brand-color);
+}
+
+
+.modal {
+    width: 100%;
+    margin-top: 5px;
+    max-width: 900px;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 13px;
+    z-index: 10;
+    padding: 8px 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    user-select: none;
+}
+
+.option {
+    display: flex;
+    padding: 3px 3px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center; /* 텍스트 가운데 정렬 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    border: 1px solid #e3e3e3;
+    border-radius: 20px;
+
+}
+.notSelected {
+    opacity: 0.4; /* 연하게 표시 */
+}
