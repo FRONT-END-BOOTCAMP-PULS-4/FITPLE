@@ -5,45 +5,26 @@
     color: var(--font-black-color);
     justify-items: center; /* 카드 가로 방향으로 중앙 정렬 */
 }
-.userInfo {
-    display: flex;
-    flex-wrap: wrap; /* 닉네임이 길어지면 포지션이 아래로 내려가도록 설정 */
-    gap: 8px;
-    p {
-        color: #8d8d8d;
-    }
-}
-
 .cardBody {
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
-    align-items: center;
-}
-
-.leftBody {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    flex: 1;
     overflow: hidden;
 }
 
-.title {
+.projectInfo {
+    gap: 4px; /* h3와 p 사이 간격 */
     display: -webkit-box;
     -webkit-line-clamp: 2;  /* 2줄까지만 표시 */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;  /* 넘치는 부분은 '...' 처리 */
 }
-
-.rightBody {
-    img{
-        border: 1px solid rgb(233, 233, 233);
-        border-radius: 50%;
-        width: 100px;
-    }
+.projectPosition {
+    display: flex;
+    gap: 8px;
 }
+
 
 .skillList {
     display: flex;

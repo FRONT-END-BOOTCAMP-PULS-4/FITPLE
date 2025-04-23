@@ -1,19 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Tab.module.scss';
 import { IntroductionTab } from './IntroductionTab';
 import { ProjectTab } from './ProjectTab';
 
 import SkillSelectBox from '../SkillSelectBox/SkillSelectBox';
-import SelectBox from '../Select/SelectBox';
+import PositionSelectBox from '../PositionSelectBox/PositionSelectBox';
+import { SkillDto } from '@/back/skill/application/usecases/dto/SkillDto';
+import { PositionDto } from '@/back/position/application/usecases/dto/PositionDto';
 
 export function Tab() {
-    const [tab, setTab] = useState<'introduction' | 'project'>('introduction');
-    const options = ['React', 'JavaScript', 'django', 'mongodb', 'spring', 'node', 'mysql', 'python'];
-    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+    const [skillOptions, setSkillOptions] = useState<string[]>([]);
+    const [positionOptions, setPositionOptions] = useState<string[]>([]);
 
-    // const [selected, setSelected] = useState<PositionValue[]>([]);
+    useEffect(() => {
+        const fetchSkills = async () => {
+            const res = await fetch('/api/skills');
+            const skills: SkillDto[] = await res.json(); // skills의 타입을 명시적으로 SkillDto[]로 지정
+            setSkillOptions(skills.map((s) => s.skillName)); // 이제 s는 SkillDto 타입이기 때문에 skill_name 접근 가능
+        };
+        fetchSkills();
+    }, []);
+    useEffect(() => {
+        const fetchPositions = async () => {
+            const res = await fetch('/api/positions');
+            const positions: PositionDto[] = await res.json(); // skills의 타입을 명시적으로 SkillDto[]로 지정
+            setPositionOptions(positions.map((p) => p.positionName)); // 이제 s는 SkillDto 타입이기 때문에 skill_name 접근 가능
+        };
+        fetchPositions();
+    }, []);
+
+    const [tab, setTab] = useState<'introduction' | 'project'>('introduction');
+
+    const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+    const [selectedPositions, setSelectedPositions] = useState<string[]>([]);
+
     return (
         <div className={styles.tabsMain}>
             <div className={styles.tabList}>
@@ -23,7 +45,7 @@ export function Tab() {
                 >
                     데려가요
                 </button>
-                <span style={{ color: 'white', userSelect: 'none' }}>|</span>
+                <span className={styles.line}>|</span>
                 <button
                     className={`${styles.tab} ${tab === 'project' ? styles.active : ''}`}
                     onClick={() => setTab('project')}
@@ -32,25 +54,20 @@ export function Tab() {
                 </button>
             </div>
             <div className={styles.skillSelectBox}>
-                <SkillSelectBox options={options} handler={setSelectedOptions} />
+                <SkillSelectBox options={skillOptions} handler={setSelectedSkills} />
             </div>
-            {/* <div className={styles.selectBox}>
-                <SelectBox
-                    options={POSITIONS as unknown as PositionOption[]}
-                    selectedValues={selected}
-                    onChange={setSelected}
-                    placeholder="포지션 선택"
-                />
-            </div> */}
-            <div className={`${styles.tabContent} ${styles.start} ${styles.end}`}>
+            <div className={styles.positionSelectBox}>
+                <PositionSelectBox options={positionOptions} handler={setSelectedPositions} />
+            </div>
+            <div className={`${styles.tabContent}`}>
                 {tab === 'introduction' && (
                     <div>
-                        <IntroductionTab selectedOptions={selectedOptions} />
+                        <IntroductionTab selectedSkills={selectedSkills} selectedPositions={selectedPositions} />
                     </div>
                 )}
                 {tab === 'project' && (
                     <div>
-                        <ProjectTab selectedOptions={selectedOptions} />
+                        <ProjectTab selectedSkills={selectedSkills} selectedPositions={selectedPositions} />
                     </div>
                 )}
             </div>

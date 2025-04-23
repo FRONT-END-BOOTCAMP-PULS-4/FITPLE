@@ -1,0 +1,32 @@
+.project {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3개의 열로 나눔 */
+    gap: 16px;
+    color: var(--font-black-color);
+    justify-items: center; /* 카드 가로 방향으로 중앙 정렬 */
+}
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.projectInfo {
+    gap: 4px; /* h3와 p 사이 간격 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 2줄까지만 표시 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;  /* 넘치는 부분은 '...' 처리 */
+}
+.projectPosition {
+    display: flex;
+    gap: 8px;
+}
+
+
+.skillList {
+    display: flex;
+    gap: 5px;
+}

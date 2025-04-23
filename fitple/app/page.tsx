@@ -7,52 +7,96 @@ import { EmblaOptionsType } from 'embla-carousel';
 import Card from '@/components/Card/Card';
 import { Tab } from '@/components/Tab/Tab';
 import FloatButton from '@/components/FloatButton/FloatButton';
+import { introductionPosts, projectPosts } from '@/constants/posts';
+import { useRouter } from 'next/navigation';
+import Badge from '@/components/Badge/Badge';
+import styles from './page.module.scss';
+import SkillBadge from '@/components/Badge/SkillBadge';
+import { useEffect, useState } from 'react';
 export default function Home() {
+    const router = useRouter();
     const OPTIONS: EmblaOptionsType = {
         // 필요한 Embla 옵션들을 정의
     };
-    const fakePosts = [
-        {
-            id: 1,
-            header: '프론트엔드 개발자 구합니다',
-            body: '안녕하세요! 저희 팀에 프론트엔드 개발자를 찾고 있어요.',
-            footer: '❤️ 9',
-            likes: 9,
-        },
-        {
-            id: 2,
-            header: '디자이너와 협업하실 분?',
-            body: '웹디자인 가능하신 분과 콜라보 원해요!',
-            footer: '❤️ 5',
-            likes: 5,
-        },
-        {
-            id: 3,
-            header: '백엔드 개발자 모집',
-            body: 'Node.js 또는 Django 가능하신 분 구합니다.',
-            footer: '❤️ 17',
-            likes: 17,
-        },
-        {
-            id: 4,
-            header: '같이 스터디하실 분!',
-            body: '리액트 스터디 함께 해요~',
-            footer: '❤️ 21',
-            likes: 21,
-        },
-        {
-            id: 5,
-            header: '포트폴리오 팀원 모집',
-            body: '포폴용 프로젝트 같이 해요!',
-            footer: '❤️ 2',
-            likes: 2,
-        },
-    ];
-    const popularPosts = [...fakePosts].sort((a, b) => b.likes - a.likes).slice(0, 5); //나중에는 SbProject에서
+    const badgeColor = {
+        project: 'var(--brand-color)',
+        introduction: 'var(--lion-color)',
+    } as const;
     // const { data, error } =
     // await supabase.from('project').select('*').order('likes', { ascending: false }).limit(5); 근데 project랑 introduction 다 가져와서 해야됨;
+
+    async function fetchProjects() {
+        try {
+            const res = await fetch('/api/projects', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error(`서버 오류: ${res.status}`);
+            }
+
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            console.error('프로젝트 데이터를 불러오는 중 오류 발생:', error);
+            return null;
+        }
+    }
+    const [projects, setProjects] = useState<any[]>([]);
+
+    useEffect(() => {
+        const getProjects = async () => {
+            const data = await fetchProjects();
+            if (data) {
+                setProjects(data);
+            }
+        };
+        getProjects();
+    }, []);
+    const popularPosts = projects.sort((a, b) => b.likeCount - a.likeCount).slice(0, 5); //나중에 인트로덕션도해야됨
     const cardsArray = popularPosts.map((post) => (
-        <Card key={post.id} header={post.header} body={post.body} footer={post.footer} />
+        <div key={post.id} onClick={() => router.push(`/${post.type}/${post.id}`)} style={{ cursor: 'pointer' }}>
+            {/* <Card
+                header={
+                    <div>
+                        <span>
+                            <Badge
+                                size="md"
+                                variant="filled"
+                                backgroundColor={
+                                    badgeColor[post.type as keyof typeof badgeColor] ?? 'var(--gray-color)'
+                                }
+                            >
+                                {post.type === 'project' ? '📂 프로젝트' : '🦁 프로필'}
+                            </Badge>
+                        </span>
+                    </div>
+                }
+                body={
+                    <div className={styles.cardBody}>
+                        <div className={styles.projectInfo}>
+                            <h3>{post.title}</h3>
+                        </div>
+                        <div className={styles.projectPosition}>
+                            {post.positions.map((position) => (
+                                <Badge key={position.id} size="sm" variant="filled" backgroundColor="#000000">
+                                    {position.name}
+                                </Badge>
+                            ))}
+                        </div>
+                        <div className={styles.skillList}>
+                            {post.skills.map((skill: { id: number; name: string }) => (
+                                <SkillBadge key={skill.id} type="icon" name={skill.name} />
+                            ))}
+                        </div>
+                    </div>
+                }
+                footer={`❤️ ${post.likeCount}`}
+            /> */}
+        </div>
     ));
     return (
         <div>

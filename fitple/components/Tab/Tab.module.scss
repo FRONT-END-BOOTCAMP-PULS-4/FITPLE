@@ -37,31 +37,24 @@
     padding-top: 20px;
     color: #eee;
   }
-  
-  .start {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-  }
-  
-  .end {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-
   .skillSelectBox {
-    min-height: 100px;
     position: absolute;
-  top: 60px; /* selectBox 바로 아래 */
+  top: 60px;
   left: 10px;
+  width: 500px;
   z-index: 1000;
   }
 
-  .selectBox {
-    min-height: 100px;
+  .positionSelectBox {
     position: absolute;
-  top:55px;
-  left: 170px;
+  top:60px;
+  left: 150px;
   z-index: 1000;
   }
+
+  .line {
+    color: var(--font-white-color);
+    user-select: none;
+  }
+
+  
