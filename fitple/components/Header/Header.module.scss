@@ -43,3 +43,14 @@
 
   cursor: pointer;
 }
+
+.welcomeText {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white-color);
+  background-color: transparent;
+  border: none;
+  cursor: default;
+  display: flex;
+  align-items: center;
+}
