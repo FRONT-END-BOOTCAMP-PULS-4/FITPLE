@@ -13,12 +13,14 @@ const Header = () => {
 
     return (
         <div className={styles.headerContainer}>
-            <Image
-                src="/images/logo-blue.png"
-                alt="logo"
-                width={120}
-                height={50}
-            />
+            <Link href="/">
+                <Image
+                    src="/images/logo-blue.png"
+                    alt="logo"
+                    width={120}
+                    height={50}
+                />
+            </Link>
             <ul className={styles.ulStyles}>
                 {isAuthenticated() ? (
                     <>
@@ -26,14 +28,12 @@ const Header = () => {
                             {nickname}님 환영합니다!
                         </li>
                         <Link href="/mypage">
-                            <li><div className={styles.userIcon} /></li>
+                            <div className={styles.userIcon} />
                         </Link>
-                        <li><div className={styles.notificationIcon} /></li>
+                        <div className={styles.notificationIcon} />
                     </>
                 ) : (
-                    <Link href="/login">
-                        <li className={styles.loginText}>로그인</li>
-                    </Link>
+                    <Link href="/login" className={styles.loginText}>로그인</Link>
                 )}
             </ul>
         </div>
