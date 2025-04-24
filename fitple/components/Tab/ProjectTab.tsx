@@ -1,9 +1,9 @@
-import Badge from '../Badge/Badge';
-import SkillBadge from '../Badge/SkillBadge';
-import Card from '../Card/Card';
-import styles from './ProjectTab.module.scss';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState, useCallback } from 'react';
+import Badge from "../Badge/Badge";
+import SkillBadge from "../Badge/SkillBadge";
+import Card from "../Card/Card";
+import styles from "./ProjectTab.module.scss";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
 
 type Props = {
     selectedSkills: string[];
@@ -27,12 +27,12 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
 
     const fetchProjects = useCallback(async () => {
         try {
-            const res = await fetch('/api/projects');
+            const res = await fetch("/api/projects");
             if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
             const data = await res.json();
             setProjects(data);
         } catch (error) {
-            console.error('프로젝트 데이터를 불러오는 중 오류 발생:', error);
+            console.error("프로젝트 데이터를 불러오는 중 오류 발생:", error);
         }
     }, []);
 
@@ -57,7 +57,7 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                 <div
                     key={project.id}
                     onClick={() => router.push(`board/project/${project.id}`)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                 >
                     <Card
                         header={
@@ -69,8 +69,8 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                         }
                         body={
                             <div className={styles.cardBody}>
-                                <div className={styles.projectInfo}>
-                                    <h3>{project.title}</h3>
+                                <div className={styles.projectTitle}>
+                                    <h3>{project.title} 저는 프론트엔드 백엔드 둘다 함</h3>
                                 </div>
                                 <div className={styles.projectPosition}>
                                     {project.positions.map((position) => (
@@ -86,7 +86,12 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                                 </div>
                             </div>
                         }
-                        footer={`❤️ ${project.likeCount}`}
+                        footer={
+                            <div className={styles.cardFooter}>
+                                <div>❤️ {project.likeCount}</div>
+                                <div>1일전</div>
+                            </div>
+                        }
                     />
                 </div>
             ))}
