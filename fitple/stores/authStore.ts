@@ -1,5 +1,34 @@
 // 상태 관리 설정 (Zustand)
-
+const skillMap: { [key: number]: string } = {
+    1: 'react',
+    2: 'javascript',
+    3: 'next',
+    4: 'django',
+    5: 'express',
+    6: 'firebase',
+    7: 'flutter',
+    8: 'go',
+    9: 'graphql',
+    10: 'kotlin',
+    11: 'mongodb',
+    12: 'mysql',
+    13: 'nest',
+    14: 'node',
+    15: 'php',
+    16: 'python',
+    17: 'spring',
+    18: 'swift',
+    19: 'typescript',
+    20: 'unity',
+    21: 'vue',
+};
+const positionMap: { [key: number]: string } = {
+    1: 'FE',
+    2: 'BE',
+    3: 'PM',
+    4: 'FS',
+    5: 'DI',
+};
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -44,8 +73,14 @@ export const useAuthStore = create<AuthState>()(
             setEmail: (email) => set({ email }),
             setCareer: (career) => set({ career }),
             setId: (id) => set({ id }),
-            setSkills: (skills) => set({ skills }),
-            setPosition: (position) => set({ position }),
+            setSkills: (skills: string[]) =>
+                set({
+                    skills: skills.map((skillId: string) => skillMap[parseInt(skillId)] || `unknown(${skillId})`),
+                }),
+            setPosition: (position: string) =>
+                set({
+                    position: positionMap[parseInt(position)] || `unknown(${position})`,
+                }),
             setAvatarUrl: (avatarUrl) => set({ avatarUrl }),
             // 상태 초기화 메서드
             clearAuth: () =>
