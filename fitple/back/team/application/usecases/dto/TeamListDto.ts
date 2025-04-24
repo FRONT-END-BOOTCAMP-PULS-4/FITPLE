@@ -1,8 +1,8 @@
 export class TeamListDTO {
-  constructor (
+  constructor(
     public id: number,
+    public projectId: number,
     public projectTitle: string,
     public avatarUrl: string,
-   ) {}
-  };
-  
+  ) {}
+}

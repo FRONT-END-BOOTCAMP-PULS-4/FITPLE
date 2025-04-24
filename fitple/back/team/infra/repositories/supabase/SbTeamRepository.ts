@@ -1,5 +1,3 @@
-// infra/repositories/supabase/SbTeamRepository.ts
-
 import { Team } from '@/back/team/domain/entities/Team';
 import { TeamRepository } from '@/back/team/domain/repositories/TeamRepository';
 import { createClient } from '@/utils/supabase/server';
@@ -13,8 +11,8 @@ export class SbTeamRepository implements TeamRepository {
       .select('*')
       .eq('user_id', userId);
 
-    if (error) {
-      console.error('findByUserId Error:', error.message);
+    if (error || !data) {
+      console.log('findByUserId Error:', error.message);
       return [];
     }
 

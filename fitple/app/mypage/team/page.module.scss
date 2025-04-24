@@ -1,0 +1,50 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .customSpan {
+    font-size: 13px;
+  }
+  
+  .bodyBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+  }
+  
+  .projectTitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+
+    width: 100%;
+  }
+  
+  .avatarGroup {
+    display: flex;
+  }
+  
+  .avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+  }
+  
+  .date {
+    font-size: 12px;
+    color: #aaa;
+  }
+  

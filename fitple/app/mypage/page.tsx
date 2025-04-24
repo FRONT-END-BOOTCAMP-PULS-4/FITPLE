@@ -17,7 +17,7 @@ export default function RootMyPage() {
             <div
                 className={styles.imageBox}
                 style={{
-                    backgroundImage: `url(${avatarUrl || '/images/default-avatar.png'})`
+                    backgroundImage: `url(${avatarUrl || '/images/test-team.png'})`
                 }}
             ></div>
 
@@ -38,7 +38,7 @@ export default function RootMyPage() {
                 <div className={styles.stackBox}>
                     {skills.length > 0 ? (
                         skills.map((skill, idx) => (
-                            <SkillBadge key={idx} name={skill} label={skill} />
+                            <SkillBadge type='icon' iconLogoSize={60} key={idx} name={skill} label={skill} />
                         ))
                     ) : (
                         <span className={styles.noSkillText}>기술스택 정보가 없습니다.</span>
