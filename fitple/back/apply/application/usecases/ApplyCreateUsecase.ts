@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { Apply } from '../../domain/entities/Apply';
 import { ApplyRepository } from '../../domain/repositories/ApplyRepository';
 import { ApplyCreateDto } from './dto/ApplyCreateDto';
@@ -8,7 +7,7 @@ export class ApplyCreateUsecase {
 
     async execute(applyDto: ApplyCreateDto): Promise<Apply> {
         try {
-            const apply = await this.applyRepository.save(applyDto);
+            const apply = await this.applyRepository.createApply(applyDto);
 
             if (!apply) throw new Error('apply not found');
 

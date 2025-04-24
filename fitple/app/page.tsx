@@ -55,7 +55,11 @@ export default function Home() {
     const renderPostCard = (post: ProjectListDto | IntroductionListDto) => {
         const isProject = post.type === 'project';
         return (
-            <div key={post.id} onClick={() => router.push(`/${post.type}/${post.id}`)} style={{ cursor: 'pointer' }}>
+            <div
+                key={post.id}
+                onClick={() => router.push(`/board/${post.type}/${post.id}`)}
+                style={{ cursor: 'pointer' }}
+            >
                 <Card
                     header={
                         <div>

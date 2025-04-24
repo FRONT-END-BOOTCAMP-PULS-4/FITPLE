@@ -6,12 +6,17 @@ import styles from './page.module.scss';
 import SkillBadge from '@/components/Badge/SkillBadge';
 import Badge from '@/components/Badge/Badge';
 import Button from '@/components/Button/Button';
-import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
 import Image from 'next/image';
+import { ProjectDetailDto } from '@/back/project/application/usecases/dto/ProjectDetailDto';
+
+import { useModal } from '@/hooks/useModal';
+import ApplyForm from '@/app/mypage/components/ApplyForm';
 const ProjectDetailPage = () => {
+    const { openModal, isOpen, closeModal } = useModal();
+
     const params = useParams();
     const id = params?.id as string;
-    const [project, setProject] = useState<ProjectListDto | null>(null);
+    const [project, setProject] = useState<ProjectDetailDto | null>(null);
     const workModeMap: Record<'online' | 'offline', string> = {
         online: '온라인',
         offline: '오프라인',
@@ -38,12 +43,15 @@ const ProjectDetailPage = () => {
         fetchProject();
     }, []);
 
-    if (!project) {
-        return <div>로딩 중...</div>;
-    }
+    const handleApply = async () => {
+        openModal();
+    };
+
+    if (!project) return <div>로딩 중...</div>;
 
     return (
         <div className={styles.wrapper}>
+            {isOpen && <ApplyForm isOpen={isOpen} closeModal={closeModal} id={Number(id)} />}
             <div className={styles.header}>
                 <p className={styles.breadcrumb}>어서와요 &gt;</p>
                 <h1 className={styles.title}>{project.title}</h1>
@@ -112,7 +120,7 @@ const ProjectDetailPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {project.likeCount}
                 </Button>
-                <Button size="md" variant="confirm">
+                <Button size="md" variant="confirm" onClick={handleApply}>
                     지원하기
                 </Button>
             </div>
