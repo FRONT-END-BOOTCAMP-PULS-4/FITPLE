@@ -2,6 +2,9 @@ import { createClient } from '@/utils/supabase/server';
 import { Apply } from '../../../domain/entities/Apply';
 import { ApplyRepository } from '../../../domain/repositories/ApplyRepository';
 import { ApplyStatus } from '@/type/common';
+import { ApplyApplicantView } from '@/back/apply/domain/entities/ApplyApplicantView';
+import { Position, Skill } from '@/back/project/infra/types';
+import { User } from '@/back/user/domain/entities/User';
 
 export class SbApplyRepository implements ApplyRepository {
     async findById(id: number): Promise<Apply> {
@@ -30,7 +33,7 @@ export class SbApplyRepository implements ApplyRepository {
         }
     }
 
-    async save(apply: Apply): Promise<Apply> {
+    async createApply(apply: Apply): Promise<Apply> {
         const supabase = await createClient();
         const { data, error } = await supabase
             .from('apply')
@@ -57,5 +60,70 @@ export class SbApplyRepository implements ApplyRepository {
             status: data.status,
             createdAt: data.created_at,
         };
+    }
+    async findApplicants(projectId: number): Promise<ApplyApplicantView[]> {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+            .from('apply')
+            .select(
+                `
+                id, user_id, project_id, message, status, created_at,
+                user (
+                    id, name, email, avatar_url, nickname, career, created_at, updated_at
+                ),
+                user_skill (
+                    skill (
+                        id, skill_name
+                    )
+                ),
+                user_position (
+                    position (
+                        id, position_name
+                    )
+                )
+                `
+            )
+            .eq('project_id', projectId);
+
+        if (error || !data) {
+            throw new Error('Failed to fetch applicants');
+        }
+
+        const applicants = data.map((apply: any) => {
+            const user: User = {
+                id: apply.user.id,
+                name: apply.user.name,
+                email: apply.user.email,
+                avatarUrl: apply.user.avatar_url,
+                nickname: apply.user.nickname,
+                career: apply.user.career,
+                createdAt: apply.user.created_at,
+                updatedAt: apply.user.updated_at,
+            };
+
+            const skills: Skill[] = (apply.user_skill || []).map((us: any) => ({
+                id: us.skill.id,
+                name: us.skill.skill_name,
+            }));
+
+            const position: Position[] = (apply.user_position || []).map((up: any) => ({
+                id: up.position.id,
+                name: up.position.position_name,
+            }));
+
+            return new ApplyApplicantView(
+                apply.id,
+                apply.user_id,
+                apply.project_id,
+                apply.message,
+                apply.status,
+                apply.created_at,
+                user,
+                skills,
+                position
+            );
+        });
+
+        return applicants;
     }
 }
