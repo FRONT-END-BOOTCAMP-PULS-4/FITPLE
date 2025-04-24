@@ -2,19 +2,10 @@ import { GetLikeProjectListUsecase } from '@/back/like/application/usecases/GetL
 import { SbLikeRepository } from '@/back/like/infra/repositories/supabase/SbLikeRepository';
 import { NextResponse } from 'next/server';
 
-export async function GET(req: Request) {
+export async function GET() {
     try {
-        const authHeader = req.headers.get('authorization');
-
-        if (!authHeader) {
-            return NextResponse.json({ error: 'Authorization header missing' }, { status: 401 });
-        }
-
-        const token = authHeader.split(' ')[1];
-
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const userId = payload.sub;
-
+        /** 나중에 user_id 를 header 로 받으면 될듯 */
+        const userId = 'fbb321b6-2dab-4aa9-8c02-290e6c7fb0b3';
         console.log('userId:', userId);
 
         const projectLikeRepository = new SbLikeRepository();
