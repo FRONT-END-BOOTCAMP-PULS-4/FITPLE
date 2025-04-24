@@ -1,0 +1,116 @@
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    color: white;
+  }
+  
+  .breadcrumb {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 8px;
+  }
+  
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .header {
+    margin-bottom: 24px;
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .nicknameDateGap{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .nickname {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  .date {
+    font-size: 14px;
+    color: #999;
+  }
+  
+  
+  .metaItem {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .metaLabel {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .metaValue {
+    font-size: 14px;
+  }
+  
+  
+  .stackGroup,
+  .statusGroup,
+  .positionGroup {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .badgeGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .divider {
+    border-top: 1px solid #dfdfdf;
+    margin: 24px 0;
+  }
+  
+  .description{
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  
+  .footer {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  
+  .metaAndStackWrapper {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .leftMetaGroup, .rightMetaGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 300px;
+  }
+  

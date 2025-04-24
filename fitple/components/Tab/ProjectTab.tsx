@@ -1,3 +1,4 @@
+import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
 import Badge from '../Badge/Badge';
 import SkillBadge from '../Badge/SkillBadge';
 import Card from '../Card/Card';
@@ -9,20 +10,11 @@ type Props = {
     selectedSkills: string[];
     selectedPositions: string[];
 };
-
 type Skill = { id: number; name: string };
 type Position = { id: number; name: string };
 
-type Project = {
-    id: number;
-    title: string;
-    skills: Skill[];
-    positions: Position[];
-    likeCount: number;
-};
-
 export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
-    const [projects, setProjects] = useState<Project[]>([]);
+    const [projects, setProjects] = useState<ProjectListDto[]>([]);
     const router = useRouter();
 
     const fetchProjects = useCallback(async () => {
@@ -56,7 +48,7 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
             {filteredProjects.map((project) => (
                 <div
                     key={project.id}
-                    onClick={() => router.push(`/project/${project.id}`)}
+                    onClick={() => router.push(`board/project/${project.id}`)}
                     style={{ cursor: 'pointer' }}
                 >
                     <Card
@@ -69,7 +61,7 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                         }
                         body={
                             <div className={styles.cardBody}>
-                                <div className={styles.projectInfo}>
+                                <div className={styles.projectTitle}>
                                     <h3>{project.title}</h3>
                                 </div>
                                 <div className={styles.projectPosition}>
@@ -86,7 +78,12 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                                 </div>
                             </div>
                         }
-                        footer={`❤️ ${project.likeCount}`}
+                        footer={
+                            <div className={styles.cardFooter}>
+                                <div>❤️ {project.likeCount}</div>
+                                <div>{project.daysAgo}일전</div>
+                            </div>
+                        }
                     />
                 </div>
             ))}

@@ -1,66 +1,82 @@
 .introduction {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); // 반응형 대응
+    gap: 24px;
     color: var(--font-black-color);
     justify-items: center;
-}
-.userInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 4px; /* h3와 p 사이 간격 */
-    max-width: 200px; /* 또는 전체 카드의 비율 고려해서 지정 */
-    overflow: hidden;
-    h3 {
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-    p {
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-        color: #8d8d8d;
-        font-size: 14px;
-    }
 }
 
 .cardBody {
     display: flex;
     justify-content: space-between;
-    gap: 50px;
     align-items: center;
+    gap: 24px;
+    width: 100%;
 }
 
 .leftBody {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 25px;
     flex: 1;
     overflow: hidden;
 }
 
-.title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;  /* 2줄까지만 표시 */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;  /* 넘치는 부분은 '...' 처리 */
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 220px;
+
+    h3 {
+        font-size: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0;
+    }
+
+    p {
+        font-size: 14px;
+        color: #8d8d8d;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
-.rightBody {
-    img{
-        border: 1px solid rgb(233, 233, 233);
-        border-radius: 50%;
-        width: 100px;
-    }
+.title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .skillList {
     display: flex;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.rightBody {
+    flex-shrink: 0;
+    img {
+        border: 1px solid #e5e5e5;
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+}
+
+.cardFooter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
