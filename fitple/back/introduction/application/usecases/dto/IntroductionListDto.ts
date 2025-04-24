@@ -2,7 +2,7 @@ import { RecruitmentStatus, WorkMode } from '@/type/common';
 
 export class IntroductionListDto {
     constructor(
-        public type: 'project' | 'introduction',
+        public type: 'introduction',
         public id: number,
         public userId: string,
         public title: string,
