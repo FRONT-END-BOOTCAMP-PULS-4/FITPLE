@@ -18,7 +18,7 @@ const TabMenu = () => {
         { href: "/mypage/edit", label: "내 정보 수정", exact: true },
         { href: "/mypage/likelist/projects", label: "찜한 항목" },
         { href: "/mypage/mypost/projects", label: "내 활동" },
-        { href: "/mypage/request", label: "요청 목록" },
+        { href: "/mypage/request/projects", label: "요청 목록" },
         { href: "/mypage/team", label: "팀 프로젝트" },
     ];
 
