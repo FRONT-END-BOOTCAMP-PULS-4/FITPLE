@@ -83,12 +83,19 @@ const IntroductionPage = () => {
         console.log('삭제', result);
     };
 
+    const getLikeProjects = async () => {
+        const res = await fetch('/api/member/like/projects');
+        const result = await res.json();
+        console.log('좋아요 누른 프로젝트', result);
+    };
+
     return (
         <div>
             <div>123</div>
             <button onClick={postProject}>post 하기</button>
             <button onClick={updatePost}>update 하기</button>
             <button onClick={deletePost}>delete 하기</button>
+            <button onClick={getLikeProjects}>좋아요 누른 게시글 모두 가져오기</button>
         </div>
     );
 };

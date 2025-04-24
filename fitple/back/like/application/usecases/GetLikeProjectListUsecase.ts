@@ -11,23 +11,17 @@ export class GetLikeProjectListUsecase {
 
             return likeProjectList.map(
                 (like) =>
-                    new LikeProjectDto(
-                        like.id,
-                        like.projectId,
-                        like.userId,
-                        dayjs(like.createdAt).format('YYYY-MM-DD'),
-                        like.project.map((p) => ({
-                            id: p.id,
-                            userId: p.userId,
-                            title: p.title,
-                            content: p.content,
-                            duration: p.duration,
-                            status: p.status,
-                            workMode: p.workMode,
-                            createdAt: dayjs(p.createdAt).format('YYYY-MM-DD'),
-                            updatedAt: dayjs(p.updatedAt).format('YYYY-MM-DD'),
-                        }))
-                    )
+                    new LikeProjectDto(like.id, dayjs(like.createdAt).format('YYYY-MM-DD'), {
+                        id: like.project.id,
+                        userId: like.project.userId,
+                        title: like.project.title,
+                        content: like.project.content,
+                        duration: like.project.duration,
+                        status: like.project.status,
+                        workMode: like.project.workMode,
+                        createdAt: dayjs(like.project.createdAt).format('YYYY-MM-DD'),
+                        updatedAt: dayjs(like.project.updatedAt).format('YYYY-MM-DD'),
+                    })
             );
         } catch (error) {
             console.error('Error fetching like project list:', error);

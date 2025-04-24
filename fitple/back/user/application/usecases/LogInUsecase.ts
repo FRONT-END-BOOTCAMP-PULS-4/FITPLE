@@ -9,6 +9,7 @@ import { SocialLoggedInDto } from './dto/SocialLoggedInDto';
 import { UserSkillView } from '../../domain/entities/UserSkillView';
 import { UserPositionView } from '../../domain/entities/UserPositionView';
 import { SocialRepository } from '../../domain/repositories/SocialRepository';
+import { Skill } from '@/back/skill/domain/entities/Skill';
 
 // 이미 회원가입된 사용자 로그인 처리 하는 usecase
 export class LogInUsecase {
@@ -35,6 +36,8 @@ export class LogInUsecase {
                 // 소셜 클라이언트 ID를 사용하여 회원 정보 조회
                 const socialClientId = id;
 
+                console.log(socialClientId);
+
                 const user = await this.userRepository.findById(socialClientId);
                 console.log('user', user);
                 // 회원이 없을 때 오류 반환
@@ -46,7 +49,7 @@ export class LogInUsecase {
                 if (!user.id) {
                     throw new Error('User ID is undefined.');
                 }
-                const skills: UserSkillView[] = await this.userSkillRepository.findAllByUserId(user.id);
+
                 const skillNames = skills.map((userSkillView) => userSkillView.skill_id);
 
                 const position: UserPositionView = await this.userPositionRepository.findByUserId(user.id);

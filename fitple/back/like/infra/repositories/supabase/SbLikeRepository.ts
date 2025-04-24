@@ -35,7 +35,7 @@ export class SbLikeRepository implements LikeRepository {
 
             const { data: projectList, error } = await supabase
                 .from('project_like')
-                .select('id, user_id, project_id, created_at, project(*)')
+                .select('*, project(*)')
                 .eq('user_id', userId);
 
             if (error) {
@@ -44,19 +44,16 @@ export class SbLikeRepository implements LikeRepository {
             }
 
             return projectList.map((like) => {
-                const project = (like.project ?? []).map(
-                    (p) =>
-                        new Project(
-                            p.id,
-                            p.user_id,
-                            p.title,
-                            p.content,
-                            p.duration,
-                            p.status,
-                            p.work_mode,
-                            p.created_at,
-                            p.updated_at
-                        )
+                const project = new Project(
+                    like.project.id,
+                    like.project.user_id,
+                    like.project.title,
+                    like.project.content,
+                    like.project.duration,
+                    like.project.status,
+                    like.project.work_mode,
+                    like.project.created_at,
+                    like.project.updated_at
                 );
 
                 return new LikeProjectView(like.id, like.project_id, like.user_id, like.created_at, project);

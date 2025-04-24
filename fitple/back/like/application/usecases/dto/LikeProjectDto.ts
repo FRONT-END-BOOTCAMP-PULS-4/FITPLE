@@ -3,8 +3,6 @@ import { RecruitmentStatus, WorkMode } from '@/type/common';
 export class LikeProjectDto {
     constructor(
         public id: number,
-        public proejctId: number,
-        public userId: string,
         public createdAt: string,
         public projects: {
             id: number;
@@ -16,6 +14,6 @@ export class LikeProjectDto {
             workMode: WorkMode;
             createdAt: string;
             updatedAt: string;
-        }[]
+        }
     ) {}
 }
