@@ -15,20 +15,54 @@ const SkillCheck: React.FC = () => {
     const { skills, setSkills } = useAuthStore(); // useAuthStore에서 skills와 setSkills 가져오기
     const [error, setError] = useState(false);
     const [bottomText, setBottomText] = useState('기술 스택을 선택해주세요.');
-
     const handlePrevClick = () => {
         router.push('/login/positioncheck');
     };
 
-    const handleNextClick = () => {
+    const handleNextClick = async () => {
         if (skills.length === 0) {
             setBottomText('기술 스택을 선택해주세요.');
             setError(true);
             alert('기술 스택을 선택해주세요.');
             return;
         }
+        try {
+            // AuthStore의 payload 가져오기
+            const { nickname, career, skills, position, signUpPayload } = useAuthStore.getState();
 
-        router.push('/');
+            const payload = {
+                name: signUpPayload.name,
+                nickname: nickname,
+                email: signUpPayload.email,
+                career: career,
+                skills: skills,
+                position: position,
+                avatarUrl: signUpPayload.avatarUrl,
+                socialClientId: signUpPayload.socialClientId,
+            };
+
+            // API 요청
+            const response = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                throw new Error('회원가입 요청 실패');
+            }
+
+            const data = await response.json();
+            // console.log('회원가입 성공:', data);
+
+            // 성공 시 홈페이지로 이동
+            router.push('/');
+        } catch (error) {
+            console.error('회원가입 요청 중 오류 발생:', error);
+            alert('회원가입 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
     };
 
     const toggleSkill = (skill: string) => {
@@ -49,8 +83,8 @@ const SkillCheck: React.FC = () => {
                     {SkillBadges.map((badge) => (
                         <div
                             key={badge.key}
-                            className={`${styles.badge} ${skills.includes(badge.props.name) ? styles.selected : ''}`}
-                            onClick={() => toggleSkill(badge.props.name)}
+                            className={`${styles.badge} ${skills.includes(badge.props.label) ? styles.selected : ''}`}
+                            onClick={() => toggleSkill(badge.props.label)}
                         >
                             {badge}
                         </div>

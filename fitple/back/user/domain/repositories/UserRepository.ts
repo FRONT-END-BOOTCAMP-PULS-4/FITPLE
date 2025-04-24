@@ -6,5 +6,5 @@ export interface UserRepository {
     findByUserSkillId(userSkillId: string): Promise<User | null>;
     findByUserPositionId(userPositionId: string): Promise<User | null>;
     update(user: Partial<User>): Promise<User>;
-    save(user: User): Promise<User>;
+    create(user: User): Promise<User>;
 }

@@ -44,6 +44,7 @@ export class LogInUsecase {
                     const payload = {
                         id: null,
                         socialClientId: socialClientId,
+                        name: kakaoUserInfo.properties.nickname,
                         nickname: null,
                         career: null,
                         email: '',
