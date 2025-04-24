@@ -8,7 +8,7 @@ export default function KakaoCallbackPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const code = searchParams.get('code');
-    const { setId, setToken, setNickname } = useAuthStore();
+    const { setId, setToken, setNickname, setPosition, setSkills, setCareer, setAvatarUrl, setEmail } = useAuthStore();
 
     useEffect(() => {
         if (code) {
@@ -40,6 +40,12 @@ export default function KakaoCallbackPage() {
                     setId(payload.id);
                     setToken(token);
                     setNickname(payload.nickname);
+                    setPosition(payload.position);
+                    setSkills(payload.skills);
+                    setCareer(payload.career);
+                    setAvatarUrl(payload.avatarUrl);
+                    setEmail(payload.email);
+
                     router.push('/'); // 홈페이지로 이동
                 })
                 .catch((err) => {
