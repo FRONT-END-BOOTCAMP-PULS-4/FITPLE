@@ -1,31 +1,29 @@
-import { ApplyCreateUsecase } from '@/back/apply/application/usecases/ApplyCreateUsecase';
-import { ApplyCreateDto } from '@/back/apply/application/usecases/dto/ApplyCreateDto';
-import { SbApplyRepository } from '@/back/apply/infra/repositories/supabase/SbApplyRepository';
-import { NextRequest } from 'next/server';
 
-// GET /api/member/apply?id=1
-// export async function GET(request: Request) {
-//     try {
-//         const url = new URL(request.url);
-//         const idParam = url.searchParams.get('id');
+import { ApplyCreateUsecase } from "@/back/apply/application/usecases/ApplyCreateUsecase";
+import { ApplyCreateDto } from "@/back/apply/application/usecases/dto/ApplyCreateDto";
+import { FindMyApplyListUsecase } from "@/back/apply/application/usecases/FindMyApplyListUsecase";
+import { SbApplyRepository } from "@/back/apply/infra/repositories/supabase/SbApplyRepository";
+import { NextRequest, NextResponse } from "next/server";
 
-//         if (!idParam) {
-//             return new Response(JSON.stringify({ error: 'Missing apply ID' }), { status: 400 });
-//         }
 
-//         const applyId = parseInt(idParam, 10);
-//         const repository = new SbApplyRepository();
-//         const usecase = new ApplyDetailUsecase(repository);
-//         const result: ApplyDetailDto = await usecase.execute(applyId);
+export async function GET() {
+  try {
+    const userId = "e386c006-40bd-477d-8e33-9ad70fe2214a";
 
-//         return new Response(JSON.stringify(result), { status: 200 });
-//     } catch (error) {
-//         if (error instanceof Error) {
-//             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-//         }
-//         return new Response(JSON.stringify({ error: 'Unknown server error' }), { status: 500 });
-//     }
-// }
+    if (!userId) {
+      return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+    }
+
+    const repository = new SbApplyRepository();
+    const usecase = new FindMyApplyListUsecase(repository);
+    const result = await usecase.execute(userId);
+
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    console.error('[GET /api/member/apply] error:', error);
+    return NextResponse.json({ error: 'Failed to fetch apply list' }, { status: 500 });
+  }
+}
 
 // POST /api/member/apply
 export async function POST(request: NextRequest) {

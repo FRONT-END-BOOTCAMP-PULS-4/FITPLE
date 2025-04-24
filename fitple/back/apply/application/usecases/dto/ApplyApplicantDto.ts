@@ -1,4 +1,3 @@
-import { User } from '@/back/user/domain/entities/User';
 import { ApplyStatus } from '@/type/common';
 
 export class ApplyApplicantDto {
@@ -9,8 +8,9 @@ export class ApplyApplicantDto {
         public message: string,
         public status: ApplyStatus,
         public createdAt: string,
-        public user: User,
-        public skills: { id: number; name: string }[],
-        public positions: { id: number; name: string }[]
+        public avatarUrl:string, 
+        public career:number, 
+        public nickname:string,
+        public title:string
     ) {}
 }
