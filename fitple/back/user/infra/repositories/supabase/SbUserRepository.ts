@@ -58,7 +58,7 @@ export class SbUserRepository implements UserRepository {
     async findById(id: string): Promise<User | null> {
         const supabase = await createClient();
 
-        const { data, error } = await supabase.from('user').select('*').eq('id', id).maybeSingle();
+        const { data, error } = await supabase.from('user').select('*').eq('social_client_id', id).maybeSingle();
 
         if (error && error.code !== 'PGRST116') {
             throw new Error(`Error fetching user by ID: ${error.message}`);
