@@ -78,6 +78,8 @@ export default function KakaoCallbackPage() {
                 })
                 .catch((err) => {
                     console.error('에러 발생:', err);
+
+                    router.replace('/login'); // 에러 시 로그인 페이지로 이동
                 });
         }
     }, [code, router]);
