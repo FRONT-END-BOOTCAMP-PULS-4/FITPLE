@@ -2,7 +2,7 @@ import { TeamDetailDTO } from '@/back/team/application/usecases/dto/TeamDetailDt
 import { createClient } from '@/utils/supabase/server';
 
 export class TeamDetailUsecase {
-  async execute(userId: string): Promise<TeamDetailDTO[]> {
+  async execute(projectId: string): Promise<TeamDetailDTO[]> {
     const supabase = await createClient();
 
     const { data, error } = await supabase
@@ -23,8 +23,7 @@ export class TeamDetailUsecase {
           )
         )
       `)
-      .eq('user_id', userId);
-
+      .eq('project_id', projectId);
     if (error || !data) {
       console.error('Error in TeamDetailUsecase:', error.message);
       return [];

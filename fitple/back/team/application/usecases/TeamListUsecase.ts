@@ -8,16 +8,18 @@ export class TeamListUsecase {
     const { data, error } = await supabase
       .from('team')
       .select(`
-        id,
-        project:project_id ( title ),
-        user:user_id ( avatar_url )
-      `)
+      id,
+      project_id,
+      project:project_id ( title ),
+      user:user_id ( avatar_url )
+    `)
       .eq('user_id', userId);
 
     if (error || !data) return [];
 
     return data.map((item: any) => ({
       id: item.id,
+      projectId: item.project_id,
       projectTitle: item.project?.title ?? '제목 없음',
       avatarUrl: item.user?.avatar_url ?? '',
     }));
