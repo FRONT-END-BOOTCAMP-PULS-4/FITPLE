@@ -12,6 +12,11 @@ const subTabs = {
         { href: '/mypage/mypost/projects', label: '작성한 프로젝트' },
         { href: '/mypage/mypost/profiles', label: '작성한 프로필' },
     ],
+    '/mypage/request': [
+        { href: '/mypage/request/projects', label: '프로젝트 요청' },
+        { href: '/mypage/request/profiles', label: '프로필 요청' },
+    ],
+
 };
 
 const SubTabMenu = () => {
