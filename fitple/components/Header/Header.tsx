@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import styles from './Header.module.scss';
 import Image from 'next/image';
@@ -9,31 +9,31 @@ const Header = () => {
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const nickname = useAuthStore((state) => state.nickname);
 
-    console.log(nickname)
+    const clickHandler = () => {
+        const { clearAuth } = useAuthStore.getState();
+        clearAuth();
+        window.location.href = '/';
+    };
 
     return (
         <div className={styles.headerContainer}>
             <Link href="/">
-                <Image
-                    src="/images/logo-blue.png"
-                    alt="logo"
-                    width={120}
-                    height={50}
-                />
+                <Image src="/images/logo-blue.png" alt="logo" width={120} height={50} />
             </Link>
             <ul className={styles.ulStyles}>
                 {isAuthenticated() ? (
                     <>
-                        <li className={styles.welcomeText}>
-                            {nickname}님 환영합니다!
-                        </li>
+                        <li className={styles.welcomeText}>{nickname}님 환영합니다!</li>
+                        <button onClick={clickHandler}>로그아웃</button>
                         <Link href="/mypage">
                             <div className={styles.userIcon} />
                         </Link>
                         <div className={styles.notificationIcon} />
                     </>
                 ) : (
-                    <Link href="/login" className={styles.loginText}>로그인</Link>
+                    <Link href="/login" className={styles.loginText}>
+                        로그인
+                    </Link>
                 )}
             </ul>
         </div>
