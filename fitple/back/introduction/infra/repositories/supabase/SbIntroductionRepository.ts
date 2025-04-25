@@ -19,7 +19,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                     `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     introduction_skill (
                       skill (
@@ -99,7 +99,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                 `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     introduction_skill (
                       skill (

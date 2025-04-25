@@ -19,7 +19,7 @@ export class SbProjectRepository implements ProjectRepository {
                     `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     project_skill (
                       skill (
@@ -98,7 +98,7 @@ export class SbProjectRepository implements ProjectRepository {
                 `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     project_skill (
                       skill (
