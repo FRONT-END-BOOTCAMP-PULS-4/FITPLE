@@ -3,6 +3,6 @@ export class TeamListDTO {
     public id: number,
     public projectId: number,
     public projectTitle: string,
-    public avatarUrl: string,
+    public avatarUrl: string[],
   ) {}
 }
