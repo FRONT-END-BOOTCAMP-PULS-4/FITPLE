@@ -1,21 +1,13 @@
-'use client';
+"use client";
 
-import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
-import Badge from '@/components/Badge/Badge';
-import SkillBadge from '@/components/Badge/SkillBadge';
-import styles from '../page.module.scss';
+import { ProjectListDto } from "@/back/project/application/usecases/dto/ProjectListDto";
+import styles from "./ProjectCard.module.scss";
+import SkillBadge from "@/components/Badge/SkillBadge";
 
 const ProjectCard = ({ post }: { post: ProjectListDto }) => (
-    <div className={`${styles.cardBody} ${styles.projectCard}`}>
-        <div className={styles.projectInfo}>
-            <h3>{post.title}</h3>
-        </div>
-        <div className={styles.projectPosition}>
-            {post.positions.map((position) => (
-                <Badge key={position.id} size="sm" variant="filled" backgroundColor="#000000">
-                    {position.name}
-                </Badge>
-            ))}
+    <div className={styles.container}>
+        <div>
+            <p>{post.title}</p>
         </div>
         <div className={styles.skillList}>
             {post.skills.map((skill) => (
