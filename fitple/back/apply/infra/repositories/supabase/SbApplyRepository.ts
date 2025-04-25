@@ -92,13 +92,13 @@ export class SbApplyRepository implements ApplyRepository {
 
         const applicants = data.map((apply: any) => {
             const user: User = {
-                id: apply.user.id,
                 name: apply.user.name,
                 email: apply.user.email,
                 avatarUrl: apply.user.avatar_url,
                 nickname: apply.user.nickname,
                 career: apply.user.career,
                 socialClientId: apply.user.socialClientId,
+                id: apply.user.id,
                 createdAt: apply.user.created_at,
                 updatedAt: apply.user.updated_at,
             };
@@ -143,12 +143,13 @@ export class SbApplyRepository implements ApplyRepository {
 
         return data.map((apply: any) => {
             const user: User = {
-                id: apply.user.id,
                 name: apply.user.name,
                 email: apply.user.email,
                 avatarUrl: apply.user.avatar_url,
                 nickname: apply.user.nickname,
                 career: apply.user.career,
+                socialClientId: apply.user.socialClientId,
+                id: apply.user.id,
                 createdAt: apply.user.created_at,
                 updatedAt: apply.user.updated_at,
             };
