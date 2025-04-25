@@ -12,7 +12,7 @@ interface TeamListDTO {
     id: number;
     projectId: number;
     projectTitle: string;
-    avatarUrl: string;
+    avatarUrls: string[]; 
 }
 
 const TeamProjectListPage = () => {
@@ -25,7 +25,6 @@ const TeamProjectListPage = () => {
                 const res = await fetch(`/api/member/teams?userId=${userId}`);
                 const data = await res.json();
                 setTeams(data);
-                console.log(data);
             } catch (error) {
                 console.error('팀 목록 불러오기 실패:', error);
             }
@@ -56,15 +55,18 @@ const TeamProjectListPage = () => {
                         }
                         footer={
                             <div className={styles.footer}>
-                                <div className={styles.avatarGroup}>
-                                    <img
-                                        src={team.avatarUrl || '/ㅑ'}
-                                        alt="avatar"
-                                        className={styles.avatar}
-                                    />
-                                </div>
+                              <div className={styles.avatarGroup}>
+                                {team.avatarUrls.map((url, index) => (
+                                  <img
+                                    key={index}
+                                    src={url}
+                                    alt={`team-member-${index}`}
+                                    className={styles.avatar}
+                                  />
+                                ))}
+                              </div>
                             </div>
-                        }
+                          }
                     />
                 </Link>
             ))}

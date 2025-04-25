@@ -5,7 +5,7 @@ export async function GET(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const userId = params.id;
+  const { id: userId } = await params
 
   if (!userId) {
     return NextResponse.json({ message: 'userId가 필요합니다.' }, { status: 400 });
