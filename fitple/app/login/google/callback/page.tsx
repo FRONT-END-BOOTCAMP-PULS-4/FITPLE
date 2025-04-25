@@ -7,7 +7,17 @@ export default function GoogleCallBack() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const code = searchParams.get('code');
-    const { setId, setNickname, setToken } = useAuthStore();
+    const {
+        setId,
+        setToken,
+        setNickname,
+        setPosition,
+        setSkills,
+        setCareer,
+        setAvatarUrl,
+        setEmail,
+        setSignUpPayload,
+    } = useAuthStore();
 
     useEffect(() => {
         if (code) {
@@ -21,16 +31,46 @@ export default function GoogleCallBack() {
                         throw new Error('서버 응답 실패');
                     }
                     const data = await res.json();
-                    console.log('백엔드 응답:', data);
+                    // console.log('백엔드 응답:', data);
 
-                    // 로그인 성공 → 페이지 이동
-                    // 이미 회원가입된 경우 홈으로
+                    // 2. jsonwebtoken으로 JWT 검증
+                    if (!process.env.NEXT_PUBLIC_SECRET_KEY) {
+                        throw new Error('NEXT_PUBLIC_SECRET_KEY is not defined');
+                    }
 
-                    // 회원가입이 필요한 경우 닉네임 체크 페이지로 이동
-                    setId(data.user.id); // 사용자 ID 설정
-                    setNickname(data.user.nickname); // 첫 회원일때만
-                    setToken(data.access_token); // 사용자 토큰 설정
-                    router.push('/login/nicknamecheck'); // 원하는 경로로 변경
+                    const token = data.token.token;
+                    const payload = data.token.payload;
+
+                    if (token === 'not user') {
+                        // 회원 정보가 없는 경우
+                        // console.log('회원 정보가 없습니다.');
+                        setSignUpPayload({
+                            id: null,
+                            name: payload.name,
+                            nickname: null,
+                            email: payload.email,
+                            career: null,
+                            skills: [],
+                            position: null,
+                            avatarUrl: payload.avatarUrl,
+                            socialClientId: payload.socialClientId,
+                        });
+                        router.push('/login/nicknamecheck'); // 기술 스택 선택 페이지로 이동
+                        return;
+                    }
+
+                    // 로그인 성공 → 홈페이지로 이동
+                    // console.log('로그인 성공:', payload);
+                    setId(payload.id);
+                    setToken(token);
+                    setNickname(payload.nickname);
+                    setPosition(payload.position);
+                    setSkills(payload.skills);
+                    setCareer(payload.career);
+                    setAvatarUrl(payload.avatarUrl);
+                    setEmail(payload.email);
+
+                    router.push('/'); // 홈페이지로 이동
                 })
                 .catch((err) => {
                     console.error('에러 발생:', err);

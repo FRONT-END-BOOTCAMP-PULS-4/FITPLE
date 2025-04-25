@@ -13,16 +13,17 @@ import { useAuthStore } from '@/stores/authStore';
 
 const PositionCheck: React.FC = () => {
     const router = useRouter();
-    const { position, setPosition } = useAuthStore(); // useAuthStore에서 position과 setPosition 가져오기
+    const { setPosition } = useAuthStore(); // useAuthStore에서 position과 setPosition 가져오기
+    const [position, setPositionState] = useState<string>(''); // 선택된 직무 상태
     const [error, setError] = useState(false);
     const [bottomText, setBottomText] = useState('직무를 선택해주세요.');
 
     const positionOptions = [
         { value: '프론트엔드', label: '프론트엔드' },
         { value: '백엔드', label: '백엔드' },
-        { value: 'UI/UX 디자이너', label: 'UI/UX 디자이너' },
         { value: 'PM', label: 'PM' },
-        { value: '기획자', label: '기획자' },
+        { value: '풀스택', label: '풀스택' },
+        { value: '디자이너', label: '디자이너' },
     ];
 
     const handlePrevClick = () => {
@@ -40,6 +41,7 @@ const PositionCheck: React.FC = () => {
     };
 
     const handlePositionChange = (value: string) => {
+        setPositionState(value); // 선택된 직무 상태 업데이트
         setPosition(value); // 선택된 position을 useAuthStore에 저장
         setError(false); // 에러 상태 해제
         setBottomText(''); // 하단 텍스트 초기화
@@ -57,7 +59,7 @@ const PositionCheck: React.FC = () => {
                         onChange={(value) => handlePositionChange(value)}
                         options={positionOptions}
                         placeholder="직무를 선택해주세요"
-                        value={position || ''}
+                        value={position}
                     >
                         {positionOptions.map((position) => (
                             <Option key={position.value} value={position.value}>

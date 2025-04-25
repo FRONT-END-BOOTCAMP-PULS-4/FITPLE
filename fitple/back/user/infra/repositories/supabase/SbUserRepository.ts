@@ -103,16 +103,18 @@ export class SbUserRepository implements UserRepository {
         return data;
     }
 
-    async save(user: User): Promise<User> {
+    async create(user: User): Promise<User> {
         const supabase = await createClient();
 
         const { data, error } = await supabase
             .from('user')
             .insert({
+                name: user.name,
                 email: user.email,
                 avatar_url: user.avatarUrl,
-                nickName: user.nickname,
+                nickname: user.nickname,
                 career: user.career,
+                social_client_id: user.socialClientId,
             })
             .select()
             .maybeSingle();
