@@ -29,6 +29,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
     useEffect(() => {
         fetchIntroductions();
     }, [fetchIntroductions]);
+
     const filteredPosts = introductions.filter((introduction) => {
         const skillMatch =
             selectedSkills.length === 0 ||
@@ -47,7 +48,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
             {filteredPosts.map((introduction) => (
                 <div
                     key={introduction.id}
-                    onClick={() => router.push(`board/introduction/${introduction.id}`)}
+                    onClick={() => router.push(`/board/introduction/${introduction.id}`)}
                     style={{ cursor: 'pointer' }}
                 >
                     <Card
