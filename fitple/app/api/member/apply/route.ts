@@ -1,28 +1,32 @@
+import { ApplyCreateUsecase } from '@/back/apply/application/usecases/ApplyCreateUsecase';
+import { ApplyCreateDto } from '@/back/apply/application/usecases/dto/ApplyCreateDto';
+import { FindMyApplyListUsecase } from '@/back/apply/application/usecases/FindMyApplyListUsecase';
+import { SbApplyRepository } from '@/back/apply/infra/repositories/supabase/SbApplyRepository';
+import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
+export async function GET(req: Request) {
+    try {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
 
-import { ApplyCreateUsecase } from "@/back/apply/application/usecases/ApplyCreateUsecase";
-import { ApplyCreateDto } from "@/back/apply/application/usecases/dto/ApplyCreateDto";
-import { FindMyApplyListUsecase } from "@/back/apply/application/usecases/FindMyApplyListUsecase";
-import { SbApplyRepository } from "@/back/apply/infra/repositories/supabase/SbApplyRepository";
-import { NextRequest, NextResponse } from "next/server";
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
 
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
 
-export async function GET() {
-  try {
-    const userId = "e386c006-40bd-477d-8e33-9ad70fe2214a";
+        const repository = new SbApplyRepository();
+        const usecase = new FindMyApplyListUsecase(repository);
+        const result = await usecase.execute(decoded.id);
 
-    if (!userId) {
-      return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        return NextResponse.json(result, { status: 200 });
+    } catch (error) {
+        console.error('[GET /api/member/apply] error:', error);
+        return NextResponse.json({ error: 'Failed to fetch apply list' }, { status: 500 });
     }
-
-    const repository = new SbApplyRepository();
-    const usecase = new FindMyApplyListUsecase(repository);
-    const result = await usecase.execute(userId);
-
-    return NextResponse.json(result, { status: 200 });
-  } catch (error) {
-    console.error('[GET /api/member/apply] error:', error);
-    return NextResponse.json({ error: 'Failed to fetch apply list' }, { status: 500 });
-  }
 }
 
 // POST /api/member/apply

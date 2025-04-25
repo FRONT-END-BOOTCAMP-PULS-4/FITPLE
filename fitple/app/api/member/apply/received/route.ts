@@ -1,15 +1,22 @@
-import { ApplyApplicantUsecase } from "@/back/apply/application/usecases/ApplyApplicantUsecase";
-import { SbApplyRepository } from "@/back/apply/infra/repositories/supabase/SbApplyRepository";
-import { NextResponse } from "next/server";
-
-export async function GET() {
+import { ApplyApplicantUsecase } from '@/back/apply/application/usecases/ApplyApplicantUsecase';
+import { SbApplyRepository } from '@/back/apply/infra/repositories/supabase/SbApplyRepository';
+import { NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
+export async function GET(req: Request) {
     try {
-        const userId = "e386c006-40bd-477d-8e33-9ad70fe2214a";
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
         const applyRepository = new SbApplyRepository();
 
         const applyApplicantsUsecase = new ApplyApplicantUsecase(applyRepository);
 
-        const applyApplicantView = await applyApplicantsUsecase.execute(userId);
+        const applyApplicantView = await applyApplicantsUsecase.execute(decoded.id);
 
         return NextResponse.json(applyApplicantView, { status: 200 });
     } catch (error) {
