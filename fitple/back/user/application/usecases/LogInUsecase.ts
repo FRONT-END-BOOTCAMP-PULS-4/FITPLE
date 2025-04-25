@@ -22,7 +22,6 @@ export class LogInUsecase {
     async execute(LogInDto: SocialLogInDto): Promise<SocialLoggedInDto> {
         try {
             const { provider, authCode } = LogInDto;
-            console.log('카카오 로그인 처리');
             if (provider === 'kakao') {
                 // 카카오 로그인 처리
                 const kakaoToken = await this.SocialRepository.getAccessToken(authCode);
@@ -92,7 +91,7 @@ export class LogInUsecase {
                 const googleUserInfo = await this.SocialRepository.getSocialUserInfo(access_token);
 
                 // 구글 사용자 정보에서 필요한 정보 추출
-                console.log('googleUserInfo', googleUserInfo);
+                // console.log('googleUserInfo', googleUserInfo);
                 const { id } = googleUserInfo;
 
                 // 소셜 클라이언트 ID를 사용하여 회원 정보 조회
@@ -124,7 +123,7 @@ export class LogInUsecase {
                 }
                 const skills: UserSkillView[] = await this.userSkillRepository.findAllByUserId(user.id);
                 const skillNames = skills.map((userSkillView) => userSkillView.skill_id);
-                console.log('skillNames', skillNames);
+                // console.log('skillNames', skillNames);
                 const position: UserPositionView = await this.userPositionRepository.findByUserId(user.id);
                 const positionName = position.position_id;
 
@@ -141,7 +140,7 @@ export class LogInUsecase {
 
                 // 비밀 키는 환경 변수로 관리 (예: process.env.JWT_SECRET)
                 // 토큰 유효기간은 1시간으로 설정 (필요에 따라 조정)
-                console.log('payload', payload);
+                // console.log('payload', payload);
                 const secretKey = new TextEncoder().encode(process.env.NEXT_PUBLIC_SECRET_KEY);
                 const token = await new SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).sign(secretKey);
 
