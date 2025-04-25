@@ -21,10 +21,10 @@ export class LogInUsecase {
 
     async execute(LogInDto: SocialLogInDto): Promise<SocialLoggedInDto> {
         try {
-            const { provider, authCode } = LogInDto;
+            const { provider, clientId } = LogInDto;
             if (provider === 'kakao') {
                 // 카카오 로그인 처리
-                const kakaoToken = await this.SocialRepository.getAccessToken(authCode);
+                const kakaoToken = await this.SocialRepository.getAccessToken(clientId);
                 const { access_token } = kakaoToken;
                 const kakaoUserInfo = await this.SocialRepository.getSocialUserInfo(access_token);
 
@@ -85,34 +85,15 @@ export class LogInUsecase {
                 // 회원 정보 토큰 전달
                 return { token, payload } as SocialLoggedInDto;
             } else if (provider === 'google') {
-                // 구글 로그인 처리
-                const googleToken = await this.SocialRepository.getAccessToken(authCode);
-                const { access_token } = googleToken;
-                const googleUserInfo = await this.SocialRepository.getSocialUserInfo(access_token);
-
-                // 구글 사용자 정보에서 필요한 정보 추출
-                // console.log('googleUserInfo', googleUserInfo);
-                const { id } = googleUserInfo;
-
                 // 소셜 클라이언트 ID를 사용하여 회원 정보 조회
-                const socialClientId = id;
+                const socialClientId = clientId;
                 // console.log('socialClientId', socialClientId);
 
                 const user = await this.userRepository.findById(socialClientId);
-                // console.log('user', user);
+                console.log('user', user);
                 // 회원이 없을 때 오류 반환
                 if (!user) {
-                    const payload = {
-                        id: null,
-                        socialClientId: socialClientId,
-                        name: googleUserInfo.name,
-                        nickname: null,
-                        career: null,
-                        email: googleUserInfo.email,
-                        skills: [],
-                        position: null,
-                        avatarUrl: googleUserInfo.picture,
-                    };
+                    const payload = {};
 
                     return { token: 'not user', payload } as SocialLoggedInDto;
                 }

@@ -1,3 +1,3 @@
 export class SocialLogInDto {
-    constructor(public provider: string, public authCode: string) {}
+    constructor(public provider: string, public clientId: string) {}
 }

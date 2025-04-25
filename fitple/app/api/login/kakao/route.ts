@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
         // 2. SocialLogInDto 생성
         const logInDto: SocialLogInDto = {
             provider: 'kakao',
-            authCode: code,
+            clientId: code,
         };
         // 3. LogInUsecase 실행
         const token = await logInUsecase.execute(logInDto);
