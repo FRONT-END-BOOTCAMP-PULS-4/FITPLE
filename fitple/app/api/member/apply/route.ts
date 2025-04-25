@@ -1,31 +1,33 @@
 import { ApplyCreateUsecase } from '@/back/apply/application/usecases/ApplyCreateUsecase';
 import { ApplyCreateDto } from '@/back/apply/application/usecases/dto/ApplyCreateDto';
+import { FindMyApplyListUsecase } from '@/back/apply/application/usecases/FindMyApplyListUsecase';
 import { SbApplyRepository } from '@/back/apply/infra/repositories/supabase/SbApplyRepository';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
+export async function GET(req: Request) {
+    try {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
 
-// GET /api/member/apply?id=1
-// export async function GET(request: Request) {
-//     try {
-//         const url = new URL(request.url);
-//         const idParam = url.searchParams.get('id');
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
 
-//         if (!idParam) {
-//             return new Response(JSON.stringify({ error: 'Missing apply ID' }), { status: 400 });
-//         }
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
 
-//         const applyId = parseInt(idParam, 10);
-//         const repository = new SbApplyRepository();
-//         const usecase = new ApplyDetailUsecase(repository);
-//         const result: ApplyDetailDto = await usecase.execute(applyId);
+        const repository = new SbApplyRepository();
+        const usecase = new FindMyApplyListUsecase(repository);
+        const result = await usecase.execute(decoded.id);
 
-//         return new Response(JSON.stringify(result), { status: 200 });
-//     } catch (error) {
-//         if (error instanceof Error) {
-//             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-//         }
-//         return new Response(JSON.stringify({ error: 'Unknown server error' }), { status: 500 });
-//     }
-// }
+        return NextResponse.json(result, { status: 200 });
+    } catch (error) {
+        console.error('[GET /api/member/apply] error:', error);
+        return NextResponse.json({ error: 'Failed to fetch apply list' }, { status: 500 });
+    }
+}
 
 // POST /api/member/apply
 export async function POST(request: NextRequest) {
@@ -47,28 +49,6 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         if (error instanceof Error) {
             console.error('POST /api/member/apply Error:', error);
-            return new Response(JSON.stringify({ error: error.message }), { status: 500 });
-        }
-        return new Response(JSON.stringify({ error: 'Unknown server error' }), { status: 500 });
-    }
-}
-
-export async function PUT(request: NextRequest) {
-    try {
-        const { applyId, status } = await request.json();
-
-        // 상태가 유효한지 확인
-        if (!['waiting', 'accept', 'reject'].includes(status)) {
-            return new Response(JSON.stringify({ error: 'Invalid status' }), { status: 400 });
-        }
-
-        const repository = new SbApplyRepository();
-        await repository.updateStatus(applyId, status);
-
-        return new Response(JSON.stringify({ message: 'Status updated successfully' }), { status: 200 });
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error('PUT /api/member/apply Error:', error);
             return new Response(JSON.stringify({ error: error.message }), { status: 500 });
         }
         return new Response(JSON.stringify({ error: 'Unknown server error' }), { status: 500 });

@@ -1,15 +1,19 @@
-import { createClient } from '@/utils/supabase/server';
-import { Apply } from '../../../domain/entities/Apply';
-import { ApplyRepository } from '../../../domain/repositories/ApplyRepository';
-import { ApplyStatus } from '@/type/common';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createClient } from "@/utils/supabase/server";
+import { Apply } from "../../../domain/entities/Apply";
+import { ApplyRepository } from "../../../domain/repositories/ApplyRepository";
+import { ApplyStatus } from "@/type/common";
+import { ApplyApplicantView } from "@/back/apply/domain/entities/ApplyApplicantView";
+import { User } from "@/back/user/domain/entities/User";
+import { Project } from "@/back/project/domain/entities/Project";
 
 export class SbApplyRepository implements ApplyRepository {
     async findById(id: number): Promise<Apply> {
         const supabase = await createClient();
-        const { data, error } = await supabase.from('apply').select().eq('id', id).single();
+        const { data, error } = await supabase.from("apply").select().eq("id", id).single();
 
         if (error || !data) {
-            throw new Error('Apply not found');
+            throw new Error("Apply not found");
         }
         return {
             id: data.id,
@@ -23,17 +27,17 @@ export class SbApplyRepository implements ApplyRepository {
 
     async updateStatus(id: number, status: ApplyStatus): Promise<void> {
         const supabase = await createClient();
-        const { error } = await supabase.from('apply').update({ status }).eq('id', id);
+        const { error } = await supabase.from("apply").update({ status }).eq("id", id);
 
         if (error) {
-            throw new Error('Failed to update apply status');
+            throw new Error("Failed to update apply status");
         }
     }
 
-    async save(apply: Apply): Promise<Apply> {
+    async createApply(apply: Apply): Promise<Apply> {
         const supabase = await createClient();
         const { data, error } = await supabase
-            .from('apply')
+            .from("apply")
             .insert({
                 id: apply.id,
                 user_id: apply.userId,
@@ -44,9 +48,8 @@ export class SbApplyRepository implements ApplyRepository {
             })
             .select()
             .single();
-        console.log('error: ', error);
         if (error || !data) {
-            throw new Error('Failed to save apply');
+            throw new Error("Failed to save apply");
         }
 
         return {
@@ -57,5 +60,112 @@ export class SbApplyRepository implements ApplyRepository {
             status: data.status,
             createdAt: data.created_at,
         };
+    }
+    async findMyProjectIds(userId: string): Promise<number[]> {
+        const supabase = await createClient();
+        const { data, error } = await supabase.from("project").select("id").eq("user_id", userId);
+        if (error) {
+            throw new Error(error.message);
+        }
+        const ids = data.map((data) => data.id);
+        return ids;
+    }
+    async findApplicants(projectIds: number[]): Promise<ApplyApplicantView[]> {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+            .from("apply")
+            .select(
+                `
+                id, user_id, project_id, message, status, created_at,
+                user (
+                    id, name, email, avatar_url, nickname, career, created_at, updated_at
+                ),
+                project (
+                    title
+                )
+                `
+            )
+            .in("project_id", projectIds);
+        if (error || !data) {
+            throw new Error("Failed to fetch applicants");
+        }
+
+        const applicants = data.map((apply: any) => {
+            const user: User = {
+                id: apply.user.id,
+                name: apply.user.name,
+                email: apply.user.email,
+                avatarUrl: apply.user.avatar_url,
+                nickname: apply.user.nickname,
+                career: apply.user.career,
+                createdAt: apply.user.created_at,
+                updatedAt: apply.user.updated_at,
+            };
+            const project: Partial<Project> = {
+                title: apply.project.title,
+            };
+
+            return new ApplyApplicantView(
+                apply.id,
+                apply.user_id,
+                apply.project_id,
+                apply.message,
+                apply.status,
+                apply.created_at,
+                project,
+                user
+            );
+        });
+
+        return applicants;
+    }
+    async findMyApplyList(userId: string): Promise<ApplyApplicantView[]> {
+        const supabase = await createClient();
+
+        const { data, error } = await supabase
+            .from("apply")
+            .select(
+                `
+                id, user_id, project_id, message, status, created_at,
+                user (
+                    id, name, email, avatar_url, nickname, career, created_at, updated_at
+                ),
+                project (
+                    title
+                )
+            `
+            )
+            .eq("user_id", userId);
+        if (error || !data) {
+            throw new Error(error.message || "Failed to fetch apply list");
+        }
+
+        return data.map((apply: any) => {
+            const user: User = {
+                id: apply.user.id,
+                name: apply.user.name,
+                email: apply.user.email,
+                avatarUrl: apply.user.avatar_url,
+                nickname: apply.user.nickname,
+                career: apply.user.career,
+                createdAt: apply.user.created_at,
+                updatedAt: apply.user.updated_at,
+            };
+
+            const project: Partial<Project> = {
+                title: apply.project.title,
+            };
+
+            return new ApplyApplicantView(
+                apply.id,
+                apply.user_id,
+                apply.project_id,
+                apply.message,
+                apply.status,
+                apply.created_at,
+                project,
+                user
+            );
+        });
     }
 }

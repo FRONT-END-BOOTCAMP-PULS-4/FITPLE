@@ -7,12 +7,12 @@ import SkillBadge from '@/components/Badge/SkillBadge';
 import Badge from '@/components/Badge/Badge';
 import Button from '@/components/Button/Button';
 import Image from 'next/image';
-import { IntroductionListDto } from '@/back/introduction/application/usecases/dto/IntroductionListDto';
+import { IntroductionDetailDto } from '@/back/introduction/application/usecases/dto/IntroductionDetailDto';
 
 const IntroductionPage = () => {
     const params = useParams();
     const id = params?.id as string;
-    const [introduction, setIntroduction] = useState<IntroductionListDto | null>(null);
+    const [introduction, setIntroduction] = useState<IntroductionDetailDto | null>(null);
 
     const workModeMap: Record<'online' | 'offline', string> = {
         online: '온라인',
@@ -20,8 +20,8 @@ const IntroductionPage = () => {
     };
 
     const statusMap: Record<'open' | 'closed', string> = {
-        open: '모집 중',
-        closed: '모집 완료',
+        open: '가능',
+        closed: '불가능',
     };
 
     useEffect(() => {

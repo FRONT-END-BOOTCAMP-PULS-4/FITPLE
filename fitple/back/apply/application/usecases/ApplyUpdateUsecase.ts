@@ -1,6 +1,5 @@
 import { ApplyRepository } from '../../domain/repositories/ApplyRepository';
 import { ApplyStatus } from '@/type/common';
-import { ApplyUpdateDto } from './dto/ApplyUpdateDto';
 
 export class ApplyUpdateUsecase {
     constructor(private readonly applyRepository: ApplyRepository) {}

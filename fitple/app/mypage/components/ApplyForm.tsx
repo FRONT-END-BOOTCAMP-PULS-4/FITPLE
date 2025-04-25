@@ -4,17 +4,44 @@ import styles from './ApplyForm.module.scss';
 import Button from '@/components/Button/Button';
 import Modal from '@/components/Modal/Modal';
 import Textarea from '@/components/Textarea/Textarea';
-import { useModal } from '@/hooks/useModal';
 import { useState } from 'react';
+import { useAuthStore } from '@/stores/authStore';
+type Props = {
+    closeModal: () => void;
+    isOpen: boolean;
+    id: number;
+};
 
-const ApplyForm = () => {
-    const { isOpen, openModal, closeModal } = useModal();
+const ApplyForm = ({ closeModal, isOpen, id }: Props) => {
     const [textarea, setTextarea] = useState('');
+    const { id: userId } = useAuthStore();
 
-    const handleApply = () => {
+    const handleApply = async () => {
         console.log('지원서 내용:', textarea);
         closeModal();
         setTextarea('');
+        const params = {
+            userId: userId,
+            projectId: id,
+            message: textarea,
+            status: 'waiting',
+        };
+        try {
+            const res = await fetch(`/api/member/apply`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(params),
+            });
+            if (!res.ok) {
+                throw new Error('Failed to fetch project');
+            }
+            const data = await res.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching project:', error);
+        }
     };
 
     return (
@@ -46,7 +73,6 @@ const ApplyForm = () => {
                     onClose={closeModal}
                 />
             )}
-            <button onClick={openModal}>apply form open</button>
         </>
     );
 };
