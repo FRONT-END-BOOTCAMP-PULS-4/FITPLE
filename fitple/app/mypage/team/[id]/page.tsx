@@ -44,10 +44,11 @@ const TeamProjectDetailPage = () => {
 
   return (
     <>
-      <ChatBox  teamId={id as string} />
+      <ChatBox teamId={id as string} />
       <div className={styles.gridContainer}>
         {members.map((member, index) => (
           <Card
+            size='sm'
             key={index}
             header={
               <div className={styles.header}>

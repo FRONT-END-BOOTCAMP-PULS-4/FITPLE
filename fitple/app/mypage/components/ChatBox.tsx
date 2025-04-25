@@ -7,7 +7,7 @@ import { useAuthStore } from '@/stores/authStore';
 interface ChatMessage {
   id: number;
   team_id: number;
-  user_id: number;
+  user_id: string;
   message: string;
   created_at: string;
 }
@@ -19,7 +19,7 @@ interface ChatBoxProps {
 const ChatBox = ({ teamId }: ChatBoxProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
-  const messageEndRef = useRef<HTMLDivElement | null>(null);
+  const messageListRef = useRef<HTMLDivElement | null>(null);
 
   const userId = useAuthStore((state) => state.id);
 
@@ -53,7 +53,6 @@ const ChatBox = ({ teamId }: ChatBoxProps) => {
     }
   };
 
-  // 메시지 자동 갱신 (polling)
   useEffect(() => {
     if (!teamId) return;
 
@@ -62,14 +61,19 @@ const ChatBox = ({ teamId }: ChatBoxProps) => {
     return () => clearInterval(interval);
   }, [teamId]);
 
-  // 메시지 자동 스크롤
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const list = messageListRef.current;
+    if (list) {
+      list.scrollTo({
+        top: list.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }, [messages]);
 
   return (
     <div className={styles.chatContainer}>
-      <div className={styles.messageList}>
+      <div className={styles.messageList} ref={messageListRef}>
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -80,16 +84,22 @@ const ChatBox = ({ teamId }: ChatBoxProps) => {
             {msg.message}
           </div>
         ))}
-        <div ref={messageEndRef} />
       </div>
       <div className={styles.inputArea}>
         <input
+          className={styles.input}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="메시지를 입력하세요"
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
         />
-        <button onClick={handleSend}>전송</button>
+        <button className={styles.button} onClick={handleSend}>전송</button>
       </div>
     </div>
   );
