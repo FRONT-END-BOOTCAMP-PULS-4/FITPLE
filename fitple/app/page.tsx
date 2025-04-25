@@ -20,7 +20,6 @@ export default function Home() {
         project: 'var(--brand-color)',
         introduction: 'var(--lion-color)',
     } as const;
-
     const [projects, setProjects] = useState<ProjectListDto[]>([]);
     const [introductions, setIntroductions] = useState<IntroductionListDto[]>([]);
 
@@ -54,6 +53,8 @@ export default function Home() {
 
     const renderPostCard = (post: ProjectListDto | IntroductionListDto) => {
         const isProject = post.type === 'project';
+
+        console.log('포스트: ', post);
         return (
             <div
                 key={post.id}
@@ -130,14 +131,7 @@ const IntroductionCard = ({ post }: { post: IntroductionListDto }) => (
             </div>
         </div>
         <div className={styles.introRight}>
-            <img
-                src={post.user.avatarUrl}
-                alt="프로필"
-                onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    e.currentTarget.src = 'https://codingapplecdn.com/wp-content/uploads/2023/01/food0.png';
-                }}
-            />
+            <img src={post.user.avatarUrl} alt="프로필" />
         </div>
     </div>
 );

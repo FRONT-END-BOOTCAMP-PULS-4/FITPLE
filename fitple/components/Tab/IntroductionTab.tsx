@@ -79,15 +79,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
                                     </div>
                                 </div>
                                 <div className={styles.rightBody}>
-                                    {/* <img
-                                        src={introduction.user.avatarUrl}
-                                        alt="이미지없음"
-                                        onError={(e) => {
-                                            e.currentTarget.onerror = null; // 무한 루프 방지
-                                            e.currentTarget.src =
-                                                'https://codingapplecdn.com/wp-content/uploads/2023/01/food0.png'; // 기본 이미지 경로
-                                        }}
-                                    /> */}
+                                    <img src={introduction.user.avatarUrl} alt="이미지없음" />
                                 </div>
                             </div>
                         }

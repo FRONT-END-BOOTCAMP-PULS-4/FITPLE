@@ -1,5 +1,5 @@
 import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
-import ProjectListUsecase from '@/back/project/application/usecases/GetProjectListUsecase';
+import GetProjectListUsecase from '@/back/project/application/usecases/GetProjectListUsecase';
 import { SbProjectRepository } from '@/back/project/infra/repositories/supabase/SbProjectRepository';
 import { NextResponse } from 'next/server';
 
@@ -9,7 +9,7 @@ export async function GET() {
     try {
         const projectListRepository = new SbProjectRepository();
 
-        const getProjectListUsecase = new ProjectListUsecase(projectListRepository);
+        const getProjectListUsecase = new GetProjectListUsecase(projectListRepository);
 
         const projectListDto: ProjectListDto[] = await getProjectListUsecase.execute();
 
