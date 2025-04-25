@@ -7,12 +7,10 @@ export default function MyPageLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="ko">
-            <body>
-                <TabMenu />
-                <SubTabMenu />
-                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>{children}</div>
-            </body>
-        </html>
+    <>
+        <TabMenu />
+        <SubTabMenu />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{children}</div>
+    </>
     );
 }

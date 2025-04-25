@@ -15,7 +15,6 @@ interface Member {
   userSkill: string;
 }
 
-// ✅ 포지션 매핑
 const positionMap: { [key: string]: string } = {
   FE: '프론트엔드',
   BE: '백엔드',
