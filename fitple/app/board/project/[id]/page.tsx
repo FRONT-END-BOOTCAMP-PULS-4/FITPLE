@@ -56,7 +56,7 @@ const ProjectDetailPage = () => {
                 <p className={styles.breadcrumb}>어서와요 &gt;</p>
                 <h1 className={styles.title}>{project.title}</h1>
                 <div className={styles.userInfo}>
-                    <Image src={project.user.avatarUrl} alt="이미지" className={styles.avatar} />
+                    <Image src={project.user.avatarUrl} width={50} height={50} alt="이미지" className={styles.avatar} />
                     <div className={styles.nicknameDateGap}>
                         <div className={styles.nickname}>{project.user.nickname}</div>
                         <div className={styles.date}>{project.createdAt}</div>

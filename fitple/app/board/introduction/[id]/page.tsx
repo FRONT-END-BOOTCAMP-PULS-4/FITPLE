@@ -51,7 +51,13 @@ const IntroductionPage = () => {
                 <p className={styles.breadcrumb}>데려가요 &gt;</p>
                 <h1 className={styles.title}>{introduction.title}</h1>
                 <div className={styles.userInfo}>
-                    <Image src={introduction.user.avatarUrl} alt="이미지" className={styles.avatar} />
+                    <Image
+                        src={introduction.user.avatarUrl}
+                        alt="이미지"
+                        className={styles.avatar}
+                        width={50}
+                        height={50}
+                    />
                     <div className={styles.nicknameDateGap}>
                         <div className={styles.nickname}>{introduction.user.nickname}</div>
                         <div className={styles.date}>{introduction.createdAt}</div>

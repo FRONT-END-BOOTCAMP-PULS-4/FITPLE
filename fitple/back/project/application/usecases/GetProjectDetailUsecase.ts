@@ -29,7 +29,7 @@ export class GetProjectDetailUsecase {
             })),
             {
                 nickname: project.user.nickname,
-                avatarUrl: project.user.avatarUrl ?? null,
+                avatarUrl: project.user.avatarUrl || '/images/test-team.png',
                 career: project.user.career,
             }
         );
