@@ -19,7 +19,7 @@ export class SbProjectRepository implements ProjectRepository {
                     `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     project_skill (
                       skill (
@@ -46,12 +46,13 @@ export class SbProjectRepository implements ProjectRepository {
             }
 
             const user = new User(
-                project[0].user.id,
                 project[0].user.name,
                 project[0].user.email,
                 project[0].user.avatarUrl,
                 project[0].user.nickname,
                 project[0].user.career,
+                project[0].user.socialClientId,
+                project[0].user.id,
                 project[0].user.createdAt,
                 project[0].user.updatedAt
             );
@@ -97,7 +98,7 @@ export class SbProjectRepository implements ProjectRepository {
                 `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     project_skill (
                       skill (
@@ -121,12 +122,13 @@ export class SbProjectRepository implements ProjectRepository {
 
             return projects.map((project: any) => {
                 const user = new User(
-                    project.user.id,
                     project.user.name,
                     project.user.email,
                     project.user.avatar_url,
                     project.user.nickname,
                     project.user.career,
+                    project.user.socialClientId,
+                    project.user.id,
                     project.user.created_at,
                     project.user.updated_at
                 );

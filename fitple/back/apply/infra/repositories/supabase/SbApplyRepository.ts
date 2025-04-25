@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createClient } from "@/utils/supabase/server";
-import { Apply } from "../../../domain/entities/Apply";
-import { ApplyRepository } from "../../../domain/repositories/ApplyRepository";
-import { ApplyStatus } from "@/type/common";
-import { ApplyApplicantView } from "@/back/apply/domain/entities/ApplyApplicantView";
-import { User } from "@/back/user/domain/entities/User";
-import { Project } from "@/back/project/domain/entities/Project";
+import { createClient } from '@/utils/supabase/server';
+import { Apply } from '../../../domain/entities/Apply';
+import { ApplyRepository } from '../../../domain/repositories/ApplyRepository';
+import { ApplyStatus } from '@/type/common';
+import { ApplyApplicantView } from '@/back/apply/domain/entities/ApplyApplicantView';
+import { User } from '@/back/user/domain/entities/User';
+import { Project } from '@/back/project/domain/entities/Project';
 
 export class SbApplyRepository implements ApplyRepository {
     async findById(id: number): Promise<Apply> {
         const supabase = await createClient();
-        const { data, error } = await supabase.from("apply").select().eq("id", id).single();
+        const { data, error } = await supabase.from('apply').select().eq('id', id).single();
 
         if (error || !data) {
-            throw new Error("Apply not found");
+            throw new Error('Apply not found');
         }
         return {
             id: data.id,
@@ -27,17 +27,17 @@ export class SbApplyRepository implements ApplyRepository {
 
     async updateStatus(id: number, status: ApplyStatus): Promise<void> {
         const supabase = await createClient();
-        const { error } = await supabase.from("apply").update({ status }).eq("id", id);
+        const { error } = await supabase.from('apply').update({ status }).eq('id', id);
 
         if (error) {
-            throw new Error("Failed to update apply status");
+            throw new Error('Failed to update apply status');
         }
     }
 
     async createApply(apply: Apply): Promise<Apply> {
         const supabase = await createClient();
         const { data, error } = await supabase
-            .from("apply")
+            .from('apply')
             .insert({
                 id: apply.id,
                 user_id: apply.userId,
@@ -49,7 +49,7 @@ export class SbApplyRepository implements ApplyRepository {
             .select()
             .single();
         if (error || !data) {
-            throw new Error("Failed to save apply");
+            throw new Error('Failed to save apply');
         }
 
         return {
@@ -63,7 +63,7 @@ export class SbApplyRepository implements ApplyRepository {
     }
     async findMyProjectIds(userId: string): Promise<number[]> {
         const supabase = await createClient();
-        const { data, error } = await supabase.from("project").select("id").eq("user_id", userId);
+        const { data, error } = await supabase.from('project').select('id').eq('user_id', userId);
         if (error) {
             throw new Error(error.message);
         }
@@ -73,7 +73,7 @@ export class SbApplyRepository implements ApplyRepository {
     async findApplicants(projectIds: number[]): Promise<ApplyApplicantView[]> {
         const supabase = await createClient();
         const { data, error } = await supabase
-            .from("apply")
+            .from('apply')
             .select(
                 `
                 id, user_id, project_id, message, status, created_at,
@@ -85,9 +85,9 @@ export class SbApplyRepository implements ApplyRepository {
                 )
                 `
             )
-            .in("project_id", projectIds);
+            .in('project_id', projectIds);
         if (error || !data) {
-            throw new Error("Failed to fetch applicants");
+            throw new Error('Failed to fetch applicants');
         }
 
         const applicants = data.map((apply: any) => {
@@ -98,6 +98,7 @@ export class SbApplyRepository implements ApplyRepository {
                 avatarUrl: apply.user.avatar_url,
                 nickname: apply.user.nickname,
                 career: apply.user.career,
+                socialClientId: apply.user.socialClientId,
                 createdAt: apply.user.created_at,
                 updatedAt: apply.user.updated_at,
             };
@@ -123,7 +124,7 @@ export class SbApplyRepository implements ApplyRepository {
         const supabase = await createClient();
 
         const { data, error } = await supabase
-            .from("apply")
+            .from('apply')
             .select(
                 `
                 id, user_id, project_id, message, status, created_at,
@@ -135,9 +136,9 @@ export class SbApplyRepository implements ApplyRepository {
                 )
             `
             )
-            .eq("user_id", userId);
+            .eq('user_id', userId);
         if (error || !data) {
-            throw new Error(error.message || "Failed to fetch apply list");
+            throw new Error(error.message || 'Failed to fetch apply list');
         }
 
         return data.map((apply: any) => {

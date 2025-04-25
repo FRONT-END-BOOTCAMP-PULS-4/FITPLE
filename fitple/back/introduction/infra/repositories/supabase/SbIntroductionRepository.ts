@@ -19,7 +19,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                     `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     introduction_skill (
                       skill (
@@ -46,12 +46,13 @@ export class SbIntroductionRepository implements IntroductionRepository {
             }
 
             const user = new User(
-                introduction[0].user.id,
                 introduction[0].user.name,
                 introduction[0].user.email,
                 introduction[0].user.avatarUrl,
                 introduction[0].user.nickname,
                 introduction[0].user.career,
+                introduction[0].user.socialClientId,
+                introduction[0].user.id,
                 introduction[0].user.createdAt,
                 introduction[0].user.updatedAt
             );
@@ -98,7 +99,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                 `
                     *,
                     user (
-                      id, name, email, avatar_url, nickname, career, created_at, updated_at
+                      id, name, email, avatar_url, nickname, career, social_client_id, created_at, updated_at
                     ),
                     introduction_skill (
                       skill (
@@ -122,12 +123,13 @@ export class SbIntroductionRepository implements IntroductionRepository {
 
             return introductions.map((introduction: any) => {
                 const user = new User(
-                    introduction.user.id,
                     introduction.user.name,
                     introduction.user.email,
                     introduction.user.avatar_url,
                     introduction.user.nickname,
                     introduction.user.career,
+                    introduction.user.socialClientId,
+                    introduction.user.id,
                     introduction.user.created_at,
                     introduction.user.updated_at
                 );
