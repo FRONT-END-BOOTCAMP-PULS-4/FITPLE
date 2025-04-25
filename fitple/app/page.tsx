@@ -53,8 +53,6 @@ export default function Home() {
 
     const renderPostCard = (post: ProjectListDto | IntroductionListDto) => {
         const isProject = post.type === 'project';
-
-        console.log('포스트: ', post);
         return (
             <div
                 key={post.id}

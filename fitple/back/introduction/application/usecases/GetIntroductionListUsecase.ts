@@ -31,7 +31,11 @@ export default class GetIntroductionListUsecase {
                             id: position.id,
                             name: position.positionName,
                         })),
-                        introduction.user
+                        {
+                            nickname: introduction.user.nickname,
+                            avatarUrl: introduction.user.avatarUrl || '/images/test-team.png',
+                            career: introduction.user.career,
+                        }
                     )
             );
         } catch (error) {
