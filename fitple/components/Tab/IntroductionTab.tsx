@@ -3,7 +3,6 @@ import Badge from '../Badge/Badge';
 import SkillBadge from '../Badge/SkillBadge';
 import Card from '../Card/Card';
 import styles from './IntroductionTab.module.scss';
-import { introductionPosts } from '@/constants/posts';
 import { useCallback, useEffect, useState } from 'react';
 import { IntroductionListDto } from '@/back/introduction/application/usecases/dto/IntroductionListDto';
 

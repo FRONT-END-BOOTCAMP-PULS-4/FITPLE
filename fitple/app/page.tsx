@@ -8,10 +8,13 @@ import FloatButton from '@/components/FloatButton/FloatButton';
 import { useRouter } from 'next/navigation';
 import Badge from '@/components/Badge/Badge';
 import styles from './page.module.scss';
-import SkillBadge from '@/components/Badge/SkillBadge';
 import { useEffect, useState, useCallback } from 'react';
 import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
 import { IntroductionListDto } from '@/back/introduction/application/usecases/dto/IntroductionListDto';
+import ProjectCard from './RootComponent/ProjectCard';
+import IntroductionCard from './RootComponent/IntroductionCard';
+import ProjectCardB from './RootComponent/ProjectCardB';
+import IntroductionCardB from './RootComponent/IntroductionCardB';
 
 export default function Home() {
     const router = useRouter();
@@ -22,7 +25,8 @@ export default function Home() {
     } as const;
     const [projects, setProjects] = useState<ProjectListDto[]>([]);
     const [introductions, setIntroductions] = useState<IntroductionListDto[]>([]);
-
+    const [isLoading, setIsLoading] = useState(true);
+    console.log('처음상태 : ', isLoading);
     const fetchData = useCallback(async () => {
         try {
             const [projectsRes, introductionsRes] = await Promise.all([
@@ -39,6 +43,8 @@ export default function Home() {
 
             setProjects(projectsData);
             setIntroductions(introductionsData);
+            setIsLoading(false);
+            console.log('fetch후 상태 : ', isLoading);
         } catch (error) {
             console.error('데이터를 불러오는 중 오류 발생:', error);
         }
@@ -60,6 +66,7 @@ export default function Home() {
                 style={{ cursor: 'pointer' }}
             >
                 <Card
+                    isLoading={isLoading}
                     header={
                         <div>
                             <Badge size="md" variant="filled" backgroundColor={badgeColor[post.type]}>
@@ -69,9 +76,9 @@ export default function Home() {
                     }
                     body={
                         isProject ? (
-                            <ProjectCard post={post as ProjectListDto} />
+                            <ProjectCardB post={post as ProjectListDto} />
                         ) : (
-                            <IntroductionCard post={post as IntroductionListDto} />
+                            <IntroductionCardB post={post as IntroductionListDto} />
                         )
                     }
                     footer={
@@ -93,43 +100,3 @@ export default function Home() {
         </div>
     );
 }
-
-const ProjectCard = ({ post }: { post: ProjectListDto }) => (
-    <div className={`${styles.cardBody} ${styles.projectCard}`}>
-        <div className={styles.projectInfo}>
-            <h3>{post.title}</h3>
-        </div>
-        <div className={styles.projectPosition}>
-            {post.positions.map((position) => (
-                <Badge key={position.id} size="sm" variant="filled" backgroundColor="#000000">
-                    {position.name}
-                </Badge>
-            ))}
-        </div>
-        <div className={styles.skillList}>
-            {post.skills.map((skill) => (
-                <SkillBadge key={skill.id} type="icon" name={skill.name} />
-            ))}
-        </div>
-    </div>
-);
-
-const IntroductionCard = ({ post }: { post: IntroductionListDto }) => (
-    <div className={styles.cardBody}>
-        <div className={styles.introLeft}>
-            <div className={styles.introUser}>
-                <h3>{post.user.nickname}</h3>
-                <p>{post.positions.map((p) => p.name).join(', ')}</p>
-            </div>
-            <div>{post.title}</div>
-            <div className={styles.skillList}>
-                {post.skills.map((skill) => (
-                    <SkillBadge key={skill.id} type="icon" name={skill.name} />
-                ))}
-            </div>
-        </div>
-        <div className={styles.introRight}>
-            <img src={post.user.avatarUrl} alt="프로필" />
-        </div>
-    </div>
-);
