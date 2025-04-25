@@ -28,15 +28,31 @@ export async function GET(req: Request) {
 
 export async function POST(request: NextRequest) {
     try {
+        const authHeader = request.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
+
+        const userId = decoded.id;
+
         const body = await request.json();
-        const { id, userId, projectId, introductionId, message, status, createdAt } = body;
-        if (!userId || !projectId || !message) {
+
+        const { projectId, introductionId, message, status } = body;
+
+        if (!projectId || !message || !introductionId) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), {
                 status: 400,
             });
         }
 
-        const dto = new OfferCreateDto(id, userId, projectId, introductionId, message, status, createdAt);
+        const dto = new OfferCreateDto(userId, introductionId, projectId, message, status);
         const repository = new SbOfferRepository();
         const usecase = new OfferCreateUsecase(repository);
         const result = await usecase.execute(dto);

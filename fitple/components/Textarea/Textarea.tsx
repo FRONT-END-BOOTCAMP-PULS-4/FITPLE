@@ -2,7 +2,7 @@ import { TextareaHTMLAttributes } from 'react';
 import styles from './Textarea.module.scss';
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
 }
 
 const Textarea: React.FC<Props> = (props) => {

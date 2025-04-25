@@ -5,11 +5,26 @@ import { SbIntroductionSkillRepository } from '@/back/introduction/infra/reposit
 import { CreateIntroductionUsecase } from '@/back/introduction/application/usecases/CreateIntroductionUsecase';
 import { SbIntroductionPositionRepository } from '@/back/introduction/infra/repositories/supabase/SbIntroductionPositionRepository';
 import { SbIntroductionImgRepository } from '@/back/introduction/infra/repositories/supabase/SbIntroductionImgRepository';
+import jwt from 'jsonwebtoken';
 
 export async function POST(req: Request) {
     try {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
+
+        const userId = decoded.id;
+
         const body = await req.json();
-        const { title, content, workMode, status, userId, skillIds, imgUrls, positionIds } = body;
+        const { title, content, workMode, status, skillIds, imgUrls, positionIds } = body;
 
         if (
             !title ||

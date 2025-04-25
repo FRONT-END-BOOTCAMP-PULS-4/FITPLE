@@ -4,32 +4,35 @@ import { useEffect, useState } from 'react';
 import styles from './Tab.module.scss';
 import { IntroductionTab } from './IntroductionTab';
 import { ProjectTab } from './ProjectTab';
-
 import SkillSelectBox from '../SkillSelectBox/SkillSelectBox';
 import PositionSelectBox from '../PositionSelectBox/PositionSelectBox';
 import { SkillDto } from '@/back/skill/application/usecases/dto/SkillDto';
 import { PositionDto } from '@/back/position/application/usecases/dto/PositionDto';
+import { useStaticDataStore } from '@/stores/useStaticStore';
 
 export function Tab() {
-    const [skillOptions, setSkillOptions] = useState<string[]>([]);
-    const [positionOptions, setPositionOptions] = useState<string[]>([]);
+    const { setPositions, setSkills, skills, positions } = useStaticDataStore();
 
     useEffect(() => {
         const fetchSkills = async () => {
             const res = await fetch('/api/skills');
             const skills: SkillDto[] = await res.json(); // skills의 타입을 명시적으로 SkillDto[]로 지정
-            setSkillOptions(skills.map((s) => s.skillName)); // 이제 s는 SkillDto 타입이기 때문에 skill_name 접근 가능
+            setSkills(skills);
         };
         fetchSkills();
-    }, []);
+    }, [setSkills]);
+
     useEffect(() => {
         const fetchPositions = async () => {
             const res = await fetch('/api/positions');
             const positions: PositionDto[] = await res.json(); // skills의 타입을 명시적으로 SkillDto[]로 지정
-            setPositionOptions(positions.map((p) => p.positionName)); // 이제 s는 SkillDto 타입이기 때문에 skill_name 접근 가능
+            setPositions(positions);
         };
         fetchPositions();
-    }, []);
+    }, [setPositions]);
+
+    const skillNames = skills.map((skill) => skill.skillName);
+    const positionNames = positions.map((position) => position.positionName);
 
     const [tab, setTab] = useState<'introduction' | 'project'>('introduction');
 
@@ -54,10 +57,10 @@ export function Tab() {
                 </button>
             </div>
             <div className={styles.skillSelectBox}>
-                <SkillSelectBox options={skillOptions} handler={setSelectedSkills} />
+                <SkillSelectBox options={skillNames} handler={setSelectedSkills} />
             </div>
             <div className={styles.positionSelectBox}>
-                <PositionSelectBox options={positionOptions} handler={setSelectedPositions} />
+                <PositionSelectBox options={positionNames} handler={setSelectedPositions} />
             </div>
             <div className={`${styles.tabContent}`}>
                 {tab === 'introduction' && (

@@ -1,5 +1,6 @@
 'use client';
 
+import styles from './SelectLayout.module.scss';
 import Label from '@/components/Input/Label';
 import Select from '@/components/Select/Select';
 import Option from '@/components/Select/Option';
@@ -16,20 +17,22 @@ export const durationOptions: { value: number; label: string }[] = [
 
 const SelectDuration = <T extends FieldValues>({ register, setValue }: T) => {
     return (
-        <Label label="예상 기간" direction="row">
-            <Select
-                {...register('duration', { required: true })}
-                onChange={(value) => setValue('duration', value)}
-                options={durationOptions}
-                placeholder="선택"
-            >
-                {durationOptions.map((duration) => (
-                    <Option key={duration.value} value={duration.value}>
-                        {duration.label}
-                    </Option>
-                ))}
-            </Select>
-        </Label>
+        <div className={styles.layout}>
+            <Label label="예상 기간" direction="row">
+                <Select
+                    {...register('duration', { required: true })}
+                    onChange={(value) => setValue('duration', value)}
+                    options={durationOptions}
+                    placeholder="선택"
+                >
+                    {durationOptions.map((duration) => (
+                        <Option key={duration.value} value={duration.value}>
+                            {duration.label}
+                        </Option>
+                    ))}
+                </Select>
+            </Label>
+        </div>
     );
 };
 

@@ -5,35 +5,57 @@ import { useForm } from 'react-hook-form';
 import { RecruitmentStatus, WorkMode } from '@/type/common';
 import Label from '@/components/Input/Label';
 import SelectBox from '@/components/Select/SelectBox';
-import { SKILLS, SkillOption, POSITIONS, PositionOption, SkillValue, PositionValue } from '@/constants';
 import Textarea from '@/components/Textarea/Textarea';
-import SelectImages from '../../components/SelectImages';
 import Button from '@/components/Button/Button';
 import Input from '@/components/Input/Input';
 import SelectWorkMode from '../../components/SelectWorkMode';
 import SelectStatus from '../../components/SelectStatus';
+import { useStaticDataStore } from '@/stores/useStaticStore';
+import { useRouter } from 'next/navigation';
+import { postIntroduction } from '../service/postIntroduction';
+import { useAuthStore } from '@/stores/authStore';
 
 export type IntroductionFormData = {
     title: string;
     content: string;
-    positions: PositionValue[];
-    skills: SkillValue[];
+    positionIds: number[];
+    skillIds: number[];
     workMode: WorkMode;
     status: RecruitmentStatus;
-    imgFile: File | null;
+    imgFile?: File | null;
 };
 
 /** 여기서 수정이라면, 기존 데이터 가져와서 보여주기 */
 
 const IntroductionForm = () => {
+    const router = useRouter();
+    const { token } = useAuthStore();
+    const { skills, positions } = useStaticDataStore();
     const { register, handleSubmit, setValue, watch } = useForm<IntroductionFormData>({
         mode: 'onSubmit',
     });
-    const selectedPositions = watch('positions') || [];
-    const selectedSkills = watch('skills') || [];
+    const selectedPositions = watch('positionIds') || [];
+    const selectedSkills = watch('skillIds') || [];
 
-    const onSubmit = (data: IntroductionFormData) => {
-        console.log('폼 제출 값:', data);
+    const onSubmit = async (data: IntroductionFormData) => {
+        const params = {
+            title: data.title,
+            content: data.content,
+            positionIds: data.positionIds,
+            skillIds: data.skillIds,
+            status: data.status,
+            workMode: data.workMode,
+        };
+
+        try {
+            const result = await postIntroduction(token!, params);
+
+            if (result) router.push('/');
+        } catch (error) {
+            console.error(error);
+            /** 나중에 모달이나 토스트 알람 띄우기 */
+            alert('게시글 작성에 실패했습니다. 잠시 후 다시 시도해주세요.');
+        }
     };
 
     return (
@@ -46,30 +68,32 @@ const IntroductionForm = () => {
 
                 <Label label="포지션" direction="row">
                     <SelectBox
-                        {...register('positions', { required: true })}
-                        options={POSITIONS as unknown as PositionOption[]}
+                        {...register('positionIds', { required: true })}
+                        options={positions}
                         selectedValues={selectedPositions}
-                        onChange={(value) => setValue('positions', value)}
-                        placeholder="포지션 선택"
+                        onChange={(value) => setValue('positionIds', value)}
+                        getLabel={(item) => item.positionName}
+                        getValue={(item) => item.id}
                     />
                 </Label>
 
                 <Label label="기술 스택" direction="row">
                     <SelectBox
-                        {...register('skills', { required: true })}
-                        options={SKILLS as unknown as SkillOption[]}
+                        {...register('skillIds', { required: true })}
+                        options={skills}
                         selectedValues={selectedSkills}
-                        onChange={(value) => setValue('skills', value)}
-                        placeholder="기술 선택"
+                        onChange={(value) => setValue('skillIds', value)}
                         maxSelected={5}
+                        getLabel={(item) => item.skillName}
+                        getValue={(item) => item.id}
                     />
                 </Label>
             </div>
 
             <Textarea
+                size="lg"
                 {...register('content', { required: true })}
                 onChange={(e) => setValue('content', e.target.value)}
-                size="md"
                 placeholder={`# 자기소개 예시
                 - 본인을 자유롭게 소개해주세요
                 - 사용 가능한 기술 스택은?
@@ -77,10 +101,8 @@ const IntroductionForm = () => {
                 자유롭게 작성해 주세요 :)`}
             />
 
-            <SelectImages label="사진을 넣어주세요" onChange={(file) => setValue('imgFile', file)} />
-
             <div className={styles.btnBox}>
-                <Button variant="cancel" size="md">
+                <Button variant="cancel" size="md" onClick={() => router.back()}>
                     취소
                 </Button>
                 <Button variant="confirm" type="submit" size="md">

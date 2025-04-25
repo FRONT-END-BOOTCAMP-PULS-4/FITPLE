@@ -4,6 +4,7 @@ import { FindMyApplyListUsecase } from '@/back/apply/application/usecases/FindMy
 import { SbApplyRepository } from '@/back/apply/infra/repositories/supabase/SbApplyRepository';
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
+
 export async function GET(req: Request) {
     try {
         const authHeader = req.headers.get('Authorization');
@@ -30,17 +31,32 @@ export async function GET(req: Request) {
 }
 
 // POST /api/member/apply
-export async function POST(request: NextRequest) {
+export async function POST(req: NextRequest) {
     try {
-        const body = await request.json();
-        const { id, userId, projectId, message, status, createdAt } = body;
-        if (!userId || !projectId || !message) {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
+
+        const body = await req.json();
+
+        const { projectId, message, status } = body;
+        if (!projectId || !message) {
             return new Response(JSON.stringify({ error: 'Missing required fields' }), {
                 status: 400,
             });
         }
 
-        const dto = new ApplyCreateDto(id, userId, projectId, message, status, createdAt);
+        const userId = decoded.id;
+
+        const dto = new ApplyCreateDto(userId, projectId, message, status);
         const repository = new SbApplyRepository();
         const usecase = new ApplyCreateUsecase(repository);
         const result = await usecase.execute(dto);

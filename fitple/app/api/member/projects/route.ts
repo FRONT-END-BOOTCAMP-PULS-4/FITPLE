@@ -5,11 +5,54 @@ import { SbProjectPositionRepository } from '@/back/project/infra/repositories/s
 import { NextResponse } from 'next/server';
 import { CreateProjectDto } from '@/back/project/application/usecases/dto/CreateProjectDto';
 import { CreateProjectUsecase } from '@/back/project/application/usecases/CreateProjectUsecase';
+import jwt from 'jsonwebtoken';
+import GetMyProjectListUsecase from '@/back/project/application/usecases/GetMyProjectListUsecase';
+
+export async function GET(req: Request) {
+    try {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
+
+        const userId = decoded.id;
+
+        const repository = new SbProjectRepository();
+        const getMyProjectList = new GetMyProjectListUsecase(repository);
+        const result = await getMyProjectList.execute(userId);
+
+        return NextResponse.json(result, { status: 200 });
+    } catch (error) {
+        console.error('Error updating project:', error);
+        return NextResponse.json({ error: '프로젝트 수정에 실패했습니다.' }, { status: 500 });
+    }
+}
 
 export async function POST(req: Request) {
     try {
+        const authHeader = req.headers.get('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer')) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const token = authHeader.split(' ')[1];
+
+        const decoded = jwt.verify(token, process.env.SECRET_KEY!) as jwt.JwtPayload;
+
+        if (!decoded.id) {
+            return NextResponse.json({ error: 'Unauthorized: user ID missing' }, { status: 401 });
+        }
+
+        const userId = decoded.id;
+
         const body = await req.json();
-        const { title, content, duration, workMode, status, userId, skillIds, imgUrls, positionIds } = body;
+        const { title, content, duration, workMode, status, skillIds, imgUrls, positionIds } = body;
 
         if (
             !title ||

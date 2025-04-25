@@ -1,5 +1,6 @@
 'use client';
 
+import styles from './SelectLayout.module.scss';
 import Label from '@/components/Input/Label';
 import Select from '@/components/Select/Select';
 import Option from '@/components/Select/Option';
@@ -13,20 +14,22 @@ export const workModeOptions: { value: WorkMode; label: string }[] = [
 
 const SelectWorkMode = <T extends FieldValues>({ register, setValue }: T) => {
     return (
-        <Label label="작업방식" direction="row">
-            <Select
-                {...register('workMode', { required: true })}
-                onChange={(value) => setValue('workMode', value)}
-                options={workModeOptions}
-                placeholder="선택"
-            >
-                {workModeOptions.map((work) => (
-                    <Option key={work.value} value={work.value}>
-                        {work.label}
-                    </Option>
-                ))}
-            </Select>
-        </Label>
+        <div className={styles.layout}>
+            <Label label="작업방식" direction="row">
+                <Select
+                    {...register('workMode', { required: true })}
+                    onChange={(value) => setValue('workMode', value)}
+                    options={workModeOptions}
+                    placeholder="선택"
+                >
+                    {workModeOptions.map((work) => (
+                        <Option key={work.value} value={work.value}>
+                            {work.label}
+                        </Option>
+                    ))}
+                </Select>
+            </Label>
+        </div>
     );
 };
 
