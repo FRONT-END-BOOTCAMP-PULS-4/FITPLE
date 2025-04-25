@@ -30,14 +30,14 @@ export class LogInUsecase {
 
                 // 카카오 사용자 정보에서 필요한 정보 추출
                 const { id } = kakaoUserInfo;
-                console.log('kakaoUserInfo', kakaoUserInfo);
+                // console.log('kakaoUserInfo', kakaoUserInfo);
 
                 // 소셜 클라이언트 ID를 사용하여 회원 정보 조회
                 const socialClientId = id;
-                console.log('socialClientId', socialClientId);
+                // console.log('socialClientId', socialClientId);
 
                 const user = await this.userRepository.findById(socialClientId);
-                console.log('user', user);
+                // console.log('user', user);
                 // 회원이 없을 때 오류 반환
                 if (!user) {
                     const payload = {
