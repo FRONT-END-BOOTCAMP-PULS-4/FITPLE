@@ -45,3 +45,18 @@
     font-size: 0.8125rem;
 }
 
+// 크기 별 클래스
+.sm {
+    width: 18rem;  // 약 70%
+    height: 1rem;
+}
+
+.md {
+    width: 20.75rem; // 기본 크기
+    height: 12.5rem;
+}
+
+.lg {
+    width: 26rem; // 필요하면 추가
+    height: 15rem;
+}
