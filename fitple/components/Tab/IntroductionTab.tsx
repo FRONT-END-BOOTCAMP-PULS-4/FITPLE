@@ -67,7 +67,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
                                     <div className={styles.userInfo}>
                                         <h3>{introduction.user.nickname}</h3>
                                         {introduction.positions.map((position) => (
-                                            <p>{position.name}</p>
+                                            <p key={position.id}>{position.name}</p>
                                         ))}
                                     </div>
                                     <div className={styles.title}>{introduction.title}</div>
@@ -79,7 +79,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
                                     </div>
                                 </div>
                                 <div className={styles.rightBody}>
-                                    <img
+                                    {/* <img
                                         src={introduction.user.avatarUrl}
                                         alt="이미지없음"
                                         onError={(e) => {
@@ -87,7 +87,7 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
                                             e.currentTarget.src =
                                                 'https://codingapplecdn.com/wp-content/uploads/2023/01/food0.png'; // 기본 이미지 경로
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         }

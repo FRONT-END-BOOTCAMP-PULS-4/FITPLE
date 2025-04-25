@@ -58,7 +58,7 @@ const TeamProjectListPage = () => {
                             <div className={styles.footer}>
                                 <div className={styles.avatarGroup}>
                                     <img
-                                        src={team.avatarUrl}
+                                        src={team.avatarUrl || '/ㅑ'}
                                         alt="avatar"
                                         className={styles.avatar}
                                     />
