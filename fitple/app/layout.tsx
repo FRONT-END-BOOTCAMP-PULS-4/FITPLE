@@ -9,8 +9,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
+        <html>
+            <body>
                 <DeviceLayoutProvider>
                     <DefaultLayout>{children}</DefaultLayout>
                 </DeviceLayoutProvider>
+            </body>
+        </html>
+
     );
 }
