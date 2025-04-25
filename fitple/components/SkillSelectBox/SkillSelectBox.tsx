@@ -54,7 +54,7 @@ export default function SkillSelectBox({ options, handler }: SelectBoxProps) {
                                     : styles.notSelected // 선택되지 않은 옵션
                             }`}
                         >
-                            <SkillBadge type="label" name={option} />
+                            <SkillBadge type="label" name={option} label={option} />
                         </div>
                     ))}
                 </div>
