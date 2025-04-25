@@ -28,7 +28,7 @@ export class GetIntroductionDetailUsecase {
             })),
             {
                 nickname: introduction.user.nickname,
-                avatarUrl: introduction.user.avatarUrl ?? null,
+                avatarUrl: introduction.user.avatarUrl || '/images/test-team.png',
                 career: introduction.user.career,
             }
         );
