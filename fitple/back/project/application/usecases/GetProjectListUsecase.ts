@@ -32,7 +32,11 @@ export default class GetProjectListUsecase {
                             id: position.id,
                             name: position.positionName,
                         })),
-                        project.user
+                        {
+                            nickname: project.user.nickname,
+                            avatarUrl: project.user.avatarUrl || '/images/test-team.png',
+                            career: project.user.career,
+                        }
                     )
             );
         } catch (error) {
