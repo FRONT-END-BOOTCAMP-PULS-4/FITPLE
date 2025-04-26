@@ -1,7 +1,7 @@
 // hooks/useFetchApplyPut.ts
 
-import { ApplyStatus } from '@/type/common';
-import { useState } from 'react';
+import { ApplyStatus } from "@/type/common";
+import { useState } from "react";
 
 export function useFetchApplyPut() {
     const [loading, setLoading] = useState(false);
@@ -14,27 +14,29 @@ export function useFetchApplyPut() {
         setSuccess(false);
 
         try {
-            const response = await fetch(`/api/member/apply?id=${applyId}`, {
-                method: 'PUT',
+            console.log("API 요청 시작:", { applyId, status });
+            const response = await fetch(`/api/member/apply/${applyId}`, {
+                method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json',
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     applyId,
                     status,
                 }),
             });
-
+            console.log("응답 받음:", response);
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.error || '상태 업데이트 실패');
+                throw new Error(result.error || "상태 업데이트 실패");
             }
 
             setSuccess(true);
             return result;
         } catch (err: any) {
-            setError(err.message || '알 수 없는 에러');
+            console.error("API 요청 중 에러:", err);
+            setError(err.message || "알 수 없는 에러");
         } finally {
             setLoading(false);
         }

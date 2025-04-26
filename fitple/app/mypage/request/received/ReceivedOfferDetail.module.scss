@@ -1,0 +1,33 @@
+.title {
+    color: var(--white-color);
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.content {
+    background-color: white;
+    padding: 10px;
+    border-radius: 6px;
+    min-height: 200px;
+    overflow-y: auto;
+}
+.contentTitle{
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+    color: var(--white-color);
+}
+.btnBox {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

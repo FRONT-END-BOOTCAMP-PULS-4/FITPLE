@@ -1,17 +1,15 @@
-import { ProjectListDto } from '@/back/project/application/usecases/dto/ProjectListDto';
-import Badge from '../Badge/Badge';
-import SkillBadge from '../Badge/SkillBadge';
-import Card from '../Card/Card';
-import styles from './ProjectTab.module.scss';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState, useCallback } from 'react';
+import { ProjectListDto } from "@/back/project/application/usecases/dto/ProjectListDto";
+import Badge from "../Badge/Badge";
+import SkillBadge from "../Badge/SkillBadge";
+import Card from "../Card/Card";
+import styles from "./ProjectTab.module.scss";
+import { useRouter } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
 
 type Props = {
     selectedSkills: string[];
     selectedPositions: string[];
 };
-type Skill = { id: number; name: string };
-type Position = { id: number; name: string };
 
 export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
     const [projects, setProjects] = useState<ProjectListDto[]>([]);
@@ -19,12 +17,12 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
 
     const fetchProjects = useCallback(async () => {
         try {
-            const res = await fetch('/api/projects');
+            const res = await fetch("/api/projects");
             if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
             const data = await res.json();
             setProjects(data);
         } catch (error) {
-            console.error('프로젝트 데이터를 불러오는 중 오류 발생:', error);
+            console.error("프로젝트 데이터를 불러오는 중 오류 발생:", error);
         }
     }, []);
 
@@ -49,7 +47,7 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                 <div
                     key={project.id}
                     onClick={() => router.push(`board/project/${project.id}`)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                 >
                     <Card
                         header={
@@ -62,11 +60,15 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                         body={
                             <div className={styles.cardBody}>
                                 <div className={styles.projectTitle}>
-                                    <h3>{project.title}</h3>
+                                    <h4>{project.title}</h4>
                                 </div>
                                 <div className={styles.projectPosition}>
                                     {project.positions.map((position) => (
-                                        <Badge key={position.id} size="sm" variant="filled" backgroundColor="#000000">
+                                        <Badge
+                                            key={position.id}
+                                            size="sm"
+                                            role={position.name as "FE" | "BE" | "DI" | "PM" | "FS"}
+                                        >
                                             {position.name}
                                         </Badge>
                                     ))}

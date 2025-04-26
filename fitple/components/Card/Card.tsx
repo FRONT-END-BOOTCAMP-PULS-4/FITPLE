@@ -9,9 +9,10 @@ type CardProps = {
     footer?: ReactNode;
     size?: "sm" | "md" | "lg";
     isLoading?: boolean;
+    onClick?: () => void;
 };
 
-const Card: FC<CardProps> = ({ header, body, footer, size = "md", isLoading, ...props }) => {
+const Card: FC<CardProps> = ({ header, body, footer, size = "md", isLoading, onClick, ...props }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
@@ -21,7 +22,11 @@ const Card: FC<CardProps> = ({ header, body, footer, size = "md", isLoading, ...
     }, [isLoading]);
     return (
         <>
-            <div className={`${styles.card} ${styles[size]} ${isVisible ? styles.show : ""}`} {...props}>
+            <div
+                className={`${styles.card} ${styles[size]} ${isVisible ? styles.show : ""}`}
+                onClick={onClick}
+                {...props}
+            >
                 <div className={styles.cardHeader}>{header}</div>
                 <div className={styles.cardBody}>{body}</div>
                 {footer && <div className={styles.cardFooter}>{footer}</div>}

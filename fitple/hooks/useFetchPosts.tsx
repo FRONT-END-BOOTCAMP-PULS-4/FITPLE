@@ -8,7 +8,6 @@ export function useRootPage() {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         const fetchPosts = async () => {
-            console.log("초기상태: ", isLoading);
             try {
                 const [projectsRes, introductionsRes] = await Promise.all([
                     fetch("/api/projects"),
@@ -32,6 +31,5 @@ export function useRootPage() {
         };
         fetchPosts();
     }, []);
-    console.log("fetch 후 상태: ", isLoading);
     return { projects, introductions, isLoading };
 }

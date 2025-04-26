@@ -12,6 +12,7 @@ export class FindReceivedOfferListUsecase {
         return offers.map(
             (offer) =>
                 new OfferListDto(
+                    "offer",
                     offer.id,
                     offer.userId,
                     offer.projectId,
@@ -19,7 +20,9 @@ export class FindReceivedOfferListUsecase {
                     offer.message,
                     offer.status,
                     dayjs(offer.createdAt).format("YYYY-MM-DD"),
-                    offer.project.title!
+                    offer.project.title!,
+                    offer.nickname,
+                    offer.avatarUrl || "/images/test-team.png"
                 )
         );
     }
