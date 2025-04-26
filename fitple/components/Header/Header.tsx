@@ -21,6 +21,7 @@ const Header = () => {
     const clickHandler = () => {
         const { clearAuth } = useAuthStore.getState();
         clearAuth();
+        setIsModalOpen((prev) => !prev); // 모달 열고 닫기
         window.location.href = '/';
     };
     const toggleModal = () => {
@@ -45,22 +46,34 @@ const Header = () => {
                                     body={
                                         <ul className={styles.listWrapper}>
                                             <li>
-                                                <Link href="/mypage">내 정보</Link>
+                                                <Link href="/mypage" onClick={toggleModal}>
+                                                    내 정보
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link href="/mypage/edit">내 정보 수정</Link>
+                                                <Link href="/mypage/edit" onClick={toggleModal}>
+                                                    내 정보 수정
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link href="/mypage/likelist/projects">찜한 항목</Link>
+                                                <Link href="/mypage/likelist/projects" onClick={toggleModal}>
+                                                    찜한 항목
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link href="/mypage/mypost/projects">내 활동</Link>
+                                                <Link href="/mypage/mypost/projects" onClick={toggleModal}>
+                                                    내 활동
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link href="/mypage/request/projects">요청 목록</Link>
+                                                <Link href="/mypage/request/projects" onClick={toggleModal}>
+                                                    요청 목록
+                                                </Link>
                                             </li>
                                             <li>
-                                                <Link href="/mypage/team">팀 프로젝트</Link>
+                                                <Link href="/mypage/team" onClick={toggleModal}>
+                                                    팀 프로젝트
+                                                </Link>
                                             </li>
                                             <li>
                                                 <div onClick={clickHandler} className={styles.logout}>
