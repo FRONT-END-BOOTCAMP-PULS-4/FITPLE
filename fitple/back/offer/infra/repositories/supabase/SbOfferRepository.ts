@@ -4,6 +4,7 @@ import { Offer } from "@/back/offer/domain/entities/Offer";
 import { OfferView } from "@/back/offer/domain/entities/OfferView";
 import { OfferRepository } from "@/back/offer/domain/repositories/OfferRepository";
 import { Project } from "@/back/project/domain/entities/Project";
+import { User } from "@/back/user/domain/entities/User";
 import { OfferStatus } from "@/type/common";
 import { createClient } from "@/utils/supabase/server";
 
@@ -68,18 +69,22 @@ export class SbOfferRepository implements OfferRepository {
                 ),
                 introduction (
                     title
+                ),
+                user (
+                    nickname, avatar_url
                 )
                 `
             )
             .in("introduction_id", introductionIds);
-
-        console.log("data: ", data);
-        console.log("error: ", error);
         if (error || !data) {
             throw new Error(error.message);
         }
 
         return data.map((offer: any) => {
+            // const user: Partial<User> = {
+            //     nickname: offer.user?.nickname,
+            //     avatarUrl: offer.user?.avatar_url,
+            // };
             const project: Partial<Project> = {
                 title: offer.project.title,
             };
@@ -96,7 +101,9 @@ export class SbOfferRepository implements OfferRepository {
                 offer.status,
                 offer.created_at,
                 project,
-                introduction
+                introduction,
+                offer.nickname,
+                offer.avatar_url
             );
         });
     }
@@ -111,20 +118,21 @@ export class SbOfferRepository implements OfferRepository {
                     introduction (
                         id,
                         user (
-                            id, nickname, avatar_url
+                            nickname, avatar_url
                         )
                     )
                 `
             )
             .eq("user_id", userId);
-
-        console.log("data: ", data);
-        console.log("error: ", error);
         if (error || !data) {
             throw new Error(error.message);
         }
 
         return data.map((offer: any) => {
+            const user: Partial<User> = {
+                nickname: offer.introduction.user?.nickname,
+                avatarUrl: offer.introduction.user?.avatar_url,
+            };
             const project: Partial<Project> = {
                 title: offer.project?.title,
             };
@@ -141,7 +149,9 @@ export class SbOfferRepository implements OfferRepository {
                 offer.status,
                 new Date(offer.created_at),
                 project,
-                introduction
+                introduction,
+                user.nickname!,
+                user.avatarUrl!
             );
         });
     }

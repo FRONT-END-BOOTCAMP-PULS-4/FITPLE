@@ -74,7 +74,6 @@ export function Tab() {
                     </div>
                 )}
             </div>
-            <div style={{ color: 'white', marginLeft: '550px' }}>페이지네이션 들어갈 자리</div>
         </div>
     );
 }

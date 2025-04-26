@@ -13,7 +13,9 @@ export class OfferView extends Offer {
         status: OfferStatus,
         createdAt: Date,
         public project: Partial<Project>,
-        public introduction: Partial<Introduction>
+        public introduction: Partial<Introduction>,
+        public nickname: string,
+        public avatarUrl: string
     ) {
         super(id, userId, projectId, introductionId, message, status, createdAt);
     }

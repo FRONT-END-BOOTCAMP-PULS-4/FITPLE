@@ -1,87 +1,9 @@
 /* 공통 */
-.cardBody {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
-    
-}
 .cardFooter {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
-/* project 전용 스타일 */
-.projectCard {
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.projectInfo {
-    font-size: 16px;
-    font-weight: 600;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.projectPosition {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.skillList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-/* introduction 전용 스타일 */
-
-.introLeft {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    overflow: hidden;
-}
-
-.introUser {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-
-    h3 {
-        font-size: 16px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 0;
-    }
-
-    p {
-        font-size: 14px;
-        color: #888;
-        margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
-.introRight {
-    flex-shrink: 0;
-
-    img {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        border: 1px solid #ddd;
-        object-fit: cover;
+    p{
+        color: #858585;
     }
 }

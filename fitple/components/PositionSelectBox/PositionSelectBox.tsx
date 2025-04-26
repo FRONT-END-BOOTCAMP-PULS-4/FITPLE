@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useOutsideClick } from '@/hooks/useOutsideClick';
-import Badge from '../Badge/Badge';
-import styles from './PositionSelectBox.module.scss';
-import React, { useRef, useState } from 'react';
+import { useOutsideClick } from "@/hooks/useOutsideClick";
+import Badge from "../Badge/Badge";
+import styles from "./PositionSelectBox.module.scss";
+import React, { useRef, useState } from "react";
 
 interface SelectBoxProps {
     options: string[];
@@ -35,7 +35,7 @@ export default function PositionSelectBox({ options, handler }: SelectBoxProps) 
         <div ref={divRef}>
             <div
                 onClick={toggleModal}
-                className={`${styles.selectBox} ${selectedOptions.length > 0 ? styles.selectBoxSelected : ''}`}
+                className={`${styles.selectBox} ${selectedOptions.length > 0 ? styles.selectBoxSelected : ""}`}
             >
                 포지션
             </div>
@@ -47,13 +47,13 @@ export default function PositionSelectBox({ options, handler }: SelectBoxProps) 
                             onClick={() => handleOptionClick(option)}
                             className={`${styles.option} ${
                                 selectedOptions.length === 0
-                                    ? '' // 아무것도 선택하지 않았을 때 기본 스타일
+                                    ? "" // 아무것도 선택하지 않았을 때 기본 스타일
                                     : selectedOptions.includes(option)
-                                    ? '' // 선택된 옵션
+                                    ? "" // 선택된 옵션
                                     : styles.notSelected // 선택되지 않은 옵션
                             }`}
                         >
-                            <Badge size="sm" variant="filled" backgroundColor="#000000">
+                            <Badge size="sm" role={option as "FE" | "BE" | "DI" | "PM" | "FS"}>
                                 {option}
                             </Badge>
                         </div>

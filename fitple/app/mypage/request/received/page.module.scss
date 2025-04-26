@@ -1,0 +1,69 @@
+.container {
+    // display: grid;
+    // gap: 16px;
+    // color: var(--font-black-color);
+    // justify-items: center; /* 카드 가로 방향으로 중앙 정렬 */
+    width: 100%;
+}
+.projectContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+}
+
+.card {
+    background-color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background-color: #bbbbbb;
+    }
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.cardMessage {
+    color: #000000;
+    font-size: 15px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardStatus {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.statusBadge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+    text-transform: capitalize;
+
+    &.accept {
+        background-color: #3cb371;
+    }
+
+    &.reject {
+        background-color: #e74c3c;
+    }
+
+    &.waiting {
+        background-color: #f39c12;
+    }
+}
