@@ -12,7 +12,8 @@ import Label from '@/components/Input/Label';
 
 const SkillCheck: React.FC = () => {
     const router = useRouter();
-    const { skills, setSkills } = useAuthStore(); // useAuthStore에서 skills와 setSkills 가져오기
+    const { skills, setSkills, setId, setAvatarUrl, setCareer, setEmail, setNickname, setPosition, setToken } =
+        useAuthStore(); // useAuthStore에서 skills와 setSkills 가져오기
     const [error, setError] = useState(false);
     const [bottomText, setBottomText] = useState('기술 스택을 선택해주세요.');
     const handlePrevClick = () => {
@@ -56,6 +57,14 @@ const SkillCheck: React.FC = () => {
 
             const data = await response.json();
             // console.log('회원가입 성공:', data);
+            setId(data.user.id);
+            setToken(data.token);
+            setNickname(data.user.nickname);
+            setPosition(data.user.position);
+            setSkills(data.user.skills);
+            setCareer(data.user.career);
+            setAvatarUrl(data.user.avatarUrl);
+            setEmail(data.user.email);
 
             // 성공 시 홈페이지로 이동
             router.push('/');

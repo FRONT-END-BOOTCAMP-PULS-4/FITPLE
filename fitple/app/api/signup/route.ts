@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { SbUserRepository } from '@/back/user/infra/repositories/supabase/SbUserRepository';
 import { SbUserSkillRepository } from '@/back/user/infra/repositories/supabase/SbUserSkillRepository';
 import { SbUserPositionRepository } from '@/back/user/infra/repositories/supabase/SbUserPositionRepository';
-
+import { SignJWT } from 'jose';
 const skillMap: { [key: string]: number } = {
     react: 1,
     javascript: 2,
@@ -77,8 +77,19 @@ export async function POST(req: NextRequest) {
             userId: newUser.id,
             positionId: positionId, // position은 숫자 ID로 전달된다고 가정
         });
+        const secretKey = new TextEncoder().encode(process.env.SECRET_KEY);
+        const tokenPayload = {
+            id: newUser.id,
+            email: newUser.email,
+            nickname: newUser.nickname,
+            avatarUrl: newUser.avatarUrl,
+            position: positionId,
+            career: newUser.career,
+            skills: skillIds,
+        }; // Adjust fields as needed
+        const token = await new SignJWT(tokenPayload).setProtectedHeader({ alg: 'HS256' }).sign(secretKey);
 
-        return NextResponse.json({ message: '회원가입 성공', user: newUser }, { status: 201 });
+        return NextResponse.json({ message: '회원가입 성공', user: tokenPayload, token: token }, { status: 201 });
     } catch (error) {
         console.error('회원가입 처리 중 오류 발생:', error);
         return NextResponse.json({ error: '회원가입 처리 중 오류가 발생했습니다.' }, { status: 500 });

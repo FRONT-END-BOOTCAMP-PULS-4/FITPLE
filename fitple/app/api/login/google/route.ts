@@ -8,10 +8,11 @@ import { SbUserPositionRepository } from '@/back/user/infra/repositories/supabas
 
 export async function POST(req: NextRequest) {
     try {
-        const { code } = await req.json();
-        if (!code) {
-            return NextResponse.json({ error: 'Authorization code is missing' }, { status: 400 });
-        }
+        const body = await req.json();
+        console.log(body);
+        const { clientId } = body; // 클라이언트 ID를 요청 본문에서 가져옴
+        console.log('Google OAuth client id:', clientId);
+
         // 1. LogInUsecase 인스턴스 생성
         const logInUsecase = new LogInUsecase(
             new SbUserRepository(),
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
         // 2. SocialLogInDto 생성
         const logInDto: SocialLogInDto = {
             provider: 'google',
-            authCode: code,
+            clientId: clientId,
         };
         // 3. LogInUsecase 실행
         const token = await logInUsecase.execute(logInDto);
