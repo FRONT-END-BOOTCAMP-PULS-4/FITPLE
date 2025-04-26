@@ -6,42 +6,33 @@ import Modal from '@/components/Modal/Modal';
 import Textarea from '@/components/Textarea/Textarea';
 import { useState } from 'react';
 import { useAuthStore } from '@/stores/authStore';
+import { applyFormService } from '@/app/board/project/service/applyFormService';
+
 type Props = {
     closeModal: () => void;
     isOpen: boolean;
     id: number;
 };
 
+export type ApplyFormData = {
+    projectId: number;
+    message: string;
+    status: string;
+};
+
 const ApplyForm = ({ closeModal, isOpen, id }: Props) => {
     const [textarea, setTextarea] = useState('');
-    const { id: userId } = useAuthStore();
+    const { token } = useAuthStore();
 
     const handleApply = async () => {
-        console.log('지원서 내용:', textarea);
-        closeModal();
-        setTextarea('');
         const params = {
-            userId: userId,
             projectId: id,
             message: textarea,
             status: 'waiting',
         };
-        try {
-            const res = await fetch(`/api/member/apply`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(params),
-            });
-            if (!res.ok) {
-                throw new Error('Failed to fetch project');
-            }
-            const data = await res.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error fetching project:', error);
-        }
+        await applyFormService(token!, params);
+        setTextarea('');
+        closeModal();
     };
 
     return (

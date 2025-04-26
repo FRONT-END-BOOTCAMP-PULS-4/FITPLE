@@ -4,45 +4,45 @@ import { useRef, useState } from 'react';
 import styles from './SelectBox.module.scss';
 import { useOutsideClick } from '@/hooks/useOutsideClick';
 
-export type SelectOption<T> = {
-    value: T;
-    label: string;
-};
-
-type SelectBoxProps<T> = {
-    options: SelectOption<T>[];
-    selectedValues: T[];
-    onChange: (values: T[]) => void;
+type SelectBoxProps<TOption, TValue> = {
+    options: TOption[];
+    selectedValues: TValue[];
+    onChange: (values: TValue[]) => void;
     placeholder?: string;
     maxSelected?: number;
+    getLabel: (item: TOption) => string;
+    getValue: (item: TOption) => TValue;
 };
 
-const SelectBox = <T,>({
+const SelectBox = <TOption, TValue>({
     options,
     selectedValues,
     onChange,
     placeholder = '선택해주세요',
     maxSelected,
-}: SelectBoxProps<T>) => {
+    getLabel,
+    getValue,
+}: SelectBoxProps<TOption, TValue>) => {
     const [open, setOpen] = useState(false);
     const divRef = useRef<HTMLDivElement>(null);
 
     useOutsideClick(divRef, () => setOpen(false));
 
-    const toggleOption = (value: T) => {
+    const toggleOption = (value: TValue) => {
         const isSelected = selectedValues.includes(value);
 
         if (isSelected) {
             onChange(selectedValues.filter((v) => v !== value));
         } else {
-            if (maxSelected && selectedValues.length >= maxSelected) {
-                return;
-            }
+            if (maxSelected && selectedValues.length >= maxSelected) return;
             onChange([...selectedValues, value]);
         }
     };
 
-    const getLabelByValue = (value: T) => options.find((opt) => opt.value === value)?.label;
+    const getLabelByValue = (value: TValue): string => {
+        const option = options.find((opt) => getValue(opt) === value);
+        return option ? getLabel(option) : '';
+    };
 
     return (
         <div ref={divRef} className={styles.selectBoxWrapper}>
@@ -62,15 +62,22 @@ const SelectBox = <T,>({
 
             {open && (
                 <ul className={styles.optionList}>
-                    {options.map((opt) => (
-                        <li
-                            key={String(opt.value)}
-                            onClick={() => toggleOption(opt.value)}
-                            className={`${styles.option} ${selectedValues.includes(opt.value) ? styles.selected : ''}`}
-                        >
-                            {opt.label}
-                        </li>
-                    ))}
+                    {options.map((opt) => {
+                        const val = getValue(opt);
+                        const label = getLabel(opt);
+
+                        return (
+                            <li
+                                key={String(val)}
+                                onClick={() => toggleOption(val)}
+                                className={`${styles.option} ${
+                                    selectedValues.includes(val) ? styles.selected : styles.nonSelected
+                                }`}
+                            >
+                                {label}
+                            </li>
+                        );
+                    })}
                 </ul>
             )}
         </div>

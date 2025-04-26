@@ -8,4 +8,6 @@ export interface ProjectRepository {
     createProject(project: Partial<Project>): Promise<number>; // project 생성
     updateProject(project: Partial<Project>): Promise<void>; // project 수정
     deleteProject(id: number): Promise<void>; // project 삭제
+
+    findAllByMyProject(userId: string): Promise<Project[]>; // 내 프로젝트 모두 가져오기
 }

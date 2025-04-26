@@ -8,11 +8,14 @@ import Badge from '@/components/Badge/Badge';
 import Button from '@/components/Button/Button';
 import Image from 'next/image';
 import { IntroductionDetailDto } from '@/back/introduction/application/usecases/dto/IntroductionDetailDto';
+import { useModal } from '@/hooks/useModal';
+import OfferForm from '@/app/board/introduction/components/OfferForm';
 
 const IntroductionPage = () => {
     const params = useParams();
     const id = params?.id as string;
     const [introduction, setIntroduction] = useState<IntroductionDetailDto | null>(null);
+    const { openModal, isOpen, closeModal } = useModal();
 
     const workModeMap: Record<'online' | 'offline', string> = {
         online: '온라인',
@@ -47,6 +50,7 @@ const IntroductionPage = () => {
 
     return (
         <div className={styles.wrapper}>
+            {isOpen && <OfferForm isOpen={isOpen} closeModal={closeModal} introductionId={Number(id)} />}
             <div className={styles.header}>
                 <p className={styles.breadcrumb}>데려가요 &gt;</p>
                 <h1 className={styles.title}>{introduction.title}</h1>
@@ -111,7 +115,7 @@ const IntroductionPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {introduction.likeCount}
                 </Button>
-                <Button size="md" variant="confirm">
+                <Button size="md" variant="confirm" onClick={() => openModal()}>
                     제안하기
                 </Button>
             </div>

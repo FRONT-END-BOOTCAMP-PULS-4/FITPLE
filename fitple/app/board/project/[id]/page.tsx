@@ -41,11 +41,7 @@ const ProjectDetailPage = () => {
         };
 
         fetchProject();
-    }, []);
-
-    const handleApply = async () => {
-        openModal();
-    };
+    }, [id]);
 
     if (!project) return <div>로딩 중...</div>;
 
@@ -120,7 +116,7 @@ const ProjectDetailPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {project.likeCount}
                 </Button>
-                <Button size="md" variant="confirm" onClick={handleApply}>
+                <Button size="md" variant="confirm" onClick={() => openModal()}>
                     지원하기
                 </Button>
             </div>

@@ -234,4 +234,14 @@ export class SbProjectRepository implements ProjectRepository {
             throw new Error('Unexpected error occurred while fetching project.');
         }
     }
+
+    async findAllByMyProject(userId: string): Promise<Project[]> {
+        const supabase = await createClient();
+        const { data, error } = await supabase.from('project').select('*').eq('user_id', userId);
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data;
+    }
 }
