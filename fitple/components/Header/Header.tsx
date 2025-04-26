@@ -63,7 +63,9 @@ const Header = () => {
                                                 <Link href="/mypage/team">팀 프로젝트</Link>
                                             </li>
                                             <li>
-                                                <div onClick={clickHandler}>로그아웃</div>
+                                                <div onClick={clickHandler} className={styles.logout}>
+                                                    로그아웃
+                                                </div>
                                             </li>
                                         </ul>
                                     }
