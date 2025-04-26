@@ -122,7 +122,7 @@ export class LogInUsecase {
                 // 비밀 키는 환경 변수로 관리 (예: process.env.JWT_SECRET)
                 // 토큰 유효기간은 1시간으로 설정 (필요에 따라 조정)
                 // console.log('payload', payload);
-                const secretKey = new TextEncoder().encode(process.env.NEXT_PUBLIC_SECRET_KEY);
+                const secretKey = new TextEncoder().encode(process.env.SECRET_KEY);
                 const token = await new SignJWT(payload).setProtectedHeader({ alg: 'HS256' }).sign(secretKey);
 
                 // 회원 정보 토큰 전달
