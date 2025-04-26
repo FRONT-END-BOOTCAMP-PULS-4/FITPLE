@@ -8,11 +8,11 @@ const IntroductionCard = ({ post }: { post: IntroductionListDto }) => (
     <div className={styles.container}>
         <div className={styles.userInfo}>
             <h4>{post.user.nickname}</h4>
-            <p>
+            <div>
                 {post.positions.map((position) => (
-                    <p key={post.id}>{position.name}</p>
+                    <p key={position.id}>{position.name}</p>
                 ))}
-            </p>
+            </div>
         </div>
         <div>
             <p>{post.title}</p>

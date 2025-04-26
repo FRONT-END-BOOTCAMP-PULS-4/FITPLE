@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import styles from './page.module.scss';
-import SkillBadge from '@/components/Badge/SkillBadge';
-import Badge from '@/components/Badge/Badge';
-import Button from '@/components/Button/Button';
-import Image from 'next/image';
-import { ProjectDetailDto } from '@/back/project/application/usecases/dto/ProjectDetailDto';
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./page.module.scss";
+import SkillBadge from "@/components/Badge/SkillBadge";
+import Badge from "@/components/Badge/Badge";
+import Button from "@/components/Button/Button";
+import Image from "next/image";
+import { ProjectDetailDto } from "@/back/project/application/usecases/dto/ProjectDetailDto";
 
-import { useModal } from '@/hooks/useModal';
-import ApplyForm from '@/app/mypage/components/ApplyForm';
+import { useModal } from "@/hooks/useModal";
+import ApplyForm from "@/app/mypage/components/ApplyForm";
 const ProjectDetailPage = () => {
     const { openModal, isOpen, closeModal } = useModal();
 
     const params = useParams();
     const id = params?.id as string;
     const [project, setProject] = useState<ProjectDetailDto | null>(null);
-    const workModeMap: Record<'online' | 'offline', string> = {
-        online: '온라인',
-        offline: '오프라인',
+    const workModeMap: Record<"online" | "offline", string> = {
+        online: "온라인",
+        offline: "오프라인",
     };
-    const statusMap: Record<'open' | 'closed', string> = {
-        open: '모집 중',
-        closed: '모집 완료',
+    const statusMap: Record<"open" | "closed", string> = {
+        open: "모집 중",
+        closed: "모집 완료",
     };
 
     useEffect(() => {
@@ -31,12 +31,12 @@ const ProjectDetailPage = () => {
             try {
                 const res = await fetch(`/api/projects/${id}`);
                 if (!res.ok) {
-                    throw new Error('Failed to fetch project');
+                    throw new Error("Failed to fetch project");
                 }
                 const data = await res.json();
                 setProject(data);
             } catch (error) {
-                console.error('Error fetching project:', error);
+                console.error("Error fetching project:", error);
             }
         };
 
@@ -98,7 +98,12 @@ const ProjectDetailPage = () => {
                 <span className={styles.metaLabel}>모집 포지션</span>
                 <div className={styles.badgeGroup}>
                     {project.positions.map((pos: { id: number; name: string }) => (
-                        <Badge key={pos.id} variant="filled" size="sm" backgroundColor="#12B76A">
+                        <Badge
+                            key={pos.id}
+                            variant="filled"
+                            size="sm"
+                            role={pos.name as "FE" | "BE" | "DI" | "PM" | "FS"}
+                        >
                             {pos.name}
                         </Badge>
                     ))}

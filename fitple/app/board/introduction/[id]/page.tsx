@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import styles from './page.module.scss';
-import SkillBadge from '@/components/Badge/SkillBadge';
-import Badge from '@/components/Badge/Badge';
-import Button from '@/components/Button/Button';
-import Image from 'next/image';
-import { IntroductionDetailDto } from '@/back/introduction/application/usecases/dto/IntroductionDetailDto';
-import { useModal } from '@/hooks/useModal';
-import OfferForm from '@/app/board/introduction/components/OfferForm';
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./page.module.scss";
+import SkillBadge from "@/components/Badge/SkillBadge";
+import Badge from "@/components/Badge/Badge";
+import Button from "@/components/Button/Button";
+import Image from "next/image";
+import { IntroductionDetailDto } from "@/back/introduction/application/usecases/dto/IntroductionDetailDto";
+import { useModal } from "@/hooks/useModal";
+import OfferForm from "@/app/board/introduction/components/OfferForm";
 
 const IntroductionPage = () => {
     const params = useParams();
@@ -17,14 +17,14 @@ const IntroductionPage = () => {
     const [introduction, setIntroduction] = useState<IntroductionDetailDto | null>(null);
     const { openModal, isOpen, closeModal } = useModal();
 
-    const workModeMap: Record<'online' | 'offline', string> = {
-        online: '온라인',
-        offline: '오프라인',
+    const workModeMap: Record<"online" | "offline", string> = {
+        online: "온라인",
+        offline: "오프라인",
     };
 
-    const statusMap: Record<'open' | 'closed', string> = {
-        open: '가능',
-        closed: '불가능',
+    const statusMap: Record<"open" | "closed", string> = {
+        open: "가능",
+        closed: "불가능",
     };
 
     useEffect(() => {
@@ -32,12 +32,12 @@ const IntroductionPage = () => {
             try {
                 const res = await fetch(`/api/introductions/${id}`);
                 if (!res.ok) {
-                    throw new Error('Failed to fetch introduction');
+                    throw new Error("Failed to fetch introduction");
                 }
                 const data = await res.json();
                 setIntroduction(data);
             } catch (error) {
-                console.error('Error fetching introduction:', error);
+                console.error("Error fetching introduction:", error);
             }
         };
 
@@ -100,7 +100,12 @@ const IntroductionPage = () => {
                 <span className={styles.metaLabel}>희망 포지션</span>
                 <div className={styles.badgeGroup}>
                     {introduction.positions.map((pos: { id: number; name: string }) => (
-                        <Badge key={pos.id} variant="filled" size="sm" backgroundColor="#12B76A">
+                        <Badge
+                            key={pos.id}
+                            variant="filled"
+                            size="sm"
+                            role={pos.name as "FE" | "BE" | "DI" | "PM" | "FS"}
+                        >
                             {pos.name}
                         </Badge>
                     ))}
