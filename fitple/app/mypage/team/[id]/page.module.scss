@@ -1,51 +1,55 @@
 .gridContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .header {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
 
-  .nicnamePostion {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 5px;
-  }
-  
-  .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #eee;
-  }
-  
-  .nickname {
-    font-weight: bold;
-    font-size: 24px;
-  }
-  
-  .body {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    gap: 6px;
-  }
-  
-  .label {
-    font-weight: 500;
-    font-size: 10px;
-    color: #666;
-  }
-  
-  .imageBox {
-    border-radius: 50%;
-  }
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nicnamePostion {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eee;
+}
+
+.nickname {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.body {
+  font-size: 14px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  gap: 6px;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 10px;
+  color: #666;
+}
+
+.imageBox {
+  border-radius: 50%;
+}
+
+.badgeText {
+  font-size: 10px;
+}

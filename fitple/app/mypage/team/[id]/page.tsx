@@ -48,11 +48,13 @@ const TeamProjectDetailPage = () => {
       <div className={styles.gridContainer}>
         {members.map((member, index) => (
           <Card
-            size='sm'
+            size="sm"
             key={index}
             header={
               <div className={styles.header}>
-                <Badge backgroundColor="#FFA928">🦁 프로필</Badge>
+                <Badge size="sm" backgroundColor="#FFA928">
+                  <span className={styles.badgeText}>🦁 프로필</span>
+                </Badge>
                 <div className={styles.nicnamePostion}>
                   <div className={styles.nickname}>{member.userNickname}</div>
                   <div className={styles.label}>
@@ -63,17 +65,7 @@ const TeamProjectDetailPage = () => {
             }
             body={
               <div className={styles.body}>
-                <Image
-                  width={80}
-                  height={80}
-                  src={member.userAvatarUrl || '/images/test-team.png'}
-                  alt="avatar"
-                  className={styles.imageBox}
-                />
-              </div>
-            }
-            footer={
-              <div className={styles.skillWrapper}>
+                <div className={styles.badgeBox}>
                 {member.userSkill
                   .split(',')
                   .map((skill) => skill.trim())
@@ -87,6 +79,14 @@ const TeamProjectDetailPage = () => {
                       label={skill}
                     />
                   ))}
+                  </div>
+                <Image
+                  width={80}
+                  height={80}
+                  src={member.userAvatarUrl || '/images/test-team.png'}
+                  alt="avatar"
+                  className={styles.imageBox}
+                />
               </div>
             }
           />
