@@ -21,8 +21,6 @@ const IntroductionPage = () => {
     const { token } = useAuthStore();
     const router = useRouter();
 
-    console.log('toen', token);
-
     const workModeMap: Record<'online' | 'offline', string> = {
         online: '온라인',
         offline: '오프라인',
