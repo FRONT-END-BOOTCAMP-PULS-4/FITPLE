@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from "./page.module.scss";
-import SkillBadge from "@/components/Badge/SkillBadge";
-import Badge from "@/components/Badge/Badge";
-import Button from "@/components/Button/Button";
-import Image from "next/image";
-import { IntroductionDetailDto } from "@/back/introduction/application/usecases/dto/IntroductionDetailDto";
-import { useModal } from "@/hooks/useModal";
-import OfferForm from "@/app/board/introduction/components/OfferForm";
-import { useAuthStore } from "@/stores/authStore";
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import styles from './page.module.scss';
+import SkillBadge from '@/components/Badge/SkillBadge';
+import Badge from '@/components/Badge/Badge';
+import Button from '@/components/Button/Button';
+import Image from 'next/image';
+import { IntroductionDetailDto } from '@/back/introduction/application/usecases/dto/IntroductionDetailDto';
+import { useModal } from '@/hooks/useModal';
+import OfferForm from '@/app/board/introduction/components/OfferForm';
+import { useAuthStore } from '@/stores/authStore';
 
 const IntroductionPage = () => {
     const params = useParams();
@@ -19,15 +19,16 @@ const IntroductionPage = () => {
     const { openModal, isOpen, closeModal } = useModal();
     const [isMyIntroduction, setIsMyIntroduction] = useState(false);
     const { token } = useAuthStore();
+    const router = useRouter();
 
-    const workModeMap: Record<"online" | "offline", string> = {
-        online: "온라인",
-        offline: "오프라인",
+    const workModeMap: Record<'online' | 'offline', string> = {
+        online: '온라인',
+        offline: '오프라인',
     };
 
-    const statusMap: Record<"open" | "closed", string> = {
-        open: "가능",
-        closed: "불가능",
+    const statusMap: Record<'open' | 'closed', string> = {
+        open: '가능',
+        closed: '불가능',
     };
 
     useEffect(() => {
@@ -35,12 +36,12 @@ const IntroductionPage = () => {
             try {
                 const res = await fetch(`/api/introductions/${id}`);
                 if (!res.ok) {
-                    throw new Error("Failed to fetch introduction");
+                    throw new Error('Failed to fetch introduction');
                 }
                 const data = await res.json();
                 setIntroduction(data);
             } catch (error) {
-                console.error("Error fetching introduction:", error);
+                console.error('Error fetching introduction:', error);
             }
         };
 
@@ -57,18 +58,27 @@ const IntroductionPage = () => {
                         },
                     });
                     if (!res.ok) {
-                        throw new Error("Failed to fetch Introduction");
+                        throw new Error('Failed to fetch Introduction');
                     }
                     const data = await res.json();
                     setIsMyIntroduction(data);
                 }
             } catch (error) {
-                console.error("Error fetching Introduction:", error);
+                console.error('Error fetching Introduction:', error);
             }
         };
 
         fetchMyIntroduction();
     }, [token, id]);
+
+    const handleOffer = () => {
+        if (token) {
+            openModal();
+        } else {
+            alert('로그인이 필요합니다.');
+            router.push('/login');
+        }
+    };
 
     if (!introduction) {
         return <div>로딩 중...</div>;
@@ -130,7 +140,7 @@ const IntroductionPage = () => {
                             key={pos.id}
                             variant="filled"
                             size="sm"
-                            role={pos.name as "FE" | "BE" | "DI" | "PM" | "FS"}
+                            role={pos.name as 'FE' | 'BE' | 'DI' | 'PM' | 'FS'}
                         >
                             {pos.name}
                         </Badge>
@@ -149,8 +159,8 @@ const IntroductionPage = () => {
                 <Button
                     size="md"
                     variant="confirm"
-                    onClick={() => openModal()}
-                    style={{ color: "black" }}
+                    onClick={handleOffer}
+                    style={{ color: 'black' }}
                     disabled={isMyIntroduction}
                 >
                     제안하기
