@@ -12,4 +12,7 @@ export interface ApplyRepository {
     // 보낸 요청 > 내가 지원한 프로젝트 리스트
     // apply 테이블에서 id가 내 id인거만 가져옴
     findMyApplyList(userId: string): Promise<ApplyApplicantView[]>;
+
+    // 중복 지원 방지
+    checkMyApply(userId: string, projectId: number): Promise<boolean>; // 지원한 프로젝트가 있는지 확인
 }

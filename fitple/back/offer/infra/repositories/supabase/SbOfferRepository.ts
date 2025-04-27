@@ -155,4 +155,16 @@ export class SbOfferRepository implements OfferRepository {
             );
         });
     }
+    async checkMyOffer(introductionId: number, projectId: number): Promise<boolean> {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+            .from("offer")
+            .select("id")
+            .eq("introduction_id", introductionId)
+            .eq("project_id", projectId);
+        if (error) {
+            throw new Error(error.message || "Failed to fetch offer list");
+        }
+        return data.length > 0;
+    }
 }

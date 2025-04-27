@@ -1,5 +1,5 @@
-import { Project } from '../entities/Project';
-import { ProjectView } from '../entities/ProjectView';
+import { Project } from "../entities/Project";
+import { ProjectView } from "../entities/ProjectView";
 
 export interface ProjectRepository {
     findById(id: number): Promise<ProjectView>; // project 상세조회
@@ -10,4 +10,7 @@ export interface ProjectRepository {
     deleteProject(id: number): Promise<void>; // project 삭제
 
     findAllByMyProject(userId: string): Promise<Project[]>; // 내 프로젝트 모두 가져오기
+
+    //내 글인지 확인
+    checkMyProject(userId: string, projectId: number): Promise<boolean>; // 내 글인지 확인
 }

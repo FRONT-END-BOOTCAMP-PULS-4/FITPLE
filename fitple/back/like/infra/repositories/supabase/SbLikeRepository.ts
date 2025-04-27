@@ -1,8 +1,8 @@
-import { Like } from '@/back/like/domian/entities/Like';
-import { LikeProjectView } from '@/back/like/domian/entities/LikeProjectView';
-import { LikeRepository } from '@/back/like/domian/repositories/LikeRepository';
-import { Project } from '@/back/project/domain/entities/Project';
-import { createClient } from '@/utils/supabase/server';
+import { Like } from "@/back/like/domian/entities/Like";
+import { LikeProjectView } from "@/back/like/domian/entities/LikeProjectView";
+import { LikeRepository } from "@/back/like/domian/repositories/LikeRepository";
+import { Project } from "@/back/project/domain/entities/Project";
+import { createClient } from "@/utils/supabase/server";
 
 export class SbLikeRepository implements LikeRepository {
     async findById(projectId: number, userId: string): Promise<Like> {
@@ -10,23 +10,21 @@ export class SbLikeRepository implements LikeRepository {
             const supabase = await createClient();
 
             const { data, error } = await supabase
-                .from('project_like')
-                .select('*')
-                .eq('project_id', projectId)
-                .eq('user_id', userId)
+                .from("project_like")
+                .select("*")
+                .eq("project_id", projectId)
+                .eq("user_id", userId)
                 .maybeSingle();
 
             if (error) {
                 throw new Error(`Failed to fetch project like data: ${error.message}`);
             }
 
-            console.log('asdasd', data);
-
             return data;
             // return !!data; // data 가 있으면 true, 없으면 false
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching like');
+            throw new Error("Unexpected error occurred while fetching like");
         }
     }
     async findAll(userId: string): Promise<LikeProjectView[]> {
@@ -34,13 +32,13 @@ export class SbLikeRepository implements LikeRepository {
             const supabase = await createClient();
 
             const { data: projectList, error } = await supabase
-                .from('project_like')
-                .select('*, project(*)')
-                .eq('user_id', userId);
+                .from("project_like")
+                .select("*, project(*)")
+                .eq("user_id", userId);
 
             if (error) {
-                console.error('failed to fetch like error:', error.message);
-                throw new Error('Error while fetching liked projects');
+                console.error("failed to fetch like error:", error.message);
+                throw new Error("Error while fetching liked projects");
             }
 
             return projectList.map((like) => {
@@ -60,7 +58,7 @@ export class SbLikeRepository implements LikeRepository {
             });
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching liked projects');
+            throw new Error("Unexpected error occurred while fetching liked projects");
         }
     }
 
@@ -69,12 +67,12 @@ export class SbLikeRepository implements LikeRepository {
             const supabase = await createClient();
 
             const { data, error } = await supabase
-                .from('project_like')
+                .from("project_like")
                 .insert({
                     user_id: userId,
                     project_id: projectId,
                 })
-                .select('id')
+                .select("id")
                 .single();
 
             if (error) {
@@ -84,7 +82,7 @@ export class SbLikeRepository implements LikeRepository {
             return data.id;
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching liked projects');
+            throw new Error("Unexpected error occurred while fetching liked projects");
         }
     }
 
@@ -93,17 +91,17 @@ export class SbLikeRepository implements LikeRepository {
             const supabase = await createClient();
 
             const { error } = await supabase
-                .from('project_like')
+                .from("project_like")
                 .delete()
-                .eq('project_id', [projectId])
-                .eq('user_id', userId);
+                .eq("project_id", [projectId])
+                .eq("user_id", userId);
 
             if (error) {
                 throw new Error(`Failed to delete project like: ${error?.message}`);
             }
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching liked projects');
+            throw new Error("Unexpected error occurred while fetching liked projects");
         }
     }
 }

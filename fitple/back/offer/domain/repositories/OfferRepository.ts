@@ -16,4 +16,6 @@ export interface OfferRepository {
 
     // 보낸 요청 > 내가 제안한 프로젝트 리스트(상세 들어가면 유저)
     findSentOfferList(userId: string): Promise<OfferView[]>;
+
+    checkMyOffer(introductionId: number, projectId: number): Promise<boolean>; // 제안한 프로젝트가 있는지 확인
 }
