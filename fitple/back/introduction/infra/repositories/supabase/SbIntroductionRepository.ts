@@ -1,12 +1,12 @@
-import { createClient } from '@/utils/supabase/server';
-import { User } from '@/back/user/domain/entities/User';
-import { Skill } from '@/back/skill/domain/entities/Skill';
-import { Position } from '@/back/position/domain/entities/Position';
-import { IntroductionRepository } from '@/back/introduction/domain/repositories/IntroductionRepository';
-import { IntroductionView } from '@/back/introduction/domain/entities/IntroductionView';
-import { Introduction } from '@/back/introduction/domain/entities/Introduction';
-import { IntroductionLike } from '@/back/introduction/domain/entities/IntroductionLike';
-import { IntroductionImage } from '@/back/introduction/domain/entities/IntroductionImage';
+import { createClient } from "@/utils/supabase/server";
+import { User } from "@/back/user/domain/entities/User";
+import { Skill } from "@/back/skill/domain/entities/Skill";
+import { Position } from "@/back/position/domain/entities/Position";
+import { IntroductionRepository } from "@/back/introduction/domain/repositories/IntroductionRepository";
+import { IntroductionView } from "@/back/introduction/domain/entities/IntroductionView";
+import { Introduction } from "@/back/introduction/domain/entities/Introduction";
+import { IntroductionLike } from "@/back/introduction/domain/entities/IntroductionLike";
+import { IntroductionImage } from "@/back/introduction/domain/entities/IntroductionImage";
 
 export class SbIntroductionRepository implements IntroductionRepository {
     async findById(id: number): Promise<IntroductionView> {
@@ -14,7 +14,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
             const supabase = await createClient();
 
             const { data: introduction, error } = await supabase
-                .from('introduction')
+                .from("introduction")
                 .select(
                     `
                     *,
@@ -39,7 +39,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                     )
                   `
                 )
-                .eq('id', id);
+                .eq("id", id);
 
             if (error) {
                 throw new Error(`Failed to fetch introduction detail: ${error?.message}`);
@@ -87,7 +87,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
             );
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching introduction.');
+            throw new Error("Unexpected error occurred while fetching introduction.");
         }
     }
 
@@ -95,7 +95,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
         try {
             const supabase = await createClient();
 
-            const { data: introductions, error } = await supabase.from('introduction').select(
+            const { data: introductions, error } = await supabase.from("introduction").select(
                 `
                     *,
                     user (
@@ -163,7 +163,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
             });
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching introduction.');
+            throw new Error("Unexpected error occurred while fetching introduction.");
         }
     }
 
@@ -173,7 +173,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
             const supabase = await createClient();
 
             const { data, error } = await supabase
-                .from('introduction')
+                .from("introduction")
                 .insert({
                     user_id: introduction.userId,
                     title: introduction.title,
@@ -181,7 +181,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
                     status: introduction.status,
                     work_mode: introduction.workMode,
                 })
-                .select('id')
+                .select("id")
                 .single();
 
             if (error || !data) {
@@ -191,7 +191,7 @@ export class SbIntroductionRepository implements IntroductionRepository {
             return data.id;
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching introduction.');
+            throw new Error("Unexpected error occurred while fetching introduction.");
         }
     }
 
@@ -200,21 +200,21 @@ export class SbIntroductionRepository implements IntroductionRepository {
             const supabase = await createClient();
 
             const { error } = await supabase
-                .from('introduction')
+                .from("introduction")
                 .update({
                     title: introduction.title,
                     content: introduction.content,
                     status: introduction.status,
                     work_mode: introduction.workMode,
                 })
-                .eq('id', introduction.id);
+                .eq("id", introduction.id);
 
             if (error) {
                 throw new Error(`Failed to update introduction: ${error?.message}`);
             }
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching introduction.');
+            throw new Error("Unexpected error occurred while fetching introduction.");
         }
     }
 
@@ -222,14 +222,34 @@ export class SbIntroductionRepository implements IntroductionRepository {
         try {
             const supabase = await createClient();
 
-            const { error } = await supabase.from('introduction').delete().eq('id', id);
+            const { error } = await supabase.from("introduction").delete().eq("id", id);
 
             if (error) {
                 throw new Error(`Failed to delete introduction: ${error?.message}`);
             }
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching introduction.');
+            throw new Error("Unexpected error occurred while fetching introduction.");
+        }
+    }
+
+    async checkMyIntroduction(userId: string, introductionId: number): Promise<boolean> {
+        try {
+            const supabase = await createClient();
+
+            const { data, error } = await supabase
+                .from("introduction")
+                .select("id")
+                .eq("user_id", userId)
+                .eq("id", introductionId);
+
+            if (error) {
+                throw new Error(`Failed to check my introduction: ${error?.message}`);
+            }
+            return data.length > 0;
+        } catch (error) {
+            console.error(error);
+            throw new Error("Unexpected error occurred while checking my introduction.");
         }
     }
 }

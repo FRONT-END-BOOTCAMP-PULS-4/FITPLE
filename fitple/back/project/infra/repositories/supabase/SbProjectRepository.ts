@@ -1,12 +1,12 @@
-import { ProjectView } from '@/back/project/domain/entities/ProjectView';
-import { ProjectRepository } from '@/back/project/domain/repositories/ProjectRepository';
-import { createClient } from '@/utils/supabase/server';
-import { User } from '@/back/user/domain/entities/User';
-import { Skill } from '@/back/skill/domain/entities/Skill';
-import { Position } from '@/back/position/domain/entities/Position';
-import { ProjectLike } from '@/back/project/domain/entities/ProjectLike';
-import { ProjectImage } from '@/back/project/domain/entities/ProjectImage';
-import { Project } from '@/back/project/domain/entities/Project';
+import { ProjectView } from "@/back/project/domain/entities/ProjectView";
+import { ProjectRepository } from "@/back/project/domain/repositories/ProjectRepository";
+import { createClient } from "@/utils/supabase/server";
+import { User } from "@/back/user/domain/entities/User";
+import { Skill } from "@/back/skill/domain/entities/Skill";
+import { Position } from "@/back/position/domain/entities/Position";
+import { ProjectLike } from "@/back/project/domain/entities/ProjectLike";
+import { ProjectImage } from "@/back/project/domain/entities/ProjectImage";
+import { Project } from "@/back/project/domain/entities/Project";
 
 export class SbProjectRepository implements ProjectRepository {
     async findById(id: number): Promise<ProjectView> {
@@ -14,7 +14,7 @@ export class SbProjectRepository implements ProjectRepository {
             const supabase = await createClient();
 
             const { data: project, error } = await supabase
-                .from('project')
+                .from("project")
                 .select(
                     `
                     *,
@@ -39,7 +39,7 @@ export class SbProjectRepository implements ProjectRepository {
                     )
                   `
                 )
-                .eq('id', id);
+                .eq("id", id);
 
             if (error) {
                 throw new Error(`Failed to fetch project detail: ${error?.message}`);
@@ -86,7 +86,7 @@ export class SbProjectRepository implements ProjectRepository {
             );
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching project.');
+            throw new Error("Unexpected error occurred while fetching project.");
         }
     }
 
@@ -94,7 +94,7 @@ export class SbProjectRepository implements ProjectRepository {
         try {
             const supabase = await createClient();
 
-            const { data: projects, error } = await supabase.from('project').select(
+            const { data: projects, error } = await supabase.from("project").select(
                 `
                     *,
                     user (
@@ -163,7 +163,7 @@ export class SbProjectRepository implements ProjectRepository {
             });
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching project.');
+            throw new Error("Unexpected error occurred while fetching project.");
         }
     }
 
@@ -173,7 +173,7 @@ export class SbProjectRepository implements ProjectRepository {
             const supabase = await createClient();
 
             const { data, error } = await supabase
-                .from('project')
+                .from("project")
                 .insert({
                     user_id: project.userId,
                     title: project.title,
@@ -182,7 +182,7 @@ export class SbProjectRepository implements ProjectRepository {
                     status: project.status,
                     work_mode: project.workMode,
                 })
-                .select('id')
+                .select("id")
                 .single();
 
             if (error || !data) {
@@ -192,7 +192,7 @@ export class SbProjectRepository implements ProjectRepository {
             return data.id;
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching project.');
+            throw new Error("Unexpected error occurred while fetching project.");
         }
     }
 
@@ -201,7 +201,7 @@ export class SbProjectRepository implements ProjectRepository {
             const supabase = await createClient();
 
             const { error } = await supabase
-                .from('project')
+                .from("project")
                 .update({
                     title: project.title,
                     content: project.content,
@@ -209,14 +209,14 @@ export class SbProjectRepository implements ProjectRepository {
                     status: project.status,
                     work_mode: project.workMode,
                 })
-                .eq('id', project.id);
+                .eq("id", project.id);
 
             if (error) {
                 throw new Error(`Failed to update project: ${error?.message}`);
             }
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching project.');
+            throw new Error("Unexpected error occurred while fetching project.");
         }
     }
 
@@ -224,24 +224,33 @@ export class SbProjectRepository implements ProjectRepository {
         try {
             const supabase = await createClient();
 
-            const { error } = await supabase.from('project').delete().eq('id', id);
+            const { error } = await supabase.from("project").delete().eq("id", id);
 
             if (error) {
                 throw new Error(`Failed to delete project: ${error?.message}`);
             }
         } catch (error) {
             console.error(error);
-            throw new Error('Unexpected error occurred while fetching project.');
+            throw new Error("Unexpected error occurred while fetching project.");
         }
     }
 
     async findAllByMyProject(userId: string): Promise<Project[]> {
         const supabase = await createClient();
-        const { data, error } = await supabase.from('project').select('*').eq('user_id', userId);
+        const { data, error } = await supabase.from("project").select("*").eq("user_id", userId);
         if (error) {
             throw new Error(error.message);
         }
 
         return data;
+    }
+
+    async checkMyProject(userId: string, projectId: number): Promise<boolean> {
+        const supabase = await createClient();
+        const { data, error } = await supabase.from("project").select("*").eq("user_id", userId).eq("id", projectId);
+        if (error) {
+            throw new Error(error.message);
+        }
+        return data.length > 0;
     }
 }

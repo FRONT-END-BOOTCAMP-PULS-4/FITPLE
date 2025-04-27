@@ -11,12 +11,17 @@ import { ProjectDetailDto } from "@/back/project/application/usecases/dto/Projec
 
 import { useModal } from "@/hooks/useModal";
 import ApplyForm from "@/app/mypage/components/ApplyForm";
+import { useAuthStore } from "@/stores/authStore";
+
 const ProjectDetailPage = () => {
     const { openModal, isOpen, closeModal } = useModal();
-
+    const { token } = useAuthStore();
     const params = useParams();
     const id = params?.id as string;
     const [project, setProject] = useState<ProjectDetailDto | null>(null);
+    const [isExist, setIsExist] = useState(false);
+    const [isMyProject, setIsMyProject] = useState(false);
+
     const workModeMap: Record<"online" | "offline", string> = {
         online: "온라인",
         offline: "오프라인",
@@ -42,6 +47,50 @@ const ProjectDetailPage = () => {
 
         fetchProject();
     }, [id]);
+
+    useEffect(() => {
+        const fetchCheckApply = async () => {
+            try {
+                if (token) {
+                    const res = await fetch(`/api/member/apply/check?projectId=${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch project");
+                    }
+                    const data = await res.json();
+                    setIsExist(data);
+                }
+            } catch (error) {
+                console.error("Error fetching project:", error);
+            }
+        };
+
+        fetchCheckApply();
+    }, [token, id]);
+
+    useEffect(() => {
+        const fetchMyProject = async () => {
+            try {
+                const res = await fetch(`/api/member/projects/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!res.ok) {
+                    throw new Error("Failed to fetch project");
+                }
+                const data = await res.json();
+                setIsMyProject(data);
+            } catch (error) {
+                console.error("Error fetching project:", error);
+            }
+        };
+
+        fetchMyProject();
+    }, [token, id]);
 
     if (!project) return <div>로딩 중...</div>;
 
@@ -121,7 +170,13 @@ const ProjectDetailPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {project.likeCount}
                 </Button>
-                <Button size="md" variant="confirm" onClick={() => openModal()} style={{ color: 'black'}}>
+                <Button
+                    size="md"
+                    variant="confirm"
+                    onClick={() => openModal()}
+                    style={{ color: "black" }}
+                    disabled={isMyProject || isExist}
+                >
                     지원하기
                 </Button>
             </div>
