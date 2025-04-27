@@ -105,7 +105,6 @@ const Login: React.FC = () => {
             <LoginButton variant="google" onClick={() => login()}>
                 구글로 계속하기
             </LoginButton>
-            ;
         </div>
     );
 };
