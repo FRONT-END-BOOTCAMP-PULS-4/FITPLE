@@ -62,7 +62,7 @@ const Header = () => {
                                                     </Link>
                                                 </li>
                                                 <li>
-                                                    <Link href="/mypage/mypost/received" onClick={toggleModal}>
+                                                    <Link href="/mypage/mypost/projects" onClick={toggleModal}>
                                                         내 활동
                                                     </Link>
                                                 </li>
