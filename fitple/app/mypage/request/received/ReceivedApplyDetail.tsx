@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import styles from "./ReceivedApplyDetail.module.scss";
-import { useFetchApplyPut } from "@/hooks/useFetchApply/userFetchApplyPut";
-import { ApplyApplicantDto } from "@/back/apply/application/usecases/dto/ApplyApplicantDto";
-import Link from "next/link";
-import Modal from "@/components/Modal/Modal";
-import Button from "@/components/Button/Button";
+import React from 'react';
+import styles from './ReceivedApplyDetail.module.scss';
+import { useFetchApplyPut } from '@/hooks/useFetchApply/userFetchApplyPut';
+import { ApplyApplicantDto } from '@/back/apply/application/usecases/dto/ApplyApplicantDto';
+import Modal from '@/components/Modal/Modal';
+import Button from '@/components/Button/Button';
 
 type Props = {
     id: number;
@@ -14,15 +13,21 @@ type Props = {
 };
 
 const ReceivedApplyDetail = ({ closeModal, isOpen, id, applys }: Props) => {
-    const { updateApplyStatus, loading, error, success } = useFetchApplyPut();
+    const { updateApplyStatus, loading } = useFetchApplyPut();
     if (!isOpen) return null; // 모달이 열릴 때만 렌더링 되도록 처리
 
-    const handleStatusChange = async (newStatus: "accept" | "reject") => {
+    const handleStatusChange = async (newStatus: 'accept' | 'reject') => {
         if (loading) return; // 로딩 중에는 요청을 막음
         try {
-            await updateApplyStatus({ applyId: Number(id), status: newStatus });
+            await updateApplyStatus({
+                applyId: Number(id),
+                status: newStatus,
+                projectId: Number(applys.projectId),
+                applyUserId: applys.userId,
+            });
+            closeModal();
         } catch (err) {
-            console.error("상태 업데이트 오류:", err);
+            console.error('상태 업데이트 오류:', err);
         }
     };
     return (
@@ -42,10 +47,15 @@ const ReceivedApplyDetail = ({ closeModal, isOpen, id, applys }: Props) => {
                 }
                 footer={
                     <div className={styles.btnBox}>
-                        <Button variant="confirm" size="md" onClick={() => handleStatusChange("accept")} style={{ color: 'black' }}>
+                        <Button
+                            variant="confirm"
+                            size="md"
+                            onClick={() => handleStatusChange('accept')}
+                            style={{ color: 'black' }}
+                        >
                             수락
                         </Button>
-                        <Button variant="cancel" size="md" onClick={() => handleStatusChange("reject")}>
+                        <Button variant="cancel" size="md" onClick={() => handleStatusChange('reject')}>
                             거절
                         </Button>
                     </div>

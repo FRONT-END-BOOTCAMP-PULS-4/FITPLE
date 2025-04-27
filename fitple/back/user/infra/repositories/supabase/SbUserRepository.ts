@@ -54,6 +54,17 @@ export class SbUserRepository implements UserRepository {
     async findAll(): Promise<User[]> {
         return [] as User[];
     }
+    async findByOfferId(offerId: string): Promise<string | null> {
+        const supabase = await createClient();
+
+        const { data, error } = await supabase.from('offer').select('*').eq('id', offerId).maybeSingle();
+
+        if (error && error.code !== 'PGRST116') {
+            throw new Error(`Error fetching user by offer ID: ${error.message}`);
+        }
+
+        return data.user_id;
+    }
 
     async findById(id: string): Promise<User | null> {
         const supabase = await createClient();

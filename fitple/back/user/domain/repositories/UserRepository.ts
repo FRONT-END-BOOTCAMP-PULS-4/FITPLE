@@ -5,6 +5,7 @@ export interface UserRepository {
     findByNickname(nickname: string): Promise<User | null>;
     findByUserSkillId(userSkillId: string): Promise<User | null>;
     findByUserPositionId(userPositionId: string): Promise<User | null>;
+    findByOfferId(offerId: string): Promise<string | null>;
     update(user: Partial<User>): Promise<User>;
     create(user: User): Promise<User>;
 }
