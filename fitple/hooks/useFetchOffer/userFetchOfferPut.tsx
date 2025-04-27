@@ -39,8 +39,10 @@ export function useFetchOfferPut() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        type: 'offer',
                         projectId: receivedProjectId,
-                        userId: id,
+                        receiveUserId: id,
+                        applyUserId: offerId,
                     }),
                 });
                 if (!teamResponse.ok) {

@@ -2,11 +2,13 @@
 
 import { ApplyStatus } from '@/type/common';
 import { useState } from 'react';
+import { useAuthStore } from '@/stores/authStore';
 
 export function useFetchApplyPut() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState(false);
+    const { id } = useAuthStore();
 
     const updateApplyStatus = async ({
         applyId,
@@ -46,8 +48,10 @@ export function useFetchApplyPut() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        type: 'apply',
                         projectId: projectId,
-                        userId: applyUserId,
+                        applyUserId: applyUserId,
+                        receiveUserId: id,
                     }),
                 });
                 const resData = await teamResponse.json();

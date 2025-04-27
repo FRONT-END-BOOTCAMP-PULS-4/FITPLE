@@ -1,3 +1,8 @@
 export class CreateTeamDto {
-    constructor(public userId: string, public projectId: number) {}
+    constructor(
+        public type: string,
+        public receiveUserId: string,
+        public projectId: number,
+        public applyUserId: string
+    ) {}
 }

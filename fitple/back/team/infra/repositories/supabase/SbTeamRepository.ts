@@ -28,11 +28,31 @@ export class SbTeamRepository implements TeamRepository {
 
         return NextResponse.json({ message: '팀 추가 성공', data }, { status: 201 });
     }
-
-    async findByProjectId(projectId: number): Promise<Team> {
+    async findTeam(projectId: number): Promise<boolean> {
         const supabase = await createClient();
 
-        const { data, error } = await supabase.from('team').select('*').eq('project_id', projectId).maybeSingle();
+        const { data, error } = await supabase.from('team').select('*').eq('project_id', projectId);
+
+        if (error) {
+            throw new Error(`Error fetching team by project ID: ${error.message}`);
+        }
+        console.log('findTeam data', data);
+        if (data.length === 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    async findByProjectId(userId: string, projectId: number): Promise<Team> {
+        const supabase = await createClient();
+
+        const { data, error } = await supabase
+            .from('team')
+            .select('*')
+            .eq('project_id', projectId)
+            .eq('user_id', userId)
+            .maybeSingle();
 
         if (error) {
             throw new Error(`Error fetching team by project ID: ${error.message}`);
