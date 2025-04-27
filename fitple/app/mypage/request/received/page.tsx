@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import Card from "@/components/Card/Card";
-import styles from "./page.module.scss";
-import { useModal } from "@/hooks/useModal";
-import { ApplyApplicantDto } from "@/back/apply/application/usecases/dto/ApplyApplicantDto";
-import { useState } from "react";
-import ReceivedApplyDetail from "./ReceivedApplyDetail";
-import { useReceivedReq } from "@/hooks/useReceivedReq";
-import { OfferListDto } from "@/back/offer/application/usecases/dto/OfferListDto";
-import ReceivedOfferDetail from "./ReceivedOfferDetail";
+import styles from './page.module.scss';
+import { useModal } from '@/hooks/useModal';
+import { ApplyApplicantDto } from '@/back/apply/application/usecases/dto/ApplyApplicantDto';
+import { useState } from 'react';
+import ReceivedApplyDetail from './ReceivedApplyDetail';
+import { useReceivedReq } from '@/hooks/useReceivedReq';
+import { OfferListDto } from '@/back/offer/application/usecases/dto/OfferListDto';
+import ReceivedOfferDetail from './ReceivedOfferDetail';
 
 export default function ReceivedPage() {
     const { applys, offers, loading, error } = useReceivedReq();
@@ -23,7 +22,7 @@ export default function ReceivedPage() {
     const handleClick = (post: ApplyApplicantDto | OfferListDto) => {
         console.log(post);
 
-        if (post.type === "apply") {
+        if (post.type === 'apply') {
             setSelectedApply(post);
             setSelectedOffer(null);
             openApplyModal();
@@ -35,8 +34,8 @@ export default function ReceivedPage() {
     };
     return (
         <div className={styles.container}>
-            {allPosts.map((post) =>
-                post.type === "offer" ? (
+            {allPosts.map((post) => {
+                return post.type === 'offer' ? (
                     <div
                         key={post.id}
                         className={styles.projectContainer}
@@ -66,26 +65,33 @@ export default function ReceivedPage() {
                             <div className={styles.cardMessage}>{post.message}</div>
                         </div>
                     </div>
-                )
-            )}
+                );
+            })}
 
-            {isApplyOpen && selectedApply && (
-                <ReceivedApplyDetail
-                    isOpen={isApplyOpen}
-                    closeModal={closeApplyModal}
-                    id={selectedApply.id}
-                    applys={selectedApply}
-                />
-            )}
+            {isApplyOpen &&
+                selectedApply &&
+                (console.log('selectedApply', selectedApply),
+                (
+                    <ReceivedApplyDetail
+                        isOpen={isApplyOpen}
+                        closeModal={closeApplyModal}
+                        id={selectedApply.id}
+                        applys={selectedApply}
+                    />
+                ))}
 
-            {isOfferOpen && selectedOffer && (
-                <ReceivedOfferDetail
-                    isOpen={isOfferOpen}
-                    closeModal={closeOfferModal}
-                    id={selectedOffer.id}
-                    offers={selectedOffer}
-                />
-            )}
+            {isOfferOpen &&
+                selectedOffer &&
+                (console.log('selectedOffer', selectedOffer),
+                (
+                    <ReceivedOfferDetail
+                        isOpen={isOfferOpen}
+                        closeModal={closeOfferModal}
+                        id={selectedOffer.id}
+                        offers={selectedOffer}
+                        receivedProjectId={selectedOffer.projectId}
+                    />
+                ))}
         </div>
     );
 }
