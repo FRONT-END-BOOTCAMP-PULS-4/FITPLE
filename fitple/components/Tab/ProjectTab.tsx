@@ -52,8 +52,8 @@ export function ProjectTab({ selectedSkills, selectedPositions }: Props) {
                     <Card
                         header={
                             <div>
-                                <Badge size="md" variant="filled">
-                                    📂 프로젝트
+                                <Badge size="sm" variant="filled">
+                                    <span className={styles.customSpan}>📂 프로젝트</span>
                                 </Badge>
                             </div>
                         }

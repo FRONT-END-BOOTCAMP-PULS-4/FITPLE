@@ -41,22 +41,24 @@ const ApplyForm = ({ closeModal, isOpen, id }: Props) => {
                 <Modal
                     header={<div className={styles.modalHeader}>지원서 작성</div>}
                     body={
-                        <Textarea
-                            size="md"
-                            placeholder={`예시)
+                        <div className={styles.container}>
+                            <Textarea
+                                size="md"
+                                placeholder={`예시)
 - 어떤 점에서 이 프로젝트에 끌렸는지
 - 이전에 했던 관련 경험
  - 어떤 방식으로 기여하고 싶은지 등을 작성해보세요.`}
-                            value={textarea}
-                            onChange={(e) => setTextarea(e.target.value)}
-                        />
+                                value={textarea}
+                                onChange={(e) => setTextarea(e.target.value)}
+                            />
+                        </div>
                     }
                     footer={
                         <div className={styles.btnBox}>
                             <Button variant="cancel" size="md" onClick={closeModal}>
                                 취소하기
                             </Button>
-                            <Button variant="confirm" size="md" onClick={handleApply}>
+                            <Button variant="confirm" size="md" onClick={handleApply} style={{ color: 'black' }}>
                                 지원하기
                             </Button>
                         </div>

@@ -4,13 +4,15 @@
     align-items: center;
     min-width: 600px;
     margin-bottom: 1vw;
+    margin-top: 2vw;
 
     width: 50vw;
     height: 35px;
 }
 
 .styledLink {
-    color: white;
+    color: var(--disabled-color);
+    font-weight: bold;
     text-decoration: none;
     font-size: var(--content-size);
 

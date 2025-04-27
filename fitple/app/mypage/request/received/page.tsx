@@ -21,6 +21,8 @@ export default function ReceivedPage() {
     if (!loading) return <div>로딩 중...</div>;
     if (error) return <div>에러 발생: {error}</div>;
     const handleClick = (post: ApplyApplicantDto | OfferListDto) => {
+        console.log(post);
+
         if (post.type === "apply") {
             setSelectedApply(post);
             setSelectedOffer(null);

@@ -42,7 +42,7 @@ const ReceivedOfferDetail = ({ closeModal, isOpen, id, offers }: Props) => {
             }
             footer={
                 <div className={styles.btnBox}>
-                    <Button variant="confirm" size="md" onClick={() => handleStatusChange("accept")}>
+                    <Button variant="confirm" size="md" onClick={() => handleStatusChange("accept")} style={{ color: 'black' }}>
                         수락
                     </Button>
                     <Button variant="cancel" size="md" onClick={() => handleStatusChange("reject")}>

@@ -1,12 +1,20 @@
 .footerContainer {
-    display: flex;
-    justify-content:center;
-    align-items: flex-start;
-    flex-direction: column;
-    background-color: var(--background-color);
     width: 100%;
-    height: 223px;
+    background-color: var(--brand-color);
     color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+
+.innerWrapper {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .footerSpan {

@@ -55,8 +55,8 @@ export function IntroductionTab({ selectedSkills, selectedPositions }: Props) {
                         header={
                             <div>
                                 <span>
-                                    <Badge size="md" variant="filled" backgroundColor="var(--lion-color)">
-                                        🦁 프로필
+                                    <Badge size="sm" variant="filled" backgroundColor="var(--lion-color)">
+                                        <span className={styles.cumstomSpan}>🦁 프로필</span>
                                     </Badge>
                                 </span>
                             </div>

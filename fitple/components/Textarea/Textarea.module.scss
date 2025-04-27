@@ -1,13 +1,13 @@
 .textarea {
     width: 100%;
-    // padding: 1rem;
+    padding: 1rem;
 
     font-size: calc(var(--content-size) * 0.75);
     line-height: 1.5;
 
     border-radius: 0.5rem;
     background-color: var(--font-white-color);
-    color: var(--font-black-color);
+    color: black;
     resize: none;
     overflow-y: auto;
     transition: border-color 0.2s;

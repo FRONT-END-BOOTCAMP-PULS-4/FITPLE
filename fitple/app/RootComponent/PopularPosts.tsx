@@ -38,12 +38,12 @@ export default function PopularPosts() {
                     header={
                         <div>
                             <Badge
-                                size="md"
+                                size="sm"
                                 variant="filled"
                                 backgroundColor={badgeColor[post.type]}
                                 className={styles.badgeFont}
                             >
-                                {isProject ? "📂 프로젝트" : "🦁 프로필"}
+                                {isProject ? <span className={styles.cumstomSpan}>📂 프로젝트</span> : <span className={styles.cumstomSpan}>🦁 프로필</span>}
                             </Badge>
                         </div>
                     }

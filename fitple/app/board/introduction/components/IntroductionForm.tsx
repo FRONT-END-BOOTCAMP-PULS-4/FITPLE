@@ -60,7 +60,7 @@ const IntroductionForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.layout}>
-            <Input variant="underline" placeholder="제목을 입력해주세요" {...register('title', { required: true })} />
+            <Input inputClassName={styles.customInput} variant="underline" placeholder="제목을 입력해주세요" {...register('title', { required: true })}/>
 
             <div className={styles.selectBox}>
                 <SelectWorkMode register={register} setValue={setValue} />
@@ -105,7 +105,7 @@ const IntroductionForm = () => {
                 <Button variant="cancel" size="md" onClick={() => router.back()}>
                     취소
                 </Button>
-                <Button variant="confirm" type="submit" size="md">
+                <Button variant="confirm" type="submit" size="md" style={{ color: 'black'}}>
                     확인
                 </Button>
             </div>

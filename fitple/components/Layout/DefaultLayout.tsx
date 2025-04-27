@@ -1,6 +1,11 @@
+'use client';
+
+import styles from './DefaultLayout.module.scss';
 import { ReactNode } from 'react';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import { usePathname } from 'next/navigation';
+import { useMobileContainerWidth } from '@/providers/DeviceLayoutProvider';
 
 type DefaultLayoutProps = {
     hideFooter?: boolean;
@@ -10,23 +15,35 @@ type DefaultLayoutProps = {
 
 const DefaultLayout: React.FC<DefaultLayoutProps> = (props) => {
     const { hideFooter = false, hideHeader = false, children } = props;
+    const pathname = usePathname();
+    const innerWidth = useMobileContainerWidth();
+
+    const isLoginPath = pathname?.startsWith('/login');
 
     const FOOTER_HEIGHT = '223px';
-    const GNB_HEIGHT = '133px';
+    const HEADER_HEIGHT = '133px';
 
     return (
         <>
-            {!hideHeader && <Header />}
-            <main
+            {!hideHeader && !isLoginPath && <Header />}
+            <div
                 style={{
-                    minHeight: `calc(100vh${!hideHeader ? ` - ${GNB_HEIGHT}` : 0}${
-                        !hideFooter ? ` - ${FOOTER_HEIGHT}` : 0
-                    })`,
+                    maxWidth: innerWidth,
+                    margin: '0 auto',
                 }}
             >
-                {children}
-            </main>
-            {!hideFooter && <Footer />}
+                <main
+                    className={isLoginPath ? styles.loginLayout : ''}
+                    style={{
+                        minHeight: `calc(100vh${!hideHeader ? ` - ${HEADER_HEIGHT}` : 0}${
+                            !hideFooter ? ` - ${FOOTER_HEIGHT}` : 0
+                        })`,
+                    }}
+                >
+                    {children}
+                </main>
+            </div>
+            {!hideFooter && !isLoginPath && <Footer />}
         </>
     );
 };

@@ -2,92 +2,71 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 20vw;
-    height: auto;
-    gap: 1vw;
-}
-
-.imageBox {
-    width: 12vw;
-    height: 12vw;
+    background: var(--background-color-light, #f9f9f9);
+    width: 360px;
+    padding: 40px 20px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    gap: 24px;
+  }
+  
+  .imageBox {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    border: 4px solid var(--brand-color);
   }
   
-
-.userInfo {
+  .userInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-
-.userNickname {
-    font-size: var(--content-size);
-    font-weight: bold;
+  }
+  
+  .userNickname {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--brand-color);
-    margin-bottom: 5px;
-}
-
-.userPosicareerContainer {
+  }
+  
+  .userPosicareerContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     color: var(--disabled-color);
-
+    margin-top: 8px;
+    font-size: 0.9rem;
+  
     .userPosicareer {
-        &:not(:last-child)::after {
-            content: '•';
-            margin: 0 8px;
-            color: var(--disabled-color);
-            font-weight: bold;
-        }
+      &:not(:last-child)::after {
+        content: '•';
+        margin: 0 6px;
+        font-weight: bold;
+      }
     }
-}
-
-.editButton {
+  }
+  
+  .stackContainer {
     width: 100%;
-    height: 4vh;
-    background-color: var(--brand-color);
-    border-radius: 10px;
-    color: var(--font-black-color);
-    border: none;
-    font-size: var(--content-size);
-    font-weight: bold;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-}
-
-.stackContainer {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    height: auto;
-    gap: 1vw;
-}
-
-.stackHeader {
-    font-size:var(--content-size);
-    color: var(--brand-color);
-    font-weight: bold;
-}
-
-.stackBox {
-    display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: flex-start;
+    gap: 12px;
+  }
+  
+  .stackHeader {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--brand-color);
+  }
+  
+  .stackBox {
+    display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    height: auto;
-    gap: 1vw;
-}
+    gap: 10px;
+    justify-content: center;
+  }
+  

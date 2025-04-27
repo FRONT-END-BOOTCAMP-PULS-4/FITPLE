@@ -4,14 +4,24 @@ import { IntroductionListDto } from "@/back/introduction/application/usecases/dt
 import SkillBadge from "@/components/Badge/SkillBadge";
 import styles from "./IntroductionCard.module.scss";
 
+const positionMap: { [key: string]: string } = {
+    FE: '프론트엔드',
+    BE: '백엔드',
+    PM: '프로젝트 매니저',
+    DI: '디자이너',
+    FS: '풀스택',
+};
+
 const IntroductionCard = ({ post }: { post: IntroductionListDto }) => (
     <div className={styles.container}>
         <div className={styles.userInfo}>
             <h4>{post.user.nickname}</h4>
-            <div>
-                {post.positions.map((position) => (
-                    <p key={position.id}>{position.name}</p>
-                ))}
+            <div className={styles.positionText}>
+                <div>
+                    {post.positions
+                        .map((position) => positionMap[position.name] || position.name)
+                        .join(', ')}
+                </div>
             </div>
         </div>
         <div>

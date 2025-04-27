@@ -30,69 +30,71 @@ const Header = () => {
 
     return (
         <div className={styles.headerContainer}>
-            <Link href="/">
-                <Image src="/images/logo-blue.png" alt="logo" width={120} height={50} />
-            </Link>
-            <ul className={styles.ulStyles}>
-                {isClient && isAuthenticated() ? (
-                    <>
-                        <li className={styles.welcomeText}>{nickname}님 환영합니다!</li>
-                        <Link href="/mypage"></Link>
-                        <div className={styles.userIconWrapper}>
-                            <div className={styles.userIcon} onClick={toggleModal} />
-                            {isModalOpen && (
-                                <MyPageModal
-                                    onClose={toggleModal}
-                                    body={
-                                        <ul className={styles.listWrapper}>
-                                            <li>
-                                                <Link href="/mypage" onClick={toggleModal}>
-                                                    내 정보
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/mypage/edit" onClick={toggleModal}>
-                                                    내 정보 수정
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/mypage/likelist/projects" onClick={toggleModal}>
-                                                    찜한 항목
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/mypage/mypost/projects" onClick={toggleModal}>
-                                                    내 활동
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/mypage/request/projects" onClick={toggleModal}>
-                                                    요청 목록
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link href="/mypage/team" onClick={toggleModal}>
-                                                    팀 프로젝트
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <div onClick={clickHandler} className={styles.logout}>
-                                                    로그아웃
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    }
-                                />
-                            )}
-                        </div>
-                        <div className={styles.notificationIcon} />
-                    </>
-                ) : (
-                    <Link href="/login" className={styles.loginText}>
-                        로그인
-                    </Link>
-                )}
-            </ul>
+            <div className={styles.innerWrapper}>
+                <Link href="/">
+                    <Image src="/images/logo.png" alt="logo" width={120} height={50} />
+                </Link>
+                <ul className={styles.ulStyles}>
+                    {isClient && isAuthenticated() ? (
+                        <>
+                            <li className={styles.welcomeText}>{nickname}님 환영합니다!</li>
+                            <Link href="/mypage"></Link>
+                            <div className={styles.userIconWrapper}>
+                                <div className={styles.userIcon} onClick={toggleModal} />
+                                {isModalOpen && (
+                                    <MyPageModal
+                                        onClose={toggleModal}
+                                        body={
+                                            <ul className={styles.listWrapper}>
+                                                <li>
+                                                    <Link href="/mypage" onClick={toggleModal}>
+                                                        내 정보
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/mypage/edit" onClick={toggleModal}>
+                                                        내 정보 수정
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/mypage/likelist/projects" onClick={toggleModal}>
+                                                        찜한 항목
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/mypage/mypost/received" onClick={toggleModal}>
+                                                        내 활동
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/mypage/request/received" onClick={toggleModal}>
+                                                        요청 목록
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link href="/mypage/team" onClick={toggleModal}>
+                                                        팀 프로젝트
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <div onClick={clickHandler} className={styles.logout}>
+                                                        로그아웃
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        }
+                                    />
+                                )}
+                            </div>
+                            <div className={styles.notificationIcon} />
+                        </>
+                    ) : (
+                        <Link href="/login" className={styles.loginText}>
+                            로그인
+                        </Link>
+                    )}
+                </ul>
+            </div>
         </div>
     );
 };

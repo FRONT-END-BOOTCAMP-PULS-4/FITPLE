@@ -1,7 +1,6 @@
 "use client";
 
 import styles from './page.module.scss';
-import Link from 'next/link';
 import { useAuthStore } from '@/stores/authStore';
 import SkillBadge from '@/components/Badge/SkillBadge';
 
@@ -30,8 +29,6 @@ export default function RootMyPage() {
                     </span>
                 </div>
             </div>
-
-            <Link href='/mypage/edit' className={styles.editButton}>수정하기</Link>
 
             <div className={styles.stackContainer}>
                 <span className={styles.stackHeader}>나의 기술스택은?</span>

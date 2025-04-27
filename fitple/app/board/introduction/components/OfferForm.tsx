@@ -63,15 +63,18 @@ const OfferForm = ({ closeModal, isOpen, introductionId }: Props) => {
                 <Modal
                     header={<div className={styles.modalHeader}>제안서 작성</div>}
                     body={
+
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <Textarea
-                                {...register('content', { required: true })}
-                                size="md"
-                                placeholder={`예시)
+                            <div className={styles.container}>
+                                <Textarea
+                                    {...register('content', { required: true })}
+                                    size="md"
+                                    placeholder={`예시)
 - 같이 프로젝트를 하자고 제안해보세요.
 - 어떤 프로젝트를 구상하고 있는지,
 - 기간, 기술스택, 자유롭게 작성해보세요 :)`}
-                            />
+                                />
+                            </div>
                             <select
                                 {...register('projectId', { required: true })}
                                 className={styles.select}
@@ -91,11 +94,12 @@ const OfferForm = ({ closeModal, isOpen, introductionId }: Props) => {
                                 <Button variant="cancel" size="md" onClick={closeModal}>
                                     취소하기
                                 </Button>
-                                <Button variant="confirm" size="md">
+                                <Button variant="confirm" size="md" style={{ color: 'black'}}>
                                     지원하기
                                 </Button>
                             </div>
                         </form>
+
                     }
                     onClose={closeModal}
                 />

@@ -13,6 +13,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "@types/jsonwebtoken": "^9.0.9",
+    "antd": "^5.24.8",
     "dayjs": "^1.11.13",
     "embla-carousel": "^8.6.0",
     "embla-carousel-auto-scroll": "^8.6.0",

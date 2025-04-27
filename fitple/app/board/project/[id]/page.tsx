@@ -121,7 +121,7 @@ const ProjectDetailPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {project.likeCount}
                 </Button>
-                <Button size="md" variant="confirm" onClick={() => openModal()}>
+                <Button size="md" variant="confirm" onClick={() => openModal()} style={{ color: 'black'}}>
                     지원하기
                 </Button>
             </div>

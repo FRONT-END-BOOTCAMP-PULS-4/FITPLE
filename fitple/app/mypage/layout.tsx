@@ -10,7 +10,7 @@ export default function MyPageLayout({
     <div style={{ height: '100%'}}>
         <TabMenu />
         <SubTabMenu />
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{children}</div>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '60px' }}>{children}</div>
     </div>
     );
 }

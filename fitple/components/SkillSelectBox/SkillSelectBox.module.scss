@@ -10,10 +10,10 @@
 
     /* 텍스트 스타일 */
     font-size: 16px;
-    color: var(--white-color);
+    color: var(--disabled-color);
 
     /* 테두리 스타일 */
-    border: 1px solid var(--white-color); /* 테두리 색상 지정 */
+    border: 1px solid var(--disabled-color); /* 테두리 색상 지정 */
     border-radius: 50px; /* pill 형태로 만들기 */
 
     /* 기타 */
@@ -39,7 +39,7 @@
     background-color: white;
     border: 1px solid #dddddd;
     border-radius: 13px;
-    z-index: 10;
+    // z-index: 10;
     padding: 8px 4px;
     display: flex;
     flex-wrap: wrap;

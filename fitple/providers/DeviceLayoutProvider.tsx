@@ -14,15 +14,7 @@ export const DeviceLayoutProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <ScreenContext.Provider value={innerWidth}>
-            <div
-                style={{
-                    maxWidth: innerWidth,
-                    marginLeft: 'auto',
-                    marginRight: 'auto',
-                }}
-            >
-                {children}
-            </div>
+            {children}
         </ScreenContext.Provider>
     );
 };
