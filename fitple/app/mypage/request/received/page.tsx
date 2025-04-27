@@ -1,6 +1,5 @@
 "use client";
 
-import Card from "@/components/Card/Card";
 import styles from "./page.module.scss";
 import { useModal } from "@/hooks/useModal";
 import { ApplyApplicantDto } from "@/back/apply/application/usecases/dto/ApplyApplicantDto";

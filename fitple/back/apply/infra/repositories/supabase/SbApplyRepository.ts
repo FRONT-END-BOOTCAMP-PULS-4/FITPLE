@@ -160,4 +160,16 @@ export class SbApplyRepository implements ApplyRepository {
             );
         });
     }
+    async checkMyApply(userId: string, projectId: number): Promise<boolean> {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+            .from("apply")
+            .select("id")
+            .eq("user_id", userId)
+            .eq("project_id", projectId);
+        if (error) {
+            throw new Error(error.message || "Failed to fetch apply list");
+        }
+        return data.length > 0;
+    }
 }

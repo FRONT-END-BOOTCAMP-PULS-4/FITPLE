@@ -10,12 +10,15 @@ import Image from "next/image";
 import { IntroductionDetailDto } from "@/back/introduction/application/usecases/dto/IntroductionDetailDto";
 import { useModal } from "@/hooks/useModal";
 import OfferForm from "@/app/board/introduction/components/OfferForm";
+import { useAuthStore } from "@/stores/authStore";
 
 const IntroductionPage = () => {
     const params = useParams();
     const id = params?.id as string;
     const [introduction, setIntroduction] = useState<IntroductionDetailDto | null>(null);
     const { openModal, isOpen, closeModal } = useModal();
+    const [isMyIntroduction, setIsMyIntroduction] = useState(false);
+    const { token } = useAuthStore();
 
     const workModeMap: Record<"online" | "offline", string> = {
         online: "온라인",
@@ -42,7 +45,30 @@ const IntroductionPage = () => {
         };
 
         fetchIntroduction();
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        const fetchMyIntroduction = async () => {
+            try {
+                if (token) {
+                    const res = await fetch(`/api/member/introductions/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+                    if (!res.ok) {
+                        throw new Error("Failed to fetch Introduction");
+                    }
+                    const data = await res.json();
+                    setIsMyIntroduction(data);
+                }
+            } catch (error) {
+                console.error("Error fetching Introduction:", error);
+            }
+        };
+
+        fetchMyIntroduction();
+    }, [token, id]);
 
     if (!introduction) {
         return <div>로딩 중...</div>;
@@ -120,7 +146,13 @@ const IntroductionPage = () => {
                 <Button size="md" variant="cancel">
                     ❤️ {introduction.likeCount}
                 </Button>
-                <Button size="md" variant="confirm" onClick={() => openModal()} style={{ color: 'black'}}>
+                <Button
+                    size="md"
+                    variant="confirm"
+                    onClick={() => openModal()}
+                    style={{ color: "black" }}
+                    disabled={isMyIntroduction}
+                >
                     제안하기
                 </Button>
             </div>
