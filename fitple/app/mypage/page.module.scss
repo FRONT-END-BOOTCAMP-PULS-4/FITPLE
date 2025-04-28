@@ -7,10 +7,11 @@
     padding: 40px 20px;
     border-radius: 20px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 3vh;
     gap: 24px;
-  }
-  
-  .imageBox {
+}
+
+.imageBox {
     width: 150px;
     height: 150px;
     border-radius: 50%;
@@ -18,55 +19,54 @@
     background-size: cover;
     background-repeat: no-repeat;
     border: 4px solid var(--brand-color);
-  }
-  
-  .userInfo {
+}
+
+.userInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .userNickname {
+}
+
+.userNickname {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--brand-color);
-  }
-  
-  .userPosicareerContainer {
+}
+
+.userPosicareerContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
     color: var(--disabled-color);
     margin-top: 8px;
     font-size: 0.9rem;
-  
+
     .userPosicareer {
-      &:not(:last-child)::after {
-        content: '•';
-        margin: 0 6px;
-        font-weight: bold;
-      }
+        &:not(:last-child)::after {
+            content: '•';
+            margin: 0 6px;
+            font-weight: bold;
+        }
     }
-  }
-  
-  .stackContainer {
+}
+
+.stackContainer {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-  }
-  
-  .stackHeader {
+}
+
+.stackHeader {
     font-size: 1.25rem;
     font-weight: bold;
     color: var(--brand-color);
-  }
-  
-  .stackBox {
+}
+
+.stackBox {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-  }
-  
+}

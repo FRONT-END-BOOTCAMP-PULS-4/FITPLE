@@ -35,7 +35,7 @@ const DefaultLayout: React.FC<DefaultLayoutProps> = (props) => {
                 <main
                     className={isLoginPath ? styles.loginLayout : ''}
                     style={{
-                        minHeight: `calc(100vh${!hideHeader ? ` - ${HEADER_HEIGHT}` : 0}${
+                        minHeight: `calc(95vh${!hideHeader ? ` - ${HEADER_HEIGHT}` : 0}${
                             !hideFooter ? ` - ${FOOTER_HEIGHT}` : 0
                         })`,
                     }}
