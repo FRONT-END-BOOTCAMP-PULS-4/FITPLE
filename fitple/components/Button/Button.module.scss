@@ -1,6 +1,6 @@
 .button {
     margin: 5px;
-    border: #d5d5d5 1px solid;
+    border: none;
     border-radius: 5px;
     font-size: 1rem;
     align-items: center;
@@ -18,7 +18,7 @@
 
 .confirm {
     background-color: var(--confirm-button-color);
-    color: var(--background-color);
+    color: var(--font-white-color);
 
     &:hover {
         background-color: var(--confirm-button-color);
