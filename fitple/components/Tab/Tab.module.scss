@@ -1,17 +1,16 @@
 .tabsMain {
     margin-top: 32px;
     position: relative;
-    
-  }
-  
-  .tabList {
+}
+
+.tabList {
     display: flex;
-    gap: 16px;
+    gap: 3px;
     margin-bottom: 50px;
     align-items: center;
-  }
-  
-  .tab {
+}
+
+.tab {
     background-color: var(--background-color);
     color: #bbbbbb;
     font-weight: 600;
@@ -22,41 +21,39 @@
     transition: all 0.2s ease;
 
     --inactive-color: #bbbbbb;
-  
+
     &:hover {
         color: var(--brand-color);
     }
-  }
-  
-  .active {
+}
+
+.active {
     color: var(--brand-color);
-  }
-  
-  .tabContent {
+}
+
+.tabContent {
     display: flex;
     flex-direction: column;
     min-height: 700px;
     padding-top: 20px;
     color: #eee;
-  }
-  .skillSelectBox {
+}
+.skillSelectBox {
     position: absolute;
-  top: 60px;
-  left: 10px;
-  width: 500px;
-  z-index: 1;
-  }
+    top: 60px;
+    left: 10px;
+    width: 500px;
+    z-index: 1;
+}
 
-  .positionSelectBox {
+.positionSelectBox {
     position: absolute;
-  top:60px;
-  left: 150px;
-  z-index: 1;
-  }
+    top: 60px;
+    left: 150px;
+    z-index: 1;
+}
 
-  .line {
-    color: var(--font-white-color);
+.line {
+    color: var(--font-black-color);
     user-select: none;
-  }
-
-  
+}

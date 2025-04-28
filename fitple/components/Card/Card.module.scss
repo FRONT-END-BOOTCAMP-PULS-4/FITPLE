@@ -15,18 +15,16 @@
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.4s ease;
-    
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
-                0 8px 16px rgba(0, 0, 0, 0.1);
-  
-    &:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15),
-                  0 12px 24px rgba(0, 0, 0, 0.15);
-    }
-  }ㄴ
 
-.cardHeader {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: translateY(-5px) scale(1.03);
+        //   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15),
+        //               0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+}
+ㄴ .cardHeader {
     background-color: var(--card-background-color);
     display: flex;
     justify-content: space-between;
@@ -51,14 +49,14 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    p{
+    p {
         color: #858585;
     }
 }
 
 // 크기 별 클래스
 .sm {
-    width: 18rem;  // 약 70%
+    width: 18rem; // 약 70%
     height: 10rem;
 }
 
