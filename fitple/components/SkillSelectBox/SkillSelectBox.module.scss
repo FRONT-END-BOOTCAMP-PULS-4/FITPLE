@@ -10,10 +10,10 @@
 
     /* 텍스트 스타일 */
     font-size: 16px;
-    color: var(--disabled-color);
+    color: var(--font-black-color);
 
     /* 테두리 스타일 */
-    border: 1px solid var(--disabled-color); /* 테두리 색상 지정 */
+    border: 1px solid var(--font-black-color); /* 테두리 색상 지정 */
     border-radius: 50px; /* pill 형태로 만들기 */
 
     /* 기타 */
@@ -21,16 +21,12 @@
     overflow: hidden; /* 넘치는 내용 숨기기 */
     cursor: pointer; /* 마우스 오버 시 포인터 표시 */
     transition: all 0.2s ease; /* 배경색 변경 시 부드러운 전환 */
-    
 }
-
 
 .selectBoxSelected {
-    
-    border: 1px solid var(--brand-color); 
+    border: 1px solid var(--brand-color);
     color: var(--brand-color);
 }
-
 
 .modal {
     width: 100%;
@@ -56,7 +52,6 @@
     box-sizing: border-box; /* 패딩 포함 크기 계산 */
     border: 1px solid #e3e3e3;
     border-radius: 20px;
-
 }
 .notSelected {
     opacity: 0.4; /* 연하게 표시 */

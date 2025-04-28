@@ -1,10 +1,11 @@
 .footerContainer {
     width: 100%;
-    background-color: var(--brand-color);
+    height: 20vh;
+    background-color: var(--white-color);
     color: var(--white-color);
     display: flex;
     justify-content: center;
-    padding: 40px 16px;
+    padding: 6px 8px;
     box-sizing: border-box;
     margin-top: 100px;
 }
@@ -15,10 +16,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: center;
+    color: var(--brand-color);
 }
 
 .footerSpan {
-    margin-top: 50px;
+    margin-top: 1vh;
     font-size: calc(var(--content-size) * 0.75);
     line-height: 1.6;
 }

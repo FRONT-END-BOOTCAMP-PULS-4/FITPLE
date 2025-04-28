@@ -2,22 +2,22 @@
     display: flex;
     gap: 20px;
     margin-bottom: 5vw;
-  }
-  
-  .subTabLink {
+    margin-left: 1vw;
+}
+
+.subTabLink {
     font-size: 14px;
     font-weight: normal;
     color: var(--disabled-color);
     text-decoration: none;
     transition: color 0.2s ease;
-  }
-  
-  .subTabLink:hover {
+}
+
+.subTabLink:hover {
     color: var(--brand-color);
-  }
-  
-  .active {
+}
+
+.active {
     color: var(--brand-color);
     font-weight: bold;
-  }
-  
+}

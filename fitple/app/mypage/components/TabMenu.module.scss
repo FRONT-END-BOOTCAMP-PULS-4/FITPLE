@@ -1,12 +1,13 @@
 .tabMenuContainer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 2vw;
     min-width: 600px;
     margin-bottom: 1vw;
     margin-top: 2vw;
+    margin-left: 1vw;
 
-    width: 50vw;
+    width: 30vw;
     height: 35px;
 }
 

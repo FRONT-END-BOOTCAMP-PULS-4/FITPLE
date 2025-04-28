@@ -32,7 +32,7 @@ const Header = () => {
         <div className={styles.headerContainer}>
             <div className={styles.innerWrapper}>
                 <Link href="/">
-                    <Image src="/images/logo.png" alt="logo" width={120} height={50} />
+                    <Image src="/images/logo-blue.svg" alt="logo" width={120} height={50} />
                 </Link>
                 <ul className={styles.ulStyles}>
                     {isClient && isAuthenticated() ? (
@@ -56,7 +56,7 @@ const Header = () => {
                                                         내 정보 수정
                                                     </Link>
                                                 </li>
-                                                <li>
+                                                {/* <li>
                                                     <Link href="/mypage/likelist/projects" onClick={toggleModal}>
                                                         찜한 항목
                                                     </Link>
@@ -65,7 +65,7 @@ const Header = () => {
                                                     <Link href="/mypage/mypost/projects" onClick={toggleModal}>
                                                         내 활동
                                                     </Link>
-                                                </li>
+                                                </li> */}
                                                 <li>
                                                     <Link href="/mypage/request/received" onClick={toggleModal}>
                                                         요청 목록
