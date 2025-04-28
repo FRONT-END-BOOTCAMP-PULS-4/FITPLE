@@ -86,9 +86,9 @@
 }
 
 .loginText {
-    font-size: 16px;
+    font-size: calc(var(--content-size));
     font-weight: 600;
-    color: var(--font-black-color);
+    color: var(--font-white-color);
     background-color: transparent;
     border: none;
     cursor: pointer;
