@@ -22,7 +22,7 @@
       <img src="https://github.com/Harang-Dev.png" width="150" height="150" alt="서현우"/><br/>
       <strong>서현우</strong><br/>
       <a href="https://github.com/Harang-Dev">@Harang-Dev</a><br/>
-      UI/UX 디자인
+      UI/UX 디자인, 마이페이지, 채팅 기능 구현, DB 설계
     </td>
     <td align="center">
       <img src="https://github.com/dongsuseo.png" width="150" height="150" alt="서동수"/><br/>
