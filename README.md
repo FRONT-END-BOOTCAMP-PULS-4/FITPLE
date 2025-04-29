@@ -28,7 +28,7 @@
       <img src="https://github.com/dongsuseo.png" width="150" height="150" alt="서동수"/><br/>
       <strong>서동수</strong><br/>
       <a href="https://github.com/dongsuseo">@dongsuseo</a><br/>
-      (역할 작성)
+      회원가입 및 로그인,DB 설계,공통 컴포넌트 제작
     </td>
     <td align="center">
       <img src="https://github.com/roastt1.png" width="150" height="150" alt="박준선"/><br/>
