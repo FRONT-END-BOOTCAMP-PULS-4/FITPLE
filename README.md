@@ -34,7 +34,7 @@
       <img src="https://github.com/roastt1.png" width="150" height="150" alt="박준선"/><br/>
       <strong>박준선</strong><br/>
       <a href="https://github.com/roastt1">@roastt1</a><br/>
-      (역할 작성)
+      메인페이지, DB 설계, 공통 컴포넌트 제작
     </td>
     <td align="center">
       <img src="https://github.com/uudeok.png" width="150" height="150" alt="서유덕"/><br/>
