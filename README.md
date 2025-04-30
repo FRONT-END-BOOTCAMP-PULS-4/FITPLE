@@ -40,7 +40,7 @@
       <img src="https://github.com/uudeok.png" width="150" height="150" alt="서유덕"/><br/>
       <strong>서유덕</strong><br/>
       <a href="https://github.com/uudeok">@uudeok</a><br/>
-      (역할 작성)
+      프로젝트 & 자기소개 작성 폼 구현, 모집 & 지원 폼 구현, DB설계
     </td>
   </tr>
 </table>
